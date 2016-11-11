@@ -23,11 +23,11 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
+                        <li class="active"><a href="/admin">Home</a></li>
                         <li><a href="/admin/artistas">Artistas</a></li>
-                        <li><a href="#contact">Obras</a></li>
-                        <li><a href="#contact">Exposições</a></li>
-                        <li><a href="#contact">Press</a></li>
+                        <li><a href="/admin/obras">Obras</a></li>
+                        <li><a href="/admin/exposicoes">Exposições</a></li>
+                        <li><a href="/admin/press">Press</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -35,9 +35,13 @@
         @show
 
         <div class="container">
-            <h1>@yield('title')</h1>
-            <h4>@yield('subtitle')</h4>
-            @yield('content')
+            <di class="row">
+                <div class="col-xs-8">
+                    <h1>@yield('title')</h1>
+                    <h4>@yield('subtitle')</h4>
+                </div>
+                @yield('content')
+            </div>
         </div>
 
         <!-- Bootstrap 3 script -->

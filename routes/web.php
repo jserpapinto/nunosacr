@@ -15,5 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get("/admin/", 'ArtistController@index');
-Route::get("/admin/artistas", 'ArtistController@listAll');
+Route::get("/admin/", 'AdminController@index');
+Route::get("/admin/artistas", 'ArtistController@index');
+Route::get("/admin/artistas/{id}", 'ArtistController@edit');
+Route::put("/admin/artistas/{id}", 'ArtistController@update');
+Route::get("/admin/artistas/criar", 'ArtistController@create');

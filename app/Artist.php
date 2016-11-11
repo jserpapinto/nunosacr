@@ -12,4 +12,9 @@ class Artist extends Model
 		return $this->all();
 	}
 
+	//
+	public function getOne($id) {
+		return $this->find($id);
+	}
+
 }
