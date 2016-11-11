@@ -42,6 +42,8 @@ class ArtistController extends Controller
      * @return Response
      */
     public function update($id, Request $req) {
+        if ($req->hasFile('cv')) echo "OIOIOI";
+        else echo "BOIBOIOIB";
         var_dump($id);
         var_dump($req->file('cv'));
         //$req->file('cv')->move('/tmp/', 'ola.jpg');
