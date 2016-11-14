@@ -39,12 +39,15 @@
                 <div class="col-xs-8">
                     <h1>@yield('title')</h1>
                     <h4>@yield('subtitle')</h4>
+                    @yield('addBtn')
                 </div>
                 @yield('content')
             </div>
         </div>
 
         <!-- Bootstrap 3 script -->
+        {!! Html::script('/js/jquery-3.1.1.min.js') !!}
         {!! Html::script('/js/bootstrap.min.js') !!}
+        {!! Html::script('/js/admin/main.js') !!}
     </body>
 </html>

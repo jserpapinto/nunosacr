@@ -162,6 +162,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -227,7 +228,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Form'=> Illuminate\Html\FormFacade::class,
-        'Html'=> Illuminate\Html\HtmlFacade::class
+        'Html'=> Illuminate\Html\HtmlFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Input' => Illuminate\Support\Facades\Input::class,
 
     ],
 
