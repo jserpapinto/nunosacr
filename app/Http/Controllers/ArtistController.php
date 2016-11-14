@@ -151,7 +151,7 @@ class ArtistController extends Controller
         }
         // Upload img
         if ($req->hasFile('img')) {
-            $req->file('img')->move(public_path('/upload/artists/' . $id . '/profile/'), $imgName);
+            $this->uploadImgs($req, $imgName);
         }
 
         return redirect()->action('ArtistController@index', ['created' => true]);
@@ -162,15 +162,9 @@ class ArtistController extends Controller
      */
     public function remove($id) {
 
-        $success = File::deleteDirectory(public_path('upload/artists/' . $id));
-
-        if ($success) {
-            $artist = Artist::find($id);
-            $artist->delete();
-            return redirect()->action('ArtistController@index', ['deleted' => true]);
-        }
-
-        return redirect()->action('ArtistController@index');
+        $artist = Artist::find($id);
+        $artist->delete();
+        return redirect()->action('ArtistController@index', ['deleted' => true]);
     }
 
 }
