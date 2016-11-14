@@ -13,6 +13,7 @@ use App\Artist;
 class ArtistController extends Controller
 {	
 
+
     private function rules() {
         // Define rules
         $rules = [
@@ -77,35 +78,42 @@ class ArtistController extends Controller
 
         // Upload CV
         if ($req->hasFile('cv')) {
-            $req->file('cv')->move(public_path() . '/upload/artists/' . $id . '/cv/', $cvName);
+            $req->file('cv')->move(public_path() . '/upload/artists/cv/', $cvName);
         }
 
         // Upload img
         if ($req->hasFile('img')) {
-            // Original
+            $this->uploadImgs($req, $imgName);
+        }
+
+        return redirect()->action('ArtistController@index', ['updated' => true]);
+    }
+
+    private function uploadImgs ($req, $imgName) {
+        // Path
+        try {
+            $path = public_path('upload/artists/profile/');
+            // Instaciate class Image
             $image = Image::make(Input::file('img'));
+            // Original
+            $image_original = $image->fit(1000,1000, function($constraint) {
+                $constraint->upsize();
+            });
+            $image_original->save($path . 'original/' . $imgName);
             // Mid sized
             $image_mid = $image->fit(500,500, function($constraint) {
                 $constraint->upsize();
             });
+            $image_mid->save($path . 'midsize/' . $imgName);
             // Thumbnail
             $image_thumb = $image->fit(100,100, function($constraint) {
                 $constraint->upsize();
             });
-            // Path
-            $path = public_path('upload/artists/' . $id . '/profile/');
-            if (!File::exists($path)) {
-                File::makeDirectory($path . 'original', 0775, true, true);
-                File::makeDirectory($path . 'midsize', 0775, true, true);
-                File::makeDirectory($path . 'thumb', 0775, true, true);
-            }
-            // Save images
-            $image->save($path . 'original/' . $imgName);
-            $image_mid->save($path . 'midsize/' . $imgName);
             $image_thumb->save($path . 'thumb/' . $imgName);
+        } catch (Exception $e) {
+            return false;
         }
-
-        return redirect()->action('ArtistController@index', ['updated' => true]);
+        return true;
     }
 
     /**
@@ -141,7 +149,6 @@ class ArtistController extends Controller
         if ($req->hasFile('cv')) {
             $req->file('cv')->move(public_path('/upload/artists/' . $id . '/cv/'), $cvName);
         }
-
         // Upload img
         if ($req->hasFile('img')) {
             $req->file('img')->move(public_path('/upload/artists/' . $id . '/profile/'), $imgName);

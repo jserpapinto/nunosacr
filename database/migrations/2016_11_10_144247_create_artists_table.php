@@ -19,6 +19,7 @@ class CreateArtistsTable extends Migration
             $table->string('bio')->default("");
             $table->string('site')->default("");
             $table->string('cv')->default("");
+            $table->string('img')->default("");
             $table->string('email')->default("");
             $table->softDeletes();
             $table->timestamps();

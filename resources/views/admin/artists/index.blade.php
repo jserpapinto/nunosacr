@@ -41,7 +41,7 @@
 
 					<!-- Artist bio -->
 					<div class="hidden-xs col-sm-4">
-						<img src="/upload/artists/{{ $artist->id }}/profile/{{ $artist->img }}" class="img-responsive"/>
+						<img src="/upload/artists/profile/thumb/{{ $artist->img }}" class="img-responsive"/>
 					</div>
 					<!-- .Artist bio -->
 
