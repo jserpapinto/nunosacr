@@ -11,7 +11,7 @@
 
 	@if (isset($artist) && !empty($artist->img))
 		<div class="col-xs-4">
-		    <img alt="Imagem de Artista" class="img-responsive" src="/upload/artists/{{ $artist->id }}/profile/{{ $artist->img }}" />
+		    <img alt="Imagem de Artista" class="img-responsive" src="/upload/artists/profile/midsize/{{ $artist->img }}" />
 		</div>
 	@endif
 

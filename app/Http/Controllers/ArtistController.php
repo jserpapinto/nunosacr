@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use File;
 use Image;
 use Input;
@@ -14,8 +13,8 @@ class ArtistController extends Controller
 {	
 
 
+    // Define rules
     private function rules() {
-        // Define rules
         $rules = [
             "name" => "required",
             "site" => "nullable",
@@ -26,6 +25,34 @@ class ArtistController extends Controller
         ];
         return $rules;
     }
+
+    private function uploadImgs ($req, $imgName) {
+        // Path
+        try {
+            $path = public_path('upload/artists/profile/');
+            // Instaciate class Image
+            $image = Image::make(Input::file('img'));
+            // Original
+            $image_original = $image->fit(1000,1000, function($constraint) {
+                $constraint->upsize();
+            });
+            $image_original->save($path . 'original/' . $imgName);
+            // Mid sized
+            $image_mid = $image->fit(500,500, function($constraint) {
+                $constraint->upsize();
+            });
+            $image_mid->save($path . 'midsize/' . $imgName);
+            // Thumbnail
+            $image_thumb = $image->fit(100,100, function($constraint) {
+                $constraint->upsize();
+            });
+            $image_thumb->save($path . 'thumb/' . $imgName);
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * List all Artists.
@@ -87,33 +114,6 @@ class ArtistController extends Controller
         }
 
         return redirect()->action('ArtistController@index', ['updated' => true]);
-    }
-
-    private function uploadImgs ($req, $imgName) {
-        // Path
-        try {
-            $path = public_path('upload/artists/profile/');
-            // Instaciate class Image
-            $image = Image::make(Input::file('img'));
-            // Original
-            $image_original = $image->fit(1000,1000, function($constraint) {
-                $constraint->upsize();
-            });
-            $image_original->save($path . 'original/' . $imgName);
-            // Mid sized
-            $image_mid = $image->fit(500,500, function($constraint) {
-                $constraint->upsize();
-            });
-            $image_mid->save($path . 'midsize/' . $imgName);
-            // Thumbnail
-            $image_thumb = $image->fit(100,100, function($constraint) {
-                $constraint->upsize();
-            });
-            $image_thumb->save($path . 'thumb/' . $imgName);
-        } catch (Exception $e) {
-            return false;
-        }
-        return true;
     }
 
     /**

@@ -167,7 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Illuminate\Html\HtmlServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
         //
 
         /*
@@ -227,8 +227,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Form'=> Illuminate\Html\FormFacade::class,
-        'Html'=> Illuminate\Html\HtmlFacade::class,
+        'Form'=> Collective\Html\FormFacade::class,
+        'Html'=> Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Input' => Illuminate\Support\Facades\Input::class,
 

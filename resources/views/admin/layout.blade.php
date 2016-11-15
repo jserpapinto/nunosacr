@@ -47,7 +47,10 @@
 
         <!-- Bootstrap 3 script -->
         {!! Html::script('/js/jquery-3.1.1.min.js') !!}
+        {!! Html::script('/js/jquery-ui.min.js') !!}
         {!! Html::script('/js/bootstrap.min.js') !!}
         {!! Html::script('/js/admin/main.js') !!}
+
+        @yield('pageScripts')
     </body>
 </html>

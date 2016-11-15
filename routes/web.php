@@ -18,6 +18,9 @@ Route::get('/', function () {
 // Get Dashboard
 Route::get("/admin/", 'AdminController@index');
 
+/**
+ *	ARTIST
+ */
 // Get list of Artists
 Route::get("/admin/artistas", 'ArtistController@index');
 // Get Form to update Artist
@@ -30,3 +33,19 @@ Route::delete("/admin/artistas/{id}", 'ArtistController@remove');
 Route::get("/admin/artistas/criar", 'ArtistController@editCreate');
 // Post new Artist
 Route::post("/admin/artistas/criar", 'ArtistController@create');
+
+/**
+ *	WORK
+ */
+// Get List of Works
+Route::get("/admin/obras", 'WorkController@index');
+// Get Form to update Work
+Route::get("/admin/obras/{id}", 'WorkController@editCreate');
+// Update Work
+Route::put("/admin/obras/{id}", 'WorkController@update');
+// Delete Work
+Route::delete("/admin/obras/{id}", 'WorkController@remove');
+// Get Form to Create Work
+Route::get("/admin/obras/criar", 'WorkController@editCreate');
+// Post new Work
+Route::post("/admin/obras/criar", 'WorkController@create');
