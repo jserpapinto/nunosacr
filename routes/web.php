@@ -49,3 +49,7 @@ Route::delete("/admin/obras/{id}", 'WorkController@remove');
 Route::get("/admin/obras/criar", 'WorkController@editCreate');
 // Post new Work
 Route::post("/admin/obras/criar", 'WorkController@create');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
