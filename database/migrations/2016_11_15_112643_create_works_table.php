@@ -17,7 +17,7 @@ class CreateWorksTable extends Migration
         Schema::create('works', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description')->default("");
+            $table->text('description')->nullable();
             $table->string('img');
             $table->integer('artist_id');
             $table->boolean('opportunity')->default(false);

@@ -16,7 +16,7 @@ class CreateArtistsTable extends Migration
         Schema::create('artists', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('bio')->default("");
+            $table->text('bio')->nullable();
             $table->string('site')->default("");
             $table->string('cv')->default("");
             $table->string('img')->default("");
