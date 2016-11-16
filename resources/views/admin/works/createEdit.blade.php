@@ -26,7 +26,7 @@
 	@endif
 
 	<div class="form-group">
-		{!! Form::open(['action' => [isset($work) ? "WorkController@update" : "WorkController@create", $work],  'method' => isset($work) ? 'put' : "post", 'files' => true]) !!}
+		{!! Form::open(['action' => [isset($work) ? "Admin\WorkController@update" : "Admin\WorkController@create", isset($work) ? $work->slug : $work],  'method' => isset($work) ? 'put' : "post", 'files' => true]) !!}
 
 			<div class="col-xs-12 col-md-6">
 				<!-- Nome -->

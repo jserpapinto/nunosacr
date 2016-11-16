@@ -1,8 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+// Needed to use ArtistFormRequest
+use App\Http\Requests\ArtistFormRequest;
+
 use File;
 use Image;
 use Input;
@@ -11,20 +15,6 @@ use App\Artist;
 
 class ArtistController extends Controller
 {	
-
-
-    // Define rules
-    private function rules() {
-        $rules = [
-            "name" => "required",
-            "site" => "nullable",
-            "email" => "required|email",
-            "bio" => "nullable",
-            "cv" => "file|nullable",
-            "img" => "image|nullable"
-        ];
-        return $rules;
-    }
 
     private function uploadImgs ($req, $imgName) {
         // Path
@@ -67,10 +57,10 @@ class ArtistController extends Controller
     /**
      * View and Edit One.
      */
-    public function editCreate($id = null) {
-        if ($id) {
+    public function editCreate($slug = null) {
+        if ($slug) {
             $Artist = new Artist;
-            $artist = $Artist->getOne($id);
+            $artist = $Artist->getOneBySlug($slug);
         } else $artist = null;
 
         return view('admin.artists.createEdit', compact('artist'));
@@ -79,9 +69,7 @@ class ArtistController extends Controller
     /**
      * Update One.
      */
-    public function update($id, Request $req) {
-        // Validate
-        $this->validate($req, $this->rules());
+    public function update($slug, ArtistFormRequest $req) {
 
         // Generate Names for files
         if ($req->hasFile('cv')) {
@@ -93,7 +81,8 @@ class ArtistController extends Controller
         }
 
         // Get Artist to update
-        $artist = Artist::find($id);
+        $artist = new Artist();
+        $artist = $artist->getOneBySlug($slug);
         $artist->name = $req->name;
         $artist->site = $req->site;
         $artist->email = $req->email;
@@ -101,6 +90,7 @@ class ArtistController extends Controller
         if (isset($cvName)) $artist->cv = $cvName;
         if (isset($imgName)) $artist->img = $imgName;
 
+        // Save in DB
         $artist->save();
 
         // Upload CV
@@ -113,15 +103,13 @@ class ArtistController extends Controller
             $this->uploadImgs($req, $imgName);
         }
 
-        return redirect()->action('ArtistController@index', ['updated' => true]);
+        return redirect()->action('Admin\ArtistController@index')->with('success_status', 'Artista Atualizado');
     }
 
     /**
      * Create New.
      */
-    public function create(Request $req) {
-        // Validate
-        $this->validate($req, $this->rules());
+    public function create(ArtistFormRequest $req) {
 
         // Generate Names for files
         if ($req->hasFile('cv')) {
@@ -138,33 +126,40 @@ class ArtistController extends Controller
         $artist->site = $req->site;
         $artist->email = $req->email;
         $artist->bio = $req->bio;
+        $artist->slug = uniqid();
         if (isset($cvName)) $artist->cv = $cvName;
         if (isset($imgName)) $artist->img = $imgName;
 
+        // Save in DB
         $artist->save();
-
-        $id = $artist->id;
 
         // Upload CV
         if ($req->hasFile('cv')) {
-            $req->file('cv')->move(public_path('/upload/artists/' . $id . '/cv/'), $cvName);
+            $req->file('cv')->move(public_path('/upload/artists/cv/'), $cvName);
         }
         // Upload img
         if ($req->hasFile('img')) {
             $this->uploadImgs($req, $imgName);
         }
 
-        return redirect()->action('ArtistController@index', ['created' => true]);
+        return redirect()->action('Admin\ArtistController@index')->with('success_status', 'Novo Artista Criado');
     }
 
     /**
      * Remove One.
      */
-    public function remove($id) {
+    public function remove($slug) {
 
-        $artist = Artist::find($id);
+        $artist = Artist::whereSlug($slug)->first();
         $artist->delete();
-        return redirect()->action('ArtistController@index', ['deleted' => true]);
+        return redirect()->action('Admin\ArtistController@index')->with('danger_status', 'Artista Removido');
+    }
+
+    public function listWorks($slug)
+    {
+        $artist = Artist::whereSlug($slug)->first();
+        $works = $artist->works()->get();
+        return view('admin.artists.listWorks', compact('artist', 'works'));
     }
 
 }

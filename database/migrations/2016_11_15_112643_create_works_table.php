@@ -17,12 +17,13 @@ class CreateWorksTable extends Migration
         Schema::create('works', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description')->default("");
-            $table->string('img');
+            $table->text('description')->nullable();
+            $table->string('img')->default("");
             $table->integer('artist_id');
             $table->boolean('opportunity')->default(false);
-            $table->decimal('price', 6, 3)->nullable();
-            $table->decimal('discount', 6, 3)->nullable();
+            $table->decimal('price', 6, 3)->default(0);
+            $table->decimal('discount', 6, 3)->default(0);
+            $table->string('slug');
             $table->softDeletes();
             $table->timestamps();
         });
