@@ -26,7 +26,7 @@
 	@endif
 
 	<div class="form-group">
-		{!! Form::open(['action' => [isset($artist) ? "ArtistController@update" : "ArtistController@create", $artist],  'method' => isset($artist) ? 'put' : "post", 'files' => true]) !!}
+		{!! Form::open(['action' => [isset($artist) ? "Admin\ArtistController@update" : "Admin\ArtistController@create", isset($artist) ? $artist->slug : $artist],  'method' => isset($artist) ? 'put' : "post", 'files' => true]) !!}
 
 			<div class="col-xs-12 col-md-6">
 				<!-- Nome -->
@@ -52,9 +52,9 @@
 					{!! Form::label('cv', 'CV', ['class' => 'input-group-addon']) !!}
 					{!! Form::file('cv',  ['class' => 'form-control']) !!}
 
-					@if (isset($artist))
+					@if (isset($artist) && !empty($artist->cv))
 						<span class="input-group-addon">
-							<a target="_blank" href="{{ asset('/upload/artist/' . $artist->id . '/cv/' . $artist->cv) }}">CV</a>
+							<a target="_blank" href="{{ asset('/upload/artists/cv/' . $artist->cv) }}">CV</a>
 						</span>
 					@endif
 				</div>

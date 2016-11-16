@@ -7,31 +7,31 @@
 @section('subtitle', 'Lista de Artistas')
 
 @section('addBtn')
-	<a href="{!! URL::action('ArtistController@editCreate') !!}" class="btn btn-primary">
+	<a href="{!! URL::action('Admin\ArtistController@editCreate') !!}" class="btn btn-primary">
 		<i class="glyphicon glyphicon-plus"></i>
 		Novo Artista
 	</a>
 @endsection
 
 @section('content')
-	@if(Request::get('created'))
+	@if(session('success_status'))
 		<div class="col-xs-12 alert alert-success">
-			Sucesso, Artista criado!
+			{{ session('success_status') }}
 		</div>
 	@endif
-	@if(Request::get('updated'))
-		<div class="col-xs-12 alert alert-success">
-			Sucesso, Artista atualizado!
-		</div>
-	@endif
-	@if(Request::get('deleted')) 
+	@if(session('danger_status'))
 		<div class="col-xs-12 alert alert-danger">
-			Artista apagado!
+			{{ session('danger_status') }}
 		</div>
 	@endif
 	<!-- List All Artists -->
 	<div class="col-xs-12">
 		<ul class="list-group">
+			@if($allArtists->isEmpty())
+				<div class="col-xs-12">
+					<p class="text-center"><strong>Lista de Artistas vazia</strong></p>
+				</div>
+			@endif
 
 			@foreach ($allArtists as $artist)
 				<li class="list-group-item">
@@ -51,24 +51,33 @@
 
 					<!-- Action Buttons -->
 					<div class="col-xs-5 col-sm-3">
+						<!-- Update Button -->
+						<div class="col-xs-6"> 
+							<a href="/admin/artistas/{{ $artist->slug }}">
+								<button type="button" class=" btn btn-sm btn-warning btn-edit">
+									<i class="glyphicon glyphicon-pencil"></i>
+								</button>
+							</a>
+						</div>
+						<!-- .Update Button -->
 						<!-- Delete Form -->
-						<div class="pull-right"> 
-							{!! Form::open(['action' => ["ArtistController@remove", $artist],  'method' => 'delete', 'name' => "deleteForm-" . $artist->id ]) !!}
+						<div class="col-xs-6"> 
+							{!! Form::open(['action' => ["Admin\ArtistController@remove", isset($artist) ? $artist->slug : $artist ],  'method' => 'DELETE', 'name' => "deleteForm-" . $artist->slug ]) !!}
 								<button onclick="removeItem(this);" type="button" class="btn btn-sm btn-danger btn-remove">
 									<i class="glyphicon glyphicon-remove"></i>
 								</button>
 							{!! Form::close() !!}
 						</div>
 						<!-- .Delete Form -->
-						<!-- Update Button -->
-						<div class="pull-right"> 
-							<a href="/admin/artistas/{{ $artist->id }}">
-								<button type="button" class="pull-right btn btn-sm btn-warning btn-edit">
-									<i class="glyphicon glyphicon-pencil"></i>
+						<!-- View all Works Button -->
+						<div class="col-xs-12"> 
+							<a href="/admin/artistas/{{ $artist->slug }}/obras">
+								<button type="button" class=" btn btn-sm btn-default btn-edit">
+									Ver obras
 								</button>
 							</a>
 						</div>
-						<!-- .Update Button -->
+						<!-- .View all Works Button -->
 					</div>
 					<!-- .Action Buttons -->
 				</li>

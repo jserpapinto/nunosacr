@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+// Request WorkFormRequests
+use App\Http\Requests\WorkFormRequest;
 use Image;
 use Input;
 
@@ -12,19 +15,6 @@ use App\Artist;
 
 class WorkController extends Controller
 {	
-	// Define rules
-    private function rules() {
-        $rules = [
-            "name" => "required",
-            "description" => "nullable",
-            "price" => "nullable",
-            "desconto" => "nullable",
-            "artista" => "integer",
-            "img" => "image|nullable",
-            "opportunity" => "boolean"
-        ];
-        return $rules;
-    }
 
     private function uploadImgs ($req, $imgName) {
         // Path
@@ -67,12 +57,12 @@ class WorkController extends Controller
     	return view('admin.works.index', compact('allWorks'));
     }
 
-    public function editCreate($id = null)
+    public function editCreate($slug = null)
     {	
     	// Get work if passed ID
-        if ($id) {
+        if ($slug) {
             $Work = new Work();
-            $work = $Work->getOne($id);
+            $work = $Work->getOneBySlug($slug);
         } else $work = null;
 
         // Get List of Artist to associate with
@@ -82,10 +72,8 @@ class WorkController extends Controller
         return view('admin.works.createEdit', compact('work', 'allArtists'));
     }
 
-    public function update($id, Request $req)
+    public function update($slug, WorkFormRequest $req)
     {
-    	 // Validate
-        $this->validate($req, $this->rules());
 
         // Generate Names for files
         if ($req->hasFile('img')) {
@@ -95,31 +83,28 @@ class WorkController extends Controller
 
         // Get Artist to update
         $work = new Work();
-        $work = $work->getOne($id);
+        $work = $work->getOneBySlug($slug);
         $work->name = $req->name;
-        $work->price = $req->price;
-        $work->discount = $req->discount;
+        if($req->price != null && !empty($req->price)) $work->price = $req->price;
+        if($req->discount != null && !empty($req->discount)) $work->discount = $req->discount;
         $work->description = $req->description;
         $work->opportunity = $req->opportunity;
         $work->artist_id = $req->artist;
         if (isset($imgName)) $work->img = $imgName;
 
+        // Save in DB
         $work->save();
-
-        $id = $work->id;
 
         // Upload img
         if ($req->hasFile('img')) {
             $this->uploadImgs($req, $imgName);
         }
 
-        return redirect()->action('WorkController@index', ['updated' => true]);
+        return redirect()->action('Admin\WorkController@index')->with('success_status', 'Obra Atualizada');
     }
 
-    public function create(Request $req)
+    public function create(WorkFormRequest $req)
     {
-    	 // Validate
-        $this->validate($req, $this->rules());
 
         // Generate Names for files
         if ($req->hasFile('img')) {
@@ -130,30 +115,30 @@ class WorkController extends Controller
         // Get Artist to update
         $work = new Work();
         $work->name = $req->name;
-        $work->price = $req->price;
-        $work->discount = $req->discount;
+        if($req->price != null && !empty($req->price)) $work->price = $req->price;
+        if($req->discount != null && !empty($req->discount)) $work->discount = $req->discount;
         $work->description = $req->description;
         $work->opportunity = $req->opportunity;
         $work->artist_id = $req->artist;
+        $work->slug = uniqid();
         if (isset($imgName)) $work->img = $imgName;
 
+        // Save in DB
         $work->save();
-
-        $id = $work->id;
 
         // Upload img
         if ($req->hasFile('img')) {
             $this->uploadImgs($req, $imgName);
         }
 
-        return redirect()->action('WorkController@index', ['created' => true]);
+        return redirect()->action('Admin\WorkController@index')->with('success_status', 'Nova Obra Criada');
     }
 
-    public function remove($id)
+    public function remove($slug)
     {   
 
-        $work = Work::find($id);
+        $work = Work::whereSlug($slug)->first();
         $work->delete();
-        return redirect()->action('WorkController@index', ['deleted' => true]);
+        return redirect()->action('Admin\WorkController@index')->with('danger_status', 'Obra Removida');
     }
 }

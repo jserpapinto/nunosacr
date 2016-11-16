@@ -7,7 +7,7 @@
 @section('subtitle', 'Lista de Obras')
 
 @section('addBtn')
-	<a href="{!! URL::action('WorkController@editCreate') !!}" class="btn btn-primary">
+	<a href="{!! URL::action('Admin\WorkController@editCreate') !!}" class="btn btn-primary">
 		<i class="glyphicon glyphicon-plus"></i>
 		Nova Obra
 	</a>
@@ -31,6 +31,11 @@
 	@endif
 	<!-- List All Artists -->
 	<div class="col-xs-12">
+		@if($allWorks->isEmpty())
+			<div class="col-xs-12">
+				<p class="text-center"><strong>Lista de obras vazia</strong></p>
+			</div>
+		@endif
 		<ul class="list-group">
 
 			@foreach ($allWorks as $work)
@@ -51,24 +56,24 @@
 
 					<!-- Action Buttons -->
 					<div class="col-xs-5 col-sm-3">
+						<!-- Update Button -->
+						<div class="col-xs-6"> 
+							<a href="/admin/obras/{{ $work->work_slug }}">
+								<button type="button" class=" btn btn-sm btn-warning btn-edit">
+									<i class="glyphicon glyphicon-pencil"></i>
+								</button>
+							</a>
+						</div>
+						<!-- .Update Button -->
 						<!-- Delete Form -->
-						<div class="pull-right"> 
-							{!! Form::open(['action' => ["WorkController@remove", $work->work_id],  'method' => 'DELETE', 'name' => "deleteForm-" . $work->work_id ]) !!}
+						<div class="col-xs-6"> 
+							{!! Form::open(['action' => ["Admin\WorkController@remove", $work->work_slug],  'method' => 'DELETE', 'name' => "deleteForm-" . $work->work_slug ]) !!}
 								<button onclick="removeItem(this);" type="button" class="btn btn-sm btn-danger btn-remove">
 									<i class="glyphicon glyphicon-remove"></i>
 								</button>
 							{!! Form::close() !!}
 						</div>
 						<!-- .Delete Form -->
-						<!-- Update Button -->
-						<div class="pull-right"> 
-							<a href="/admin/obras/{{ $work->work_id }}">
-								<button type="button" class="pull-right btn btn-sm btn-warning btn-edit">
-									<i class="glyphicon glyphicon-pencil"></i>
-								</button>
-							</a>
-						</div>
-						<!-- .Update Button -->
 					</div>
 					<!-- .Action Buttons -->
 				</li>
