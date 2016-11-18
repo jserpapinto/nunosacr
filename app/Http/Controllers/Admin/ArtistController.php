@@ -162,4 +162,12 @@ class ArtistController extends Controller
         return view('admin.artists.listWorks', compact('artist', 'works'));
     }
 
+    public function editFeatured($slug)
+    {
+        $artist = Artist::whereSlug($slug);
+        $works = null;
+        
+        return view('admin.artists.featured', compact('artist', 'works'));
+    }
+
 }

@@ -53,7 +53,7 @@
 					<div class="col-xs-5 col-sm-3">
 						<!-- Update Button -->
 						<div class="col-xs-6"> 
-							<a href="/admin/artistas/{{ $artist->slug }}">
+							<a href="/admin/artistas/{{ $artist->slug }}/editar">
 								<button type="button" class=" btn btn-sm btn-warning btn-edit">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</button>
@@ -75,6 +75,11 @@
 								<button type="button" class=" btn btn-sm btn-default btn-edit">
 									Ver obras
 								</button>
+							</a>
+
+							<a href="{!! URL::action('Admin\ArtistController@editFeatured', $artist->slug) !!}" class="btn btn-primary">
+								<i class="glyphicon glyphicon-plus"></i>
+								Destacar
 							</a>
 						</div>
 						<!-- .View all Works Button -->

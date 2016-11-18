@@ -58,7 +58,7 @@
 					<div class="col-xs-5 col-sm-3">
 						<!-- Update Button -->
 						<div class="col-xs-6"> 
-							<a href="/admin/obras/{{ $work->work_slug }}">
+							<a href="/admin/obras/{{ $work->work_slug }}/editar">
 								<button type="button" class=" btn btn-sm btn-warning btn-edit">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</button>

@@ -24,6 +24,7 @@ class CreateWorksTable extends Migration
             $table->decimal('price', 6, 3)->default(0);
             $table->decimal('discount', 6, 3)->default(0);
             $table->string('slug');
+            $table->boolean('featured')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

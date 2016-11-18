@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// Models
+use App\Artist;
+use App\Work;
+use App\Exhibition;
+
 class HomeController extends Controller
 {
     /**
@@ -13,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -23,6 +28,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $artists = Artist::all();
+        $works = Work::where('opportunity', 1)->get();
+        var_dump($works);
+        return view('frontend.index');
     }
 }
