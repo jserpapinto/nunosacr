@@ -5,3 +5,22 @@ body {
 .list-group-item {
 	overflow: hidden;
 }
+
+.list-group-item.destacado {
+	border: 2px solid rgb(100,205,100);
+}
+
+.list-group-item.destacado-opo {
+	border: 2px solid rgba(0,0,0,0.8);
+}
+
+.opportunity-badge {
+    position: absolute;
+    top: 15px;
+    right: -5px;
+    transform: rotate(30deg);
+    background-color: black;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+}

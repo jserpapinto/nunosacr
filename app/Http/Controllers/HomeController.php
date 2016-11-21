@@ -30,7 +30,6 @@ class HomeController extends Controller
     {
         $artists = Artist::all();
         $works = Work::where('opportunity', 1)->get();
-        var_dump($works);
         return view('frontend.index');
     }
 }

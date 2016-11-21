@@ -34,7 +34,7 @@
 			@endif
 
 			@foreach ($allArtists as $artist)
-				<li class="list-group-item">
+				<li class="list-group-item {{ ($artist->featured) ? "destacado" : null }}">
 					<!-- Artist name -->
 					<div class="col-xs-7 col-sm-2">{{ $artist->name }}</div>
 					<!-- .Artist name -->
@@ -73,14 +73,16 @@
 						<div class="col-xs-12"> 
 							<a href="/admin/artistas/{{ $artist->slug }}/obras">
 								<button type="button" class=" btn btn-sm btn-default btn-edit">
-									Ver obras
+									Obras
 								</button>
 							</a>
 
-							<a href="{!! URL::action('Admin\ArtistController@editFeatured', $artist->slug) !!}" class="btn btn-primary">
-								<i class="glyphicon glyphicon-plus"></i>
-								Destacar
-							</a>
+							@unless ($artist->featured)
+								<a href="{!! URL::action('Admin\ArtistController@feature', $artist->slug) !!}" class="btn btn-primary">
+									<i class="glyphicon glyphicon-plus"></i>
+									Destacar
+								</a>
+							@endunless
 						</div>
 						<!-- .View all Works Button -->
 					</div>

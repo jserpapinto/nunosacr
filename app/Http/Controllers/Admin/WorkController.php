@@ -49,11 +49,6 @@ class WorkController extends Controller
     	$Work = new Work(); 
     	$allWorks = $Work->getAll();
 
-    	/*echo "<pre>";
-    	var_dump($allWorks);
-    	echo "</pre>";
-    	return false;*/
-
     	return view('admin.works.index', compact('allWorks'));
     }
 
@@ -106,7 +101,7 @@ class WorkController extends Controller
     public function create(WorkFormRequest $req)
     {
 
-        // Generate Names for files
+        // Generate Names for file
         if ($req->hasFile('img')) {
             $ext = "." . $req->file('img')->getClientOriginalExtension();
             $imgName = time() . $ext;
@@ -140,5 +135,47 @@ class WorkController extends Controller
         $work = Work::whereSlug($slug)->first();
         $work->delete();
         return redirect()->action('Admin\WorkController@index')->with('danger_status', 'Obra Removida');
+    }
+
+    public function featureToArtist($slugWork, $idArtist)
+    {   
+        $work = Work::whereSlug($slugWork)->first();
+        // Tira destaque se já estiver destacado
+        if ($work->featured_to_artist) {
+            $work->update(['featured_to_artist' => 0]);
+            return back()->with('success_status', 'Obra retirada de destaque.');
+        }
+
+        // Conta os que estão em destaque, max = 3
+        elseif (Work::where('artist_id', '=', $idArtist)->where('featured_to_artist', '=', 1)->count() == 3) {
+            return back()->with('danger_status', 'Demasiadas obras destacadas, pf retire o destaque de uma primeiro.');
+        }
+
+        // Se count < 3, coloca em destaque 
+        else {
+            $work->update(['featured_to_artist' => 1]);
+            return back()->with('success_status', 'Obra Destacada');
+        }
+    }
+
+    public function featureOpportunity($slug)
+    {   
+        $work = Work::whereSlug($slug)->first();
+        // Tira destaque se já estiver destacado
+        if ($work->featured_to_home) {
+            $work->update(['featured_to_home' => 0]);
+            return back()->with('success_status', 'Obra retirada de destaque.');
+        }
+
+        // Conta os que estão em destaque, max = 6
+        elseif (Work::where('featured_to_home', '=', 1)->count() == 6) {
+            return back()->with('danger_status', 'Demasiadas obras destacadas, pf retire o destaque de uma primeiro.');
+        }
+
+        // Se count < 3, coloca em destaque 
+        else {
+            $work->update(['featured_to_home' => 1]);
+            return back()->with('success_status', 'Obra Destacada');
+        }
     }
 }

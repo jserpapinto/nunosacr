@@ -162,12 +162,13 @@ class ArtistController extends Controller
         return view('admin.artists.listWorks', compact('artist', 'works'));
     }
 
-    public function editFeatured($slug)
-    {
+    public function feature($slug)
+    {   
+        $allArtists = Artist::where('featured', '=', 1)->update(['featured' => 0]);
         $artist = Artist::whereSlug($slug);
-        $works = null;
-        
-        return view('admin.artists.featured', compact('artist', 'works'));
+        $artist->update(['featured' => 1]);
+
+        return redirect()->action('Admin\ArtistController@index')->with('success_status', 'Artista destacado na homepage.');
     }
 
 }

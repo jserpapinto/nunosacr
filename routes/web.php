@@ -31,7 +31,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	// Get list of Artists
 	Route::get("/artistas", 'ArtistController@index');
 	// Get Featured Artist
-	Route::get("/artistas/destaque/{slug}", 'ArtistController@editFeatured');
+	Route::get("/artistas/destaque/{slug}", 'ArtistController@feature');
 	// Get Form to update Artist
 	Route::get("/artistas/{slug}/editar", 'ArtistController@editCreate');
 	// Update Artist
@@ -52,6 +52,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::get("/obras", 'WorkController@index');
 	// Get Form to update Work
 	Route::get("/obras/{slug}/editar", 'WorkController@editCreate');
+	// Feature Work to Artist
+	Route::get("/obras/{slugWork}/artista/{idArtist}", 'WorkController@featureToArtist');
 	// Update Work
 	Route::put("/obras/{slug}", 'WorkController@update');
 	// Delete Work
@@ -60,6 +62,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::get("/obras/criar", 'WorkController@editCreate');
 	// Post new Work
 	Route::post("/obras/criar", 'WorkController@create');
+	// Feature Opportunity
+	Route::get("/obras/{slug}/destaque_oportunidade", 'WorkController@featureOpportunity');
 
 	/**
 	 *	PRESS
@@ -84,11 +88,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::delete("/exposicoes/{slug}", 'ExhibitionController@remove');
 
 
-	// Registration Routes...
-	Route::get('/register', '\App\Http\Controllers\Auth\RegisterController@showRegistrationForm');
-	Route::post('/register', '\App\Http\Controllers\Auth\RegisterController@register');
 
 });
+
 
 //Auth::routes();
 // Authentication Routes...
@@ -102,6 +104,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Auth'], function() {
 	Route::get('/password/reset/{token?}', 'ResetPasswordController@showResetForm');
 	Route::post('/password/email', 'PasswordController@sendResetLinkEmail');
 	Route::post('/password/reset', 'PasswordController@reset');
+
+
+	// Registration Routes...
+	// TODO: por dentro do admin route
+	Route::get('/register', '\App\Http\Controllers\Auth\RegisterController@showRegistrationForm');
+	Route::post('/register', '\App\Http\Controllers\Auth\RegisterController@register');
 });
 
 

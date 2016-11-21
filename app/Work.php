@@ -19,7 +19,7 @@ class Work extends Model
     //
 	public function getAll() {
 		return $this
-					->select('works.id as work_id', 'works.name', 'works.img', 'works.slug as work_slug', 'artists.id as artist_id', 'artists.name as artist_name')
+					->select('works.id as work_id', 'works.name', 'works.img', 'works.opportunity', 'works.featured_to_home', 'works.slug as work_slug', 'artists.id as artist_id', 'artists.name as artist_name', 'artists.slug as artist_slug')
 					->join('artists', 'works.artist_id', '=', 'artists.id')
 					->get();
 	}

@@ -14,21 +14,18 @@
 @endsection
 
 @section('content')
-	@if(Request::get('created'))
+	
+	@if(session('success_status'))
 		<div class="col-xs-12 alert alert-success">
-			Sucesso, Obra criada!
+			{{ session('success_status') }}
 		</div>
 	@endif
-	@if(Request::get('updated'))
-		<div class="col-xs-12 alert alert-success">
-			Sucesso, Obra atualizada!
-		</div>
-	@endif
-	@if(Request::get('deleted')) 
+	@if(session('danger_status'))
 		<div class="col-xs-12 alert alert-danger">
-			Obra apagada!
+			{{ session('danger_status') }}
 		</div>
 	@endif
+
 	<!-- List All Artists -->
 	<div class="col-xs-12">
 		@if($allWorks->isEmpty())
@@ -39,7 +36,7 @@
 		<ul class="list-group">
 
 			@foreach ($allWorks as $work)
-				<li class="list-group-item">
+				<li class="list-group-item {{ $work->featured_to_home ? "destacado-opo" : null }}">
 					<!-- Artist name -->
 					<div class="col-xs-7 col-sm-2">{{ $work->name }}</div>
 					<!-- .Artist name -->
@@ -51,7 +48,11 @@
 					<!-- .Artist bio -->
 
 					<!-- Artist email -->
-					<div class="hidden-xs col-sm-3">{{ $work->artist_name }}</div>
+					<div class="hidden-xs col-sm-3">
+						<a href="{!! action("Admin\ArtistController@listWorks", $work->artist_slug) !!}">
+							{{ $work->artist_name }}
+						</a>
+					</div>
 					<!-- .Artist email -->
 
 					<!-- Action Buttons -->
@@ -74,8 +75,29 @@
 							{!! Form::close() !!}
 						</div>
 						<!-- .Delete Form -->
+						@if ($work->opportunity)
+							<!-- Opportunity feature -->
+							<div class="col-xs-12"> 
+								<a href="/admin/obras/{{ $work->work_slug }}/destaque_oportunidade">
+									<button type="button" class=" btn btn-sm btn-{{ $work->featured_to_home ? "default" : "primary" }} btn-edit">
+										<i class="glyphicon glyphicon-{{ $work->featured_to_home ? "minus" : "plus" }}"></i>
+										{{ $work->featured_to_home ? "Tirar destaque" : "Destacar" }}
+									</button>
+								</a>
+							</div>
+							<!-- .Opportunity feature -->
+						@endif
 					</div>
 					<!-- .Action Buttons -->
+
+					<!-- .Action Buttons -->
+					@if ($work->opportunity)
+						<!-- Opportunity badge -->
+						<div class="opportunity-badge">
+							Oportunidade
+						</div>
+						<!-- .Opportunity badge -->
+					@endif
 				</li>
 			@endforeach
 
