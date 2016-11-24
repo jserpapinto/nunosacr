@@ -41,7 +41,7 @@
 			@foreach ($allExhibitions as $exhibition)
 				<li class="list-group-item">
 					<!-- Artist name -->
-					<div class="col-xs-7 col-sm-2">{{ $exhibition->name }}</div>
+					<div class="col-xs-7 col-sm-2">{{ $exhibition->title }}</div>
 					<!-- .Artist name -->
 
 					<!-- Artist bio -->

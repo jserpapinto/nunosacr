@@ -21,11 +21,12 @@ class CreateWorksTable extends Migration
             $table->string('img')->default("");
             $table->integer('artist_id');
             $table->boolean('opportunity')->default(false);
-            $table->decimal('price', 6, 3)->default(0);
-            $table->decimal('discount', 6, 3)->default(0);
+            $table->decimal('price', 12, 2)->default(0);
+            $table->decimal('discount', 12, 2)->default(0);
             $table->string('slug');
             $table->boolean('featured_to_home')->default(0);
             $table->boolean('featured_to_artist')->default(0);
+            $table->boolean('sold')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

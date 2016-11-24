@@ -24,3 +24,9 @@ body {
     padding: 2px 5px;
     border-radius: 3px;
 }
+
+@media (max-width: 480px) {
+    .navbar-brand {
+        font-size: 13px;
+    }
+}

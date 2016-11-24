@@ -15,6 +15,8 @@ use App\Artist;
 
 class WorkController extends Controller
 {	
+    const WITHOUT_OPPORTUNITIES = 1;
+    const OPPORTUNITIES = 2;
 
     private function uploadImgs ($req, $imgName) {
         // Path
@@ -46,10 +48,25 @@ class WorkController extends Controller
     //
     public function index()
     {
-    	$Work = new Work(); 
-    	$allWorks = $Work->getAll();
+        $Work = new Work(); 
+        $allWorks = $Work->getAll();
 
     	return view('admin.works.index', compact('allWorks'));
+    }
+
+    public function indexWithoutOpportunities()
+    {
+        $Work = new Work(); 
+        $allWorks = $Work->where('opportunity', '=', 0)->get();
+        return view('admin.works.index', compact('allWorks'));
+    }
+
+
+    public function indexOpportunities()
+    {
+        $Work = new Work(); 
+        $allWorks = $Work->where('opportunity', '=', 1)->get();
+        return view('admin.works.index', compact('allWorks'));
     }
 
     public function editCreate($slug = null)
@@ -95,7 +112,7 @@ class WorkController extends Controller
             $this->uploadImgs($req, $imgName);
         }
 
-        return redirect()->action('Admin\WorkController@index')->with('success_status', 'Obra Atualizada');
+        return back()->with('success_status', 'Obra Atualizada');
     }
 
     public function create(WorkFormRequest $req)
@@ -126,7 +143,7 @@ class WorkController extends Controller
             $this->uploadImgs($req, $imgName);
         }
 
-        return redirect()->action('Admin\WorkController@index')->with('success_status', 'Nova Obra Criada');
+        return back()->with('success_status', 'Nova Obra Criada');
     }
 
     public function remove($slug)
@@ -134,7 +151,7 @@ class WorkController extends Controller
 
         $work = Work::whereSlug($slug)->first();
         $work->delete();
-        return redirect()->action('Admin\WorkController@index')->with('danger_status', 'Obra Removida');
+        return back()->with('danger_status', 'Obra Removida');
     }
 
     public function featureToArtist($slugWork, $idArtist)
@@ -168,7 +185,28 @@ class WorkController extends Controller
         }
 
         // Conta os que estão em destaque, max = 6
-        elseif (Work::where('featured_to_home', '=', 1)->count() == 6) {
+        elseif (Work::where('featured_to_home', '=', 1)->where('opportunity', '=', '1')->count() == 6) {
+            return back()->with('danger_status', 'Demasiadas obras de oportunidades destacadas, pf retire o destaque de uma primeiro.');
+        }
+
+        // Se count < 3, coloca em destaque 
+        else {
+            $work->update(['featured_to_home' => 1]);
+            return back()->with('success_status', 'Obra Destacada');
+        }
+    }
+
+    public function featureNotOpportunity($slug)
+    {   
+        $work = Work::whereSlug($slug)->first();
+        // Tira destaque se já estiver destacado
+        if ($work->featured_to_home) {
+            $work->update(['featured_to_home' => 0]);
+            return back()->with('success_status', 'Obra retirada de destaque.');
+        }
+
+        // Conta os que estão em destaque, max = 6
+        elseif (Work::where('featured_to_home', '=', 1)->where('opportunity', '=', '0')->count() == 6) {
             return back()->with('danger_status', 'Demasiadas obras destacadas, pf retire o destaque de uma primeiro.');
         }
 

@@ -90,7 +90,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="artists.html">Artists</a></li>
+                        <li><a href="{!! action('Frontend\ArtistController@index') !!}">Artists</a></li>
                         <li><a href="opportunities.html">Opportunities</a></li>
                         <li><a href="exhibitions.html">Exhibitions</a></li>
                         <li><a href="press.html">Press</a></li>        
@@ -210,5 +210,6 @@
     {!! Html::script('/js/plugins/scrollReveal.min.js') !!}
     {!! Html::script('/js/plugins/bootstrap-dropdownhover.min.js') !!}
     {!! Html::script('/js/main.js') !!}
+    @yield('pagescripts')
     </body>
 </html>

@@ -25,6 +25,17 @@
 	    </div>
 	@endif
 
+	@if(session('success_status'))
+		<div class="col-xs-12 alert alert-success">
+			{{ session('success_status') }}
+		</div>
+	@endif
+	@if(session('danger_status'))
+		<div class="col-xs-12 alert alert-danger">
+			{{ session('danger_status') }}
+		</div>
+	@endif
+
 	<div class="form-group">
 		{!! Form::open(['action' => [isset($press) ? "Admin\PressController@update" : "Admin\PressController@create", isset($press) ? $press->slug : $press],  'method' => isset($press) ? 'put' : "post", 'files' => true]) !!}
 

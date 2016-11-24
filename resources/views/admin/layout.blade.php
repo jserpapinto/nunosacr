@@ -12,6 +12,9 @@
 
         <!-- Bootstrap 3 styles -->
         {!! Html::style('/css/bootstrap.min.css') !!}
+        {!! Html::style('/css/app.css') !!}
+        {{-- Html::style('/css/bootstrap-material-design.min.css') !!}
+        {!! Html::style('/css/ripples.min.css') --}}
         {!! Html::style('/css/nh-styles.css') !!}
     </head>
     <body>
@@ -30,10 +33,12 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="/admin">Home</a></li>
-                        <li><a href="/admin/artistas">Artistas</a></li>
-                        <li><a href="/admin/obras">Obras</a></li>
-                        <li><a href="/admin/exposicoes">Exposições</a></li>
-                        <li><a href="/admin/press">Press</a></li>
+                        @if (Auth::user())
+                            <li><a href="/admin/artistas">Artistas</a></li>
+                            <li><a href="/admin/obras">Obras</a></li>
+                            <li><a href="/admin/exposicoes">Exposições</a></li>
+                            <li><a href="/admin/press">Press</a></li>
+                        @endif
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
@@ -73,6 +78,7 @@
                     <h1>@yield('title')</h1>
                     <h4>@yield('subtitle')</h4>
                     @yield('addBtn')
+                    <hr>
                 </div>
                 @yield('content')
             </div>

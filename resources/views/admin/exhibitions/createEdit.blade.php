@@ -24,6 +24,17 @@
 	    </div>
 	@endif
 
+	@if(session('success_status'))
+		<div class="col-xs-12 alert alert-success">
+			{{ session('success_status') }}
+		</div>
+	@endif
+	@if(session('danger_status'))
+		<div class="col-xs-12 alert alert-danger">
+			{{ session('danger_status') }}
+		</div>
+	@endif
+
 	<div class="form-group">
 		{!! Form::open(['action' => [isset($exhibition) ? "Admin\ExhibitionController@update" : "Admin\ExhibitionController@create", isset($exhibition) ? $exhibition->slug : $exhibition],  'method' => isset($exhibition) ? 'put' : "post", 'files' => true]) !!}
 

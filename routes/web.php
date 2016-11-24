@@ -48,8 +48,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	/**
 	 *	WORK
 	 */
-	// Get List of Works
+	// Get List of All Works
 	Route::get("/obras", 'WorkController@index');
+	// Get List of Works
+	Route::get("/obras/sem_oportunidades", 'WorkController@indexWithoutOpportunities');
+	// Get List of Works
+	Route::get("/obras/oportunidades", 'WorkController@indexOpportunities');
 	// Get Form to update Work
 	Route::get("/obras/{slug}/editar", 'WorkController@editCreate');
 	// Feature Work to Artist
@@ -64,6 +68,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::post("/obras/criar", 'WorkController@create');
 	// Feature Opportunity
 	Route::get("/obras/{slug}/destaque_oportunidade", 'WorkController@featureOpportunity');
+	// Feature NOT Opportunity
+	Route::get("/obras/{slug}/destaque_oportunidade", 'WorkController@featureNotOpportunity');
 
 	/**
 	 *	PRESS
@@ -118,4 +124,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Auth'], function() {
  *	Frontend Area
  *
  */
+// Homepage
 Route::get('/', 'HomeController@index');
+
+Route::group(['namespace' => 'Frontend'], function () {
+	// Artists Page
+	Route::get('/artists', 'ArtistController@index');
+	
+});

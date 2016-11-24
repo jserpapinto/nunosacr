@@ -7,10 +7,29 @@
 @section('subtitle', 'Lista de Obras')
 
 @section('addBtn')
-	<a href="{!! URL::action('Admin\WorkController@editCreate') !!}" class="btn btn-primary">
-		<i class="glyphicon glyphicon-plus"></i>
-		Nova Obra
-	</a>
+	<div class="row">
+		<div class="col-xs-12">
+			<a href="{!! URL::action('Admin\WorkController@editCreate') !!}" class="btn btn-primary">
+				<i class="glyphicon glyphicon-plus"></i>
+				Nova Obra
+			</a>
+		</div>
+		<hr>
+		<div class="col-xs-12">
+			<a href="{!! URL::action('Admin\WorkController@index') !!}" class="btn btn-default">
+				<i class="glyphicon glyphicon-search"></i>
+				Todas
+			</a>
+			<a href="{!! URL::action('Admin\WorkController@indexWithoutOpportunities') !!}" class="btn btn-default">
+				<i class="glyphicon glyphicon-search"></i>
+				Excepto Oportunidades
+			</a>
+			<a href="{!! URL::action('Admin\WorkController@indexOpportunities') !!}" class="btn btn-default">
+				<i class="glyphicon glyphicon-search"></i>
+				Apenas Oportunidades
+			</a>
+		</div>
+	</div>
 @endsection
 
 @section('content')
@@ -28,15 +47,15 @@
 
 	<!-- List All Artists -->
 	<div class="col-xs-12">
-		@if($allWorks->isEmpty())
+		@unless($allWorks)
 			<div class="col-xs-12">
 				<p class="text-center"><strong>Lista de obras vazia</strong></p>
 			</div>
-		@endif
+		@endunless
 		<ul class="list-group">
 
 			@foreach ($allWorks as $work)
-				<li class="list-group-item {{ $work->featured_to_home ? "destacado-opo" : null }}">
+				<li class="list-group-item {{ $work->featured_to_home && $work->opportunity == 1 ? "destacado-opo" : null }} {{ $work->featured_to_home && $work->opportunity == 0 ? "destacado" : null }}">
 					<!-- Artist name -->
 					<div class="col-xs-7 col-sm-2">{{ $work->name }}</div>
 					<!-- .Artist name -->
@@ -75,7 +94,6 @@
 							{!! Form::close() !!}
 						</div>
 						<!-- .Delete Form -->
-						@if ($work->opportunity)
 							<!-- Opportunity feature -->
 							<div class="col-xs-12"> 
 								<a href="/admin/obras/{{ $work->work_slug }}/destaque_oportunidade">
@@ -86,7 +104,6 @@
 								</a>
 							</div>
 							<!-- .Opportunity feature -->
-						@endif
 					</div>
 					<!-- .Action Buttons -->
 

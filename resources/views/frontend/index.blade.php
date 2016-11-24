@@ -76,85 +76,52 @@
                 <!-- Description -->
                 <div class="ws-about-content clearfix">
                     <div class="col-sm-8 col-sm-offset-2">
-                        <h3>Duma</h3> 
+                        <h3>{{ $artistFeatured->name }}</h3> 
                         <div class="ws-separator"></div>                      
-                        <p>There is always an unknown part of the whole. Duma's characters are full of glamour, innocent but provocative, frail but also strong, dichotomies present in female but also human behaviour in general.</p>
+                        <p>{{ $artistFeatured->bio }}</p>
                     </div>                
                 </div>
 
                 <!-- Featured Collections -->
-                <div class="ws-featured-collections clearfix">
-                    <!-- Item -->
-                    <div class="col-sm-4 featured-collections-item">
-                        <a href="#x">
-                            <div class="thumbnail">
-                                <img src="assets/img/works/duma/duma_ns01.jpg" alt="Duma">
-                                <div class="ws-overlay">
-                                </div>
+                @if (count($artistFeaturedWorks) > 0)
+                    <div class="ws-featured-collections clearfix">
+                        @foreach ($artistFeaturedWorks as $work)
+                            <!-- Item -->
+                            <div class="col-sm-4 featured-collections-item">
+                                <a href="#{{ $work->slug }}">
+                                    <div class="thumbnail">
+                                        <img src="/upload/works/midsize/{{ $work->img }}" alt="Duma">
+                                        <div class="ws-overlay">
+                                        </div>
+                                    </div>
+                                    <div class="ws-works-caption text-center">
+                                        <!-- Title -->
+                                        <h4 class="ws-item-title">{{ $work->name }}</h4>                        
+                                        <div class="ws-item-separator"></div>    
+                                        <!-- Price -->
+                                        @if ($work->price)
+                                            <div class="ws-item-price">
+                                                @if ($work->discount > 0)
+                                                    <del>{{ $work->price }} €</del> 
+                                                    <ins>{{ $work->discount }} €</ins>
+                                                @else 
+                                                    <ins>{{ $work->price }} €</ins>
+                                                @endif
+                                            </div>
+                                        @endif
+                                    </div>
+                                </a>
                             </div>
-                            <div class="ws-works-caption text-center">
-
-                        <!-- Title -->
-                        <h4 class="ws-item-title">The velvet warrior</h4>                        
-
-                        <div class="ws-item-separator"></div>    
-
-                        <!-- Price -->
-                        <div class="ws-item-price"><del>2.100 €</del> <ins>2.000 €</ins></div>                                                    
+                        @endforeach
                     </div>
-                        </a>
-                    </div>
-
-                    <!-- Item -->
-                    <div class="col-sm-4 featured-collections-item">
-                        <a href="#x">
-                            <div class="thumbnail">
-                                <img src="assets/img/works/duma/duma_ns02.jpg" alt="Duma">
-                                <div class="ws-overlay">
-                                </div>
-                            </div>
-                            <div class="ws-works-caption text-center">
-
-                        <!-- Title -->
-                        <h4 class="ws-item-title">The young rebellion</h4>                        
-
-                        <div class="ws-item-separator"></div>    
-
-                        <!-- Price -->
-                        <div class="ws-item-price"><ins>2.100 €</ins></div>                                                    
-                    </div>
-                        </a>
-                    </div>
-
-                    <!-- Item -->
-                    <div class="col-sm-4 featured-collections-item">
-                        <a href="#x">
-                            <div class="thumbnail">
-                                <img src="assets/img/works/duma/duma_ns03.jpg" alt="Duma">
-                                <div class="ws-overlay">
-                                </div>
-                            </div>
-                            <div class="ws-works-caption text-center">
-
-                        <!-- Title -->
-                        <h4 class="ws-item-title">General with a blooming heart</h4>                        
-
-                        <div class="ws-item-separator"></div>    
-
-                        <!-- Price -->
-                        <div class="ws-item-price"><ins>2.500 €</ins></div>                                                    
-                    </div>
-                        </a>
-                    </div>
-                    
-                    
-                </div>
+                @endif
 
             </div>
         </div>
     </section>
     <!-- Exhibition Section End -->     
 
+    @if (count($worksOpportunity) > 0)
     <!-- Oportunities Section -->    
     <section class="ws-arrivals-section">
 
@@ -167,160 +134,47 @@
 
         <div id="ws-items-carousel">
 
-            <!-- Item -->
-            <div class="ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
-                <a href="#">                        
-                    <div class="ws-item-offer">
-                        <!-- Image -->                        
-                        <figure>                            
-                            <img src="assets/img/works/gil_maia/01.jpg" alt="#" class="img-responsive">
-                        </figure>                    
-                    </div>
+            @foreach ($worksOpportunity as $work)
+                <!-- Item -->
+                <div class="ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
+                    <a href="#{{ $work->slug }}">                        
+                        <div class="ws-item-offer">
+                            <!-- Image -->                        
+                            <figure>                            
+                                <img src="/upload/works/midsize/{{ $work->img }}" alt="#" class="img-responsive">
+                            </figure>                    
+                        </div>
 
-                    <div class="ws-works-caption text-center">
-                        <!-- Item Category -->
-                        <div class="ws-item-category">Gil Maia</div>
+                        <div class="ws-works-caption text-center">
+                            <!-- Item Category -->
+                            <div class="ws-item-category">{{ $work->artist_name }}</div>
 
-                        <!-- Title -->
-                        <h3 class="ws-item-title">Untitled</h3>                        
+                            <!-- Title -->
+                            <h3 class="ws-item-title">{{ $work->name }}</h3>                        
 
-                        <div class="ws-item-separator"></div>    
+                            <div class="ws-item-separator"></div>    
 
-                        <!-- Price -->
-                        <div class="ws-item-price"><del>3500 €</del> <ins>3000 €</ins></div>                                                    
-                    </div>
-                </a>
-            </div>
-
-            <!-- Item -->
-            <div class="ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
-                <a href="#">                        
-                    <div class="ws-item-offer">
-                        <!-- Image -->                        
-                        <figure>                            
-                            <img src="assets/img/works/nuno_horta/02.jpg" alt="#" class="img-responsive">
-                        </figure>                    
-                    </div>
-
-                    <div class="ws-works-caption text-center">
-                        <!-- Item Category -->
-                        <div class="ws-item-category">Nuno Horta</div>
-
-                        <!-- Title -->
-                        <h3 class="ws-item-title">Untitled</h3>                        
-
-                        <div class="ws-item-separator"></div>    
-
-                        <!-- Price -->
-                        <div class="ws-item-price"><ins>3000 €</ins></div>                                                    
-                    </div>
-                </a>
-            </div>
-
-            <!-- Item -->
-            <div class="ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
-                <a href="#">                        
-                    <div class="ws-item-offer">
-                        <!-- Image -->                        
-                        <figure>                            
-                            <img src="assets/img/works/juan_domingues/02.jpg" alt="#" class="img-responsive">
-                        </figure>                    
-                    </div>
-
-                    <div class="ws-works-caption text-center">
-                        <!-- Item Category -->
-                        <div class="ws-item-category">Juan Domingues</div>
-
-                        <!-- Title -->
-                        <h3 class="ws-item-title">Untitled</h3>                        
-
-                        <div class="ws-item-separator"></div>    
-
-                        <!-- Price -->
-                        <div class="ws-item-price"><ins>3000 €</ins></div>                                                    
-                    </div>
-                </a>
-            </div>
-
-            <!-- Item -->        
-            <div class="ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
-                <a href="#">                        
-                    <div class="ws-item-offer">
-                        <!-- Image -->                        
-                        <figure>                            
-                            <img src="assets/img/works/traexler/01.jpg" alt="#" class="img-responsive">
-                        </figure>                    
-                    </div>
-
-                    <div class="ws-works-caption text-center">
-                        <!-- Item Category -->
-                        <div class="ws-item-category">Traexler</div>
-
-                        <!-- Title -->
-                        <h3 class="ws-item-title">Untitled</h3>                        
-
-                        <div class="ws-item-separator"></div>    
-
-                        <!-- Price -->
-                        <div class="ws-item-price"><ins>3000 €</ins></div>                                                    
-                    </div>
-                </a>
-            </div>
-
-            <!-- Item -->
-            <div class="ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
-                <a href="#">                        
-                    <div class="ws-item-offer">
-                        <!-- Image -->                        
-                        <figure>                            
-                            <img src="assets/img/works/fabio_carneiro/01.jpg" alt="#" class="img-responsive">
-                        </figure>                    
-                    </div>
-
-                    <div class="ws-works-caption text-center">
-                        <!-- Item Category -->
-                        <div class="ws-item-category">Fábio Carneiro</div>
-
-                        <!-- Title -->
-                        <h3 class="ws-item-title">Untitled</h3>                        
-
-                        <div class="ws-item-separator"></div>    
-
-                        <!-- Price -->
-                        <div class="ws-item-price"><ins>3000 €</ins></div>                                                    
-                    </div>
-                </a>
-            </div>
-
-            <!-- Item -->
-            <div class="ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
-                <a href="#">                        
-                    <div class="ws-item-offer">
-                        <!-- Image -->                        
-                        <figure>                            
-                            <img src="assets/img/works/gil_maia/02.jpg" alt="#" class="img-responsive">
-                        </figure>                    
-                    </div>
-
-                    <div class="ws-works-caption text-center">
-                        <!-- Item Category -->
-                        <div class="ws-item-category">Gil Maia</div>
-
-                        <!-- Title -->
-                        <h3 class="ws-item-title">Untitled</h3>                        
-
-                        <div class="ws-item-separator"></div>    
-
-                        <!-- Price -->
-                        <div class="ws-item-price"><ins>3000 €</ins></div>                                                    
-                    </div>
-                </a>
-            </div>
+                            @if ($work->price)
+                                <div class="ws-item-price">
+                                    @if ($work->discount > 0)
+                                        <del>{{ $work->price }} €</del> 
+                                        <ins>{{ $work->discount }} €</ins>
+                                    @else 
+                                        <ins>{{ $work->price }} €</ins>
+                                    @endif
+                                </div>
+                            @endif                                                    
+                        </div>
+                    </a>
+                </div>
+            @endforeach
             
         </div>
     </section>
     <!-- End Oportunities Section -->     
+    @endif
 
+    @if (count($worksNoOpportunity) > 0)
     <!-- Work Featured Start  -->
     <section class="ws-works-section">
         <div class="container">
@@ -333,175 +187,75 @@
                     </div>
                 </div>
 
-                <!-- Item -->
-                <div class="col-sm-6 col-md-4 ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
-                    <a href="#">                        
-                        <div class="ws-item-offer">
-                            <!-- Image -->                        
-                            <figure>                            
-                                <img src="assets/img/works/duarte_vitoria/01.jpg" alt="#" class="img-responsive">
-                            </figure>
-                            <!-- Sale Caption -->
-                            <div class="ws-item-sale">
-                                <span>Sale</span>
+                @foreach ($worksNoOpportunity as $work)
+                    <!-- Item -->
+                    <div class="col-sm-6 col-md-4 ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
+                        <a href="#">                        
+                            <div class="ws-item-offer">
+                                <!-- Image -->                        
+                                <figure>                            
+                                    <img src="upload/works/midsize/{{ $work->img }}" alt="#" class="img-responsive">
+                                </figure>
+                                @if ($work->discount > 0)
+                                    <!-- Sale Caption -->
+                                    <div class="ws-item-sale">
+                                        <span>Sale</span>
+                                    </div>
+                                @elseif ($work->sold)
+                                    <!-- Sale Caption -->
+                                    <div class="ws-item-sold">
+                                        <span>Sold</span>
+                                    </div>
+                                @endif
+
                             </div>
-                        </div>
 
-                        <div class="ws-works-caption text-center">
-                            <!-- Item Category -->
-                            <div class="ws-item-category">Duarte Vitória</div>
+                            <div class="ws-works-caption text-center">
+                                <!-- Item Category -->
+                                <div class="ws-item-category">{{ $work->artist_name }}</div>
 
-                            <!-- Title -->
-                            <h3 class="ws-item-title">Untitled</h3>                        
+                                <!-- Title -->
+                                <h3 class="ws-item-title">{{ $work->name }}</h3>                        
 
-                            <div class="ws-item-separator"></div>    
+                                <div class="ws-item-separator"></div>    
 
-                            <!-- Price -->
-                            <div class="ws-item-price"><del>3000 €</del> <ins>2800 €</ins></div>                                                    
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Item -->
-                <div class="col-sm-6 col-md-4 ws-works-item" data-sr='wait 0.3s, ease-in 20px'>
-                    <a href="#">                        
-                        <div class="ws-item-offer">
-                            <!-- Image -->                        
-                            <figure>                            
-                                <img src="assets/img/works/diogo_moreira/01.jpg" alt="#" class="img-responsive">
-                            </figure>
-                        </div>
-
-                        <div class="ws-works-caption text-center">
-                            <!-- Item Category -->
-                            <div class="ws-item-category">Diogo Moreira</div>
-
-                            <!-- Title -->
-                            <h3 class="ws-item-title">Untitled</h3>                        
-
-                            <div class="ws-item-separator"></div>    
-
-                            <!-- Price -->
-                            <div class="ws-item-price"><ins>2000 €</ins></div>                                                    
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Item -->
-                <div class="col-sm-6 col-md-4 ws-works-item" data-sr='wait 0.5s, ease-in 20px'>
-                    <a href="#">
-                        <!-- Image -->                        
-                        <figure>                            
-                            <img src="assets/img/works/nuno_raminhos/raminhos_ns01.jpg" alt="#" class="img-responsive">                
-                        </figure>
-                        <div class="ws-works-caption text-center">
-                            <!-- Item Category -->
-                            <div class="ws-item-category">Nuno Raminhos</div>
-
-                            <!-- Title -->
-                            <h3 class="ws-item-title">Untitled</h3>                        
-
-                            <div class="ws-item-separator"></div>    
-
-                            <!-- Price -->
-                            <div class="ws-item-price">2000 €</div>                        
-                        </div>
-                    </a>
-                </div>                 
-
-                <!-- Item -->
-                <div class="col-sm-6 col-md-4 ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
-                    <a href="#">
-                        <!-- Image -->                        
-                        <figure>                            
-                            <img src="assets/img/works/elisabeth_leite/01.jpg" alt="#" class="img-responsive">
-                        </figure>
-                        <div class="ws-works-caption text-center">
-                            <!-- Item Category -->
-                            <div class="ws-item-category">Elizabeth Leite</div>
-
-                            <!-- Title -->
-                            <h3 class="ws-item-title">Untitled</h3>                        
-
-                            <div class="ws-item-separator"></div>    
-
-                            <!-- Price -->
-                            <div class="ws-item-price">2000 €</div>                        
-                        </div>
-                    </a>
-                </div>  
-
-                <!-- Item -->
-                <div class="col-sm-6 col-md-4 ws-works-item" data-sr='wait 0.3s, ease-in 20px'>
-                    <a href="#">
-                        <!-- Image -->                        
-                        <figure>                            
-                            <img src="assets/img/works/duarte_vitoria/02.jpg".jpg alt="#" class="img-responsive">
-                        </figure>
-                        <div class="ws-works-caption text-center">
-                            <!-- Item Category -->
-                            <div class="ws-item-category">Duarte Vitória</div>
-
-                            <!-- Title -->
-                            <h3 class="ws-item-title">Untitled</h3>                        
-
-                            <div class="ws-item-separator"></div>    
-
-                            <!-- Price -->
-                            <div class="ws-item-price">2000 €</div>                        
-                        </div>
-                    </a>
-                </div>  
-
-                        <!-- Item -->
-                <div class="col-sm-6 col-md-4 ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
-                    <a href="#">
-                        <div class="ws-item-offer">
-                            <!-- Image -->                        
-                            <figure>                            
-                                <img src="assets/img/works/nuno_horta/01.jpg" alt="#" class="img-responsive">
-                            </figure>
-                            <!-- Sale Caption -->
-                            <div class="ws-item-sold">
-                                <span>Sold</span>
+                                <!-- Price -->
+                                @if ($work->price)
+                                    <div class="ws-item-price">
+                                        @if ($work->discount > 0)
+                                            <del>{{ $work->price }} €</del> 
+                                            <ins>{{ $work->discount }} €</ins>
+                                        @else 
+                                            <ins>{{ $work->price }} €</ins>
+                                        @endif
+                                    </div>
+                                @endif                                                    
                             </div>
-                        </div>
-                        <div class="ws-works-caption text-center">
-                            <!-- Item Category -->
-                            <div class="ws-item-category">Nuno Horta</div>
-
-                            <!-- Title -->
-                            <h3 class="ws-item-title">The Fisherman</h3>                        
-
-                            <div class="ws-item-separator"></div>    
-
-                            <!-- Price -->
-                            <div class="ws-item-price"><del>2000 €</del> </div>                        
-                        </div>
-                    </a>
-                </div>                                                                   
-
-               
+                        </a>
+                    </div>
+                @endforeach
 
             </div>
         </div>
     </section>
+    @endif
     <!-- Work Featured End  -->
 
     <!-- About Section -->
        <section class="hidden-xs">
-			<div class="ws-parallax-header parallax-window" data-parallax="scroll"  data-image-src="assets/img/backgrounds/wall.jpg">
-            <div class="ws-overlay-hard">            
-            <div class="ws-parallax-caption">                
-                <div class="ws-parallax-holder" >
-                    <div class="col-sm-6 col-sm-offset-3">
-                        <h3 style="color: #fff">Nuno Sacramento Arte Contemporânea</h3>         
-                        <div class="ws-separator" style="background-color: #fff"></div>                                                                          <p>In the hope of providing the best service, together with the publics, critics, curators, commissioners and collectors, we intend within the professionalism that characterizes us that our path. With the necessary determination and the risk inherent in this activity, we will continue to launch our motto: "Buying art is both a pleasure and an investment for the future".</p>
-                        <!-- Button -->
-                        <div class="btn ws-small-btn-white" style="margin-top: 30px; margin-bottom: 70px;"><a href="contacts.html">CONTACT US</a></div>
+			<div class="ws-parallax-header parallax-window" data-parallax="scroll"  data-image-src="{{ asset('/img/backgrounds/wall.jpg') }}">
+                <div class="ws-overlay-hard">            
+                    <div class="ws-parallax-caption">                
+                    <div class="ws-parallax-holder" >
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <h3 style="color: #fff">Nuno Sacramento Arte Contemporânea</h3>         
+                            <div class="ws-separator" style="background-color: #fff"></div>
+                            <p>In the hope of providing the best service, together with the publics, critics, curators, commissioners and collectors, we intend within the professionalism that characterizes us that our path. With the necessary determination and the risk inherent in this activity, we will continue to launch our motto: "Buying art is both a pleasure and an investment for the future".</p>
+                            <!-- Button -->
+                            <div class="btn ws-small-btn-white" style="margin-top: 30px; margin-bottom: 70px;"><a href="contacts.html">CONTACT US</a></div>
+                        </div>
                     </div>
-                </div>
-            </div>    
+                </div>    
             </div> 
         </div>
         </section>
@@ -510,35 +264,8 @@
     <!-- Instagram Content -->
     <section id="ws-instagram-section">
         <div class="container">
-            <div class="row vertical-align">
-
-                <!-- Instagram Item -->
-                <div class="col-sm-3 ws-instagram-item" data-sr='wait 0.1s, ease-in 20px'>
-                    <a href="https://www.instagram.com/" target="_blank">
-                        <img src="assets/img/works/gil_maia/02.jpg" alt="Alternative Text" class="img-responsive">
-                    </a>
-                </div>    
-
-                <!-- Instagram Item -->
-                <div class="col-sm-3 ws-instagram-item" data-sr='wait 0.1s, ease-in 20px'>
-                    <a href="https://www.instagram.com/" target="_blank">
-                        <img src="assets/img/works/duma/duma_ns03.jpg" alt="Alternative Text" class="img-responsive">
-                    </a>
-                </div>    
-
-                <!-- Instagram Item -->
-                <div class="col-sm-3 ws-instagram-item" data-sr='wait 0.3s, ease-in 20px'>
-                    <a href="https://www.instagram.com/" target="_blank">
-                        <img src="assets/img/works/fabio_carneiro/01.jpg" alt="Alternative Text" class="img-responsive">
-                    </a>
-                </div>   
-
-                <!-- Instagram Item -->
-                <div class="col-sm-3 ws-instagram-item" data-sr='wait 0.5s, ease-in 20px'>
-                    <a href="https://www.instagram.com/" target="_blank">
-                        <img src="assets/img/works/duma/duma_ns01.jpg" alt="#" class="img-responsive">
-                    </a>
-                </div>                                   
+            <div class="row vertical-align" id="instafeed">
+                                  
             </div>
         </div>
     </section>
@@ -567,4 +294,25 @@
         </div>
     </section>
     <!-- End Subscribe Section -->   
+@endsection
+
+@section('pagescripts')
+{!! Html::script('/js/instafeed.min.js') !!}
+<script>
+    // Get last 4 pics from Instagram
+    var template = '<div class="col-sm-3 ws-instagram-item" data-sr="wait 0.1s, ease-in 20px">\
+                    <a href="@{{link}}" target="_blank">\
+                        <img src="@{{image}}" alt="Alternative Text" class="img-responsive">\
+                    </a>\
+                </div>';
+    var feed = new Instafeed({
+        get: 'user',
+        accessToken: '1837746769.1ca6a35.d5a08c10293a4459bbe0a2f525f8d7a2',
+        userId: '1837746769',
+        template: template,
+        limit: 4,
+        resolution: 'standard_resolution'
+    });
+    feed.run();
+</script>
 @endsection
