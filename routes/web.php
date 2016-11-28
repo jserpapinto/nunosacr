@@ -15,7 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 /*
  *
  *	Admin Area
@@ -61,6 +60,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
 
 
+});
+
+//Auth::routes();
+// Authentication Routes...
+Route::get('/admin/login', 'Auth\LoginController@showLoginForm');
+Route::post('/admin/login', 'Auth\LoginController@login');
+Route::get('/admin/logout', 'Auth\LoginController@logout');
 	// Registration Routes...
 	Route::get('/admin/register', 'Auth\registerController@showRegistrationForm');
 	Route::post('/admin/register', 'Auth\registerController@register');
@@ -70,13 +76,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::post('/admin/password/email', 'Auth\PasswordController@sendResetLinkEmail');
 	Route::post('/admin/password/reset', 'Auth\PasswordController@reset');
 
-});
-
-//Auth::routes();
-// Authentication Routes...
-Route::get('/admin/login', 'Auth\LoginController@showLoginForm');
-Route::post('/admin/login', 'Auth\LoginController@login');
-Route::get('/admin/logout', 'Auth\LoginController@logout');
 
 
 
