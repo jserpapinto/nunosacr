@@ -76,6 +76,13 @@
 					{!! Form::file('img', ['class' => 'form-control']) !!}
 				</div>
 				<!-- Imagem -->
+				<!-- Galeria -->
+				<div class="input-group">
+					{!! Form::label('gallery', 'Galeria', ['class' => 'input-group-addon']) !!}
+					Sim: {!! Form::radio('gallery', 1, isset($artist) && $artist->gallery == true ? true : false, ['class' => 'radio-inline']) !!}
+					Não: {!! Form::radio('gallery', 0, isset($artist) && $artist->gallery == false ? true : false, ['class' => 'radio-inline']) !!}
+				</div>
+				<!-- .Galeria -->
 			</div>
 			<!-- Bio -->
 			<div class="col-xs-12 col-md-6">

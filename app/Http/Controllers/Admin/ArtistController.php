@@ -87,6 +87,7 @@ class ArtistController extends Controller
         $artist->site = $req->site;
         $artist->email = $req->email;
         $artist->bio = $req->bio;
+        $artist->gallery = $req->gallery;
         if (isset($cvName)) $artist->cv = $cvName;
         if (isset($imgName)) $artist->img = $imgName;
 
@@ -126,6 +127,7 @@ class ArtistController extends Controller
         $artist->site = $req->site;
         $artist->email = $req->email;
         $artist->bio = $req->bio;
+        $artist->gallery = $req->gallery;
         $artist->slug = uniqid();
         if (isset($cvName)) $artist->cv = $cvName;
         if (isset($imgName)) $artist->img = $imgName;

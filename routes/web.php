@@ -128,7 +128,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Auth'], function() {
 Route::get('/', 'HomeController@index');
 
 Route::group(['namespace' => 'Frontend'], function () {
-	// Artists Page
+	// Artist Pages
 	Route::get('/artists', 'ArtistController@index');
+	Route::get('/artists/{slug}', 'ArtistController@solo');
+
+	// Work Pages
+	Route::get('/work/{slug}/solo', 'WorkController@solo');
+	Route::get('/work/opportunities', 'WorkController@opportunities');
+
+	// Mail
+	Route::post('/work/{slug}/buyWork', 'WorkController@buyWorkEmail');
 	
 });

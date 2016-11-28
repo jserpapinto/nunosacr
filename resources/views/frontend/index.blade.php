@@ -188,51 +188,9 @@
                 </div>
 
                 @foreach ($worksNoOpportunity as $work)
-                    <!-- Item -->
-                    <div class="col-sm-6 col-md-4 ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
-                        <a href="#">                        
-                            <div class="ws-item-offer">
-                                <!-- Image -->                        
-                                <figure>                            
-                                    <img src="upload/works/midsize/{{ $work->img }}" alt="#" class="img-responsive">
-                                </figure>
-                                @if ($work->discount > 0)
-                                    <!-- Sale Caption -->
-                                    <div class="ws-item-sale">
-                                        <span>Sale</span>
-                                    </div>
-                                @elseif ($work->sold)
-                                    <!-- Sale Caption -->
-                                    <div class="ws-item-sold">
-                                        <span>Sold</span>
-                                    </div>
-                                @endif
+                    
+                    @include('frontend.shared.workBlock', compact('work'))
 
-                            </div>
-
-                            <div class="ws-works-caption text-center">
-                                <!-- Item Category -->
-                                <div class="ws-item-category">{{ $work->artist_name }}</div>
-
-                                <!-- Title -->
-                                <h3 class="ws-item-title">{{ $work->name }}</h3>                        
-
-                                <div class="ws-item-separator"></div>    
-
-                                <!-- Price -->
-                                @if ($work->price)
-                                    <div class="ws-item-price">
-                                        @if ($work->discount > 0)
-                                            <del>{{ $work->price }} €</del> 
-                                            <ins>{{ $work->discount }} €</ins>
-                                        @else 
-                                            <ins>{{ $work->price }} €</ins>
-                                        @endif
-                                    </div>
-                                @endif                                                    
-                            </div>
-                        </a>
-                    </div>
                 @endforeach
 
             </div>
@@ -243,12 +201,12 @@
 
     <!-- About Section -->
        <section class="hidden-xs">
-			<div class="ws-parallax-header parallax-window" data-parallax="scroll"  data-image-src="{{ asset('/img/backgrounds/wall.jpg') }}">
+			<div class="ws-parallax-header parallax-window">
                 <div class="ws-overlay-hard">            
                     <div class="ws-parallax-caption">                
                     <div class="ws-parallax-holder" >
                         <div class="col-sm-6 col-sm-offset-3">
-                            <h3 style="color: #fff">Nuno Sacramento Arte Contemporânea</h3>         
+                            <h3 style="color: #fff">{{ config('app.name') }}</h3>         
                             <div class="ws-separator" style="background-color: #fff"></div>
                             <p>In the hope of providing the best service, together with the publics, critics, curators, commissioners and collectors, we intend within the professionalism that characterizes us that our path. With the necessary determination and the risk inherent in this activity, we will continue to launch our motto: "Buying art is both a pleasure and an investment for the future".</p>
                             <!-- Button -->
@@ -314,5 +272,11 @@
         resolution: 'standard_resolution'
     });
     feed.run();
+</script>
+
+<script>
+
+    $('.parallax-window').parallax({imageSrc: '{{ asset('/img/backgrounds/wall.jpg') }}'});
+
 </script>
 @endsection

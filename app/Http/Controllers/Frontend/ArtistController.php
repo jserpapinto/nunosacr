@@ -15,4 +15,13 @@ class ArtistController extends Controller
 
 		return view('frontend.artists.index', compact('allArtists'));
     }
+
+    //
+    public function solo($slug)
+    {
+    	$artist = Artist::whereSlug($slug)->first();
+    	$works = $artist->works()->get();
+
+		return view('frontend.artists.solo', compact('artist', 'works'));
+    }
 }

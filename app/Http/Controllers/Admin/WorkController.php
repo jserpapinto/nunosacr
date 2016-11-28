@@ -57,7 +57,7 @@ class WorkController extends Controller
     public function indexWithoutOpportunities()
     {
         $Work = new Work(); 
-        $allWorks = $Work->where('opportunity', '=', 0)->get();
+        $allWorks = $Work->getAllNoOpportunities();
         return view('admin.works.index', compact('allWorks'));
     }
 
@@ -65,7 +65,7 @@ class WorkController extends Controller
     public function indexOpportunities()
     {
         $Work = new Work(); 
-        $allWorks = $Work->where('opportunity', '=', 1)->get();
+        $allWorks = $Work->getAllOpportunities();
         return view('admin.works.index', compact('allWorks'));
     }
 
@@ -102,6 +102,7 @@ class WorkController extends Controller
         $work->description = $req->description;
         $work->opportunity = $req->opportunity;
         $work->artist_id = $req->artist;
+        $work->sold = $req->sold;
         if (isset($imgName)) $work->img = $imgName;
 
         // Save in DB
@@ -132,6 +133,7 @@ class WorkController extends Controller
         $work->description = $req->description;
         $work->opportunity = $req->opportunity;
         $work->artist_id = $req->artist;
+        $work->sold = $req->sold;
         $work->slug = uniqid();
         if (isset($imgName)) $work->img = $imgName;
 

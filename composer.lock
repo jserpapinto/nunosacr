@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6d2ea70e39d3031b7a23df938b7330cb",
-    "content-hash": "37e017e1fe5f5f0fc4f583904c69930f",
+    "hash": "15e0665f0983f891d2d02523a0498353",
+    "content-hash": "e33b216cae7c390def39bb12c3a53921",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -2204,57 +2204,6 @@
                 "web"
             ],
             "time": "2016-07-25 15:51:55"
-        },
-        {
-            "name": "vinkla/instagram",
-            "version": "6.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vinkla/instagram.git",
-                "reference": "29f26684c93a392607c3c51db21b7a634ae6b2d4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vinkla/instagram/zipball/29f26684c93a392607c3c51db21b7a634ae6b2d4",
-                "reference": "29f26684c93a392607c3c51db21b7a634ae6b2d4",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^6.2.1",
-                "php": "^7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.6"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "6.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Vinkla\\Instagram\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Vincent Klaiber",
-                    "email": "hello@vinkla.com",
-                    "homepage": "https://vinkla.com"
-                }
-            ],
-            "description": "An easy-to-use and simple Instagram package",
-            "keywords": [
-                "feed",
-                "instagram",
-                "media"
-            ],
-            "time": "2016-11-23 15:45:42"
         },
         {
             "name": "vlucas/phpdotenv",

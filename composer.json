@@ -10,7 +10,7 @@
         "twbs/bootstrap": "^3.3",
         "laravelcollective/html": "~5.0",
         "intervention/image": "^2.3",
-        "vinkla/instagram": "6.0.0"
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

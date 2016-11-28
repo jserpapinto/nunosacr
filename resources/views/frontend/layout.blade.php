@@ -19,6 +19,7 @@
         <!-- CSS Styles -->
         {!! Html::style('/css/bootstrap.min.css') !!}
         {!! Html::style('/css/main.css') !!}
+        {!! Html::style('/css/nh-frontend.css') !!}
 
         <!-- Animate CSS -->
         {!! Html::style('/css/animate.min.css') !!}
@@ -62,7 +63,7 @@
     <div class="ws-topbar">
                 <!-- Logo -->        
         <div class="ws-logo">
-            <a href="index.html">
+            <a href="/">
                 <img src="{{ asset('/img/logo-white.png') }}" alt="Nuno Sacramento" class="img-responsive hidden-xs">
                 <img src="{{ asset('/img/logo-white2_small.png') }}" alt="Nuno Sacramento" class="img-responsive hidden-sm hidden-md hidden-lg" style="height: 40px;
     margin: 7px auto;">
@@ -89,9 +90,9 @@
                
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li><a href="{!! action('Frontend\ArtistController@index') !!}">Artists</a></li>
-                        <li><a href="opportunities.html">Opportunities</a></li>
+                        <li><a href="{!! action('Frontend\WorkController@opportunities') !!}">Opportunities</a></li>
                         <li><a href="exhibitions.html">Exhibitions</a></li>
                         <li><a href="press.html">Press</a></li>        
                         <li><a href="contacts.html">Contact</a></li>                         
@@ -112,7 +113,7 @@
 
                 <!-- About -->
                 <div class="col-sm-6 ws-footer-col">                            
-                    <h3>Nuno Sacramento Arte Contemporânea</h3>
+                    <h3>{{ config('app.name') }}</h3>
                     <div class="ws-footer-separator"></div>                                         
                     <div class="ws-footer-about">
                         <p>In the hope of providing the best service, together with the public, critics, curators, commissioners and collectors.</p>
