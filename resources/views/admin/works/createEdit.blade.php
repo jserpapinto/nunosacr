@@ -25,6 +25,17 @@
 	    </div>
 	@endif
 
+	@if(session('success_status'))
+		<div class="col-xs-12 alert alert-success">
+			{{ session('success_status') }}
+		</div>
+	@endif
+	@if(session('danger_status'))
+		<div class="col-xs-12 alert alert-danger">
+			{{ session('danger_status') }}
+		</div>
+	@endif
+
 	<div class="form-group">
 		{!! Form::open(['action' => [isset($work) ? "Admin\WorkController@update" : "Admin\WorkController@create", isset($work) ? $work->slug : $work],  'method' => isset($work) ? 'put' : "post", 'files' => true]) !!}
 
@@ -59,13 +70,20 @@
 					{!! Form::file('img', ['class' => 'form-control']) !!}
 				</div>
 				<!-- .Imagem -->
-				<!-- Imagem -->
+				<!-- Oportunidade -->
 				<div class="input-group">
 					{!! Form::label('opportunity', 'Oportunidade', ['class' => 'input-group-addon']) !!}
 					Sim: {!! Form::radio('opportunity', 1, isset($work) && $work->opportunity == true ? true : false, ['class' => 'radio-inline']) !!}
 					Não: {!! Form::radio('opportunity', 0, isset($work) && $work->opportunity == false ? true : false, ['class' => 'radio-inline']) !!}
 				</div>
-				<!-- .Imagem -->
+				<!-- .Oportunidade -->
+				<!-- Sold -->
+				<div class="input-group">
+					{!! Form::label('sold', 'Vendido', ['class' => 'input-group-addon']) !!}
+					Sim: {!! Form::radio('sold', 1, isset($work) && $work->sold == true ? true : false, ['class' => 'radio-inline']) !!}
+					Não: {!! Form::radio('sold', 0, isset($work) && $work->sold == false ? true : false, ['class' => 'radio-inline']) !!}
+				</div>
+				<!-- .Sold -->
 			</div>
 			<!-- Bio -->
 			<div class="col-xs-12 col-md-6">

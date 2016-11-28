@@ -7,39 +7,55 @@
 @section('subtitle', 'Lista de Obras')
 
 @section('addBtn')
-	<a href="{!! URL::action('Admin\WorkController@editCreate') !!}" class="btn btn-primary">
-		<i class="glyphicon glyphicon-plus"></i>
-		Nova Obra
-	</a>
+	<div class="row">
+		<div class="col-xs-12">
+			<a href="{!! URL::action('Admin\WorkController@editCreate') !!}" class="btn btn-primary">
+				<i class="glyphicon glyphicon-plus"></i>
+				Nova Obra
+			</a>
+		</div>
+		<hr>
+		<div class="col-xs-12">
+			<a href="{!! URL::action('Admin\WorkController@index') !!}" class="btn btn-default">
+				<i class="glyphicon glyphicon-search"></i>
+				Todas
+			</a>
+			<a href="{!! URL::action('Admin\WorkController@indexWithoutOpportunities') !!}" class="btn btn-default">
+				<i class="glyphicon glyphicon-search"></i>
+				Excepto Oportunidades
+			</a>
+			<a href="{!! URL::action('Admin\WorkController@indexOpportunities') !!}" class="btn btn-default">
+				<i class="glyphicon glyphicon-search"></i>
+				Apenas Oportunidades
+			</a>
+		</div>
+	</div>
 @endsection
 
 @section('content')
-	@if(Request::get('created'))
+	
+	@if(session('success_status'))
 		<div class="col-xs-12 alert alert-success">
-			Sucesso, Obra criada!
+			{{ session('success_status') }}
 		</div>
 	@endif
-	@if(Request::get('updated'))
-		<div class="col-xs-12 alert alert-success">
-			Sucesso, Obra atualizada!
-		</div>
-	@endif
-	@if(Request::get('deleted')) 
+	@if(session('danger_status'))
 		<div class="col-xs-12 alert alert-danger">
-			Obra apagada!
+			{{ session('danger_status') }}
 		</div>
 	@endif
+
 	<!-- List All Artists -->
 	<div class="col-xs-12">
-		@if($allWorks->isEmpty())
+		@unless($allWorks)
 			<div class="col-xs-12">
 				<p class="text-center"><strong>Lista de obras vazia</strong></p>
 			</div>
-		@endif
+		@endunless
 		<ul class="list-group">
 
 			@foreach ($allWorks as $work)
-				<li class="list-group-item">
+				<li class="list-group-item {{ $work->featured_to_home && $work->opportunity == 1 ? "destacado-opo" : null }} {{ $work->featured_to_home && $work->opportunity == 0 ? "destacado" : null }}">
 					<!-- Artist name -->
 					<div class="col-xs-7 col-sm-2">{{ $work->name }}</div>
 					<!-- .Artist name -->
@@ -51,14 +67,18 @@
 					<!-- .Artist bio -->
 
 					<!-- Artist email -->
-					<div class="hidden-xs col-sm-3">{{ $work->artist_name }}</div>
+					<div class="hidden-xs col-sm-3">
+						<a href="{!! action("Admin\ArtistController@listWorks", $work->artist_slug) !!}">
+							{{ $work->artist_name }}
+						</a>
+					</div>
 					<!-- .Artist email -->
 
 					<!-- Action Buttons -->
 					<div class="col-xs-5 col-sm-3">
 						<!-- Update Button -->
 						<div class="col-xs-6"> 
-							<a href="/admin/obras/{{ $work->work_slug }}">
+							<a href="/admin/obras/{{ $work->work_slug }}/editar">
 								<button type="button" class=" btn btn-sm btn-warning btn-edit">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</button>
@@ -74,8 +94,27 @@
 							{!! Form::close() !!}
 						</div>
 						<!-- .Delete Form -->
+							<!-- Opportunity feature -->
+							<div class="col-xs-12"> 
+								<a href="/admin/obras/{{ $work->work_slug }}/destaque_oportunidade">
+									<button type="button" class=" btn btn-sm btn-{{ $work->featured_to_home ? "default" : "primary" }} btn-edit">
+										<i class="glyphicon glyphicon-{{ $work->featured_to_home ? "minus" : "plus" }}"></i>
+										{{ $work->featured_to_home ? "Tirar destaque" : "Destacar" }}
+									</button>
+								</a>
+							</div>
+							<!-- .Opportunity feature -->
 					</div>
 					<!-- .Action Buttons -->
+
+					<!-- .Action Buttons -->
+					@if ($work->opportunity)
+						<!-- Opportunity badge -->
+						<div class="opportunity-badge">
+							Oportunidade
+						</div>
+						<!-- .Opportunity badge -->
+					@endif
 				</li>
 			@endforeach
 

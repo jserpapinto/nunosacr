@@ -87,6 +87,7 @@ class ArtistController extends Controller
         $artist->site = $req->site;
         $artist->email = $req->email;
         $artist->bio = $req->bio;
+        $artist->gallery = $req->gallery;
         if (isset($cvName)) $artist->cv = $cvName;
         if (isset($imgName)) $artist->img = $imgName;
 
@@ -126,6 +127,7 @@ class ArtistController extends Controller
         $artist->site = $req->site;
         $artist->email = $req->email;
         $artist->bio = $req->bio;
+        $artist->gallery = $req->gallery;
         $artist->slug = uniqid();
         if (isset($cvName)) $artist->cv = $cvName;
         if (isset($imgName)) $artist->img = $imgName;
@@ -160,6 +162,15 @@ class ArtistController extends Controller
         $artist = Artist::whereSlug($slug)->first();
         $works = $artist->works()->get();
         return view('admin.artists.listWorks', compact('artist', 'works'));
+    }
+
+    public function feature($slug)
+    {   
+        $allArtists = Artist::where('featured', '=', 1)->update(['featured' => 0]);
+        $artist = Artist::whereSlug($slug);
+        $artist->update(['featured' => 1]);
+
+        return redirect()->action('Admin\ArtistController@index')->with('success_status', 'Artista destacado na homepage.');
     }
 
 }

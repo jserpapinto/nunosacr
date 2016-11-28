@@ -22,6 +22,8 @@ class CreateArtistsTable extends Migration
             $table->string('img')->default("");
             $table->string('email')->default("");
             $table->string('slug');
+            $table->boolean('featured')->default(0);
+            $table->boolean('gallery')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

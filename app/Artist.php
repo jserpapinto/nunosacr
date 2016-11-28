@@ -33,4 +33,8 @@ class Artist extends Model
 		return $this->find($id);
 	}
 
+	public function exhibitions()
+	{
+		return $this->belongsToMany('App\Exhibition', 'artist_to_exhibition', 'artist_id', 'exhibition_id');
+	}
 }

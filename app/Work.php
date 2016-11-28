@@ -14,12 +14,24 @@ class Work extends Model
 	// Relationship
 	public function artist()
 	{
-		return $this->belongsTo('App\Artist');
+		return $this->belongsTo('App\Artist', 'artist_id');
 	}
     //
 	public function getAll() {
 		return $this
-					->select('works.id as work_id', 'works.name', 'works.img', 'works.slug as work_slug', 'artists.id as artist_id', 'artists.name as artist_name')
+					->select('works.id as work_id', 'works.name', 'works.img', 'works.sold', 'works.opportunity', 'works.featured_to_home', 'works.slug', 'artists.id as artist_id', 'artists.name as artist_name', 'artists.slug as artist_slug')
+					->join('artists', 'works.artist_id', '=', 'artists.id')
+					->get();
+	}
+	public function getAllOpportunities() {
+		return $this->where('opportunity', '=', 1)
+					->select('works.id as work_id', 'works.name', 'works.img', 'works.sold', 'works.opportunity', 'works.price', 'works.discount', 'works.featured_to_home', 'works.slug', 'artists.id as artist_id', 'artists.name as artist_name', 'artists.slug as artist_slug')
+					->join('artists', 'works.artist_id', '=', 'artists.id')
+					->get();
+	}
+	public function getAllNoOpportunities() {
+		return $this->where('opportunity', '=', 0)
+					->select('works.id as work_id', 'works.name', 'works.img', 'works.sold', 'works.opportunity', 'works.price', 'works.discount', 'works.featured_to_home', 'works.slug', 'artists.id as artist_id', 'artists.name as artist_name', 'artists.slug as artist_slug')
 					->join('artists', 'works.artist_id', '=', 'artists.id')
 					->get();
 	}

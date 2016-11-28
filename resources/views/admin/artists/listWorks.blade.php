@@ -2,14 +2,17 @@
 
 @extends('admin.layout')
 
-@section('title', 'Artista')
+@section('title', "$artist->name")
 
-@section('subtitle', "Obras do Artista $artist->name")
+@section('subtitle', "Obras do Artista" )
 
 @section('addBtn')
-	<a href="/admin/artistas/{{ $artist->slug }}">
+	<a href="/admin/artistas/{{ $artist->slug }}/editar">
 		<button class="btn btn-primary ">Editar Artista</button>
 	</a>
+	<br/>
+	<br/>
+	<p class="lead">Se o artista estiver destacado na homepage, as 3 obras aqui destacadas aparecerão destacadas também.</p>
 @endsection
 
 @section('content')
@@ -21,14 +24,15 @@
 		</div>
 	@endif
 
-	@if (count($errors) > 0)
-	    <div class="alert alert-danger col-xs-12">
-	        <ul>
-	            @foreach ($errors->all() as $error)
-	                <li>{{ $error }}</li>
-	            @endforeach
-	        </ul>
-	    </div>
+	@if(session('success_status'))
+		<div class="col-xs-12 alert alert-success">
+			{{ session('success_status') }}
+		</div>
+	@endif
+	@if(session('danger_status'))
+		<div class="col-xs-12 alert alert-danger">
+			{{ session('danger_status') }}
+		</div>
 	@endif
 
 	<div class="form-group">
@@ -39,15 +43,15 @@
 				</div>
 			@endif
 			@foreach($works as $work)
-				<li class="list-group-item">
+				<li class="list-group-item {{ $work->featured_to_artist ? "destacado" : null }}">
 					<div class="col-xs-3">{{ $work->name }}</div>
-					<div class="col-xs-3"><img src="/upload/works/midsize/{{ $work->img}}" class="img-responsive" /></div>
+					<div class="col-xs-3"><img src="/upload/works/thumb/{{ $work->img}}" class="img-responsive" /></div>
 					<div class="col-xs-2"><strong>{{ $work->price }}</strong><br/><small>{{ $work->discount }}</small></div>
 					<div class="col-xs-1">{!! $work->opportunity == 1 ? "Sim" : "Não" !!}</div>
 					<div class="col-xs-3">
 						<!-- Update Button -->
 						<div class="col-xs-6"> 
-							<a href="/admin/obras/{{ $work->work_slug }}">
+							<a href="/admin/obras/{{ $work->slug }}/editar">
 								<button type="button" class=" btn btn-sm btn-warning btn-edit">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</button>
@@ -63,6 +67,15 @@
 							{!! Form::close() !!}
 						</div>
 						<!-- .Delete Form -->
+						<!-- Feature work from Artist Button -->
+						<div class="col-xs-12"> 
+							<a href="{!! URL::action('Admin\WorkController@featureToArtist', [$work->slug, $artist->id]) !!}" class="btn btn-{{ $work->featured_to_artist ? "default" : "primary" }}">
+								<i class="glyphicon glyphicon-{{ $work->featured_to_artist ? "minus" : "plus" }}"></i>
+								{{ $work->featured_to_artist ? "Tirar Destaque" : "Destacar" }}
+							</a>
+						</div>
+						<!-- .Feature work from Artist Button -->
+
 					</div>
 				</li>
 			@endforeach
