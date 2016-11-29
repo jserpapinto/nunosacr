@@ -95,7 +95,7 @@
                         <li><a href="{!! action('Frontend\WorkController@opportunities') !!}">Opportunities</a></li>
                         <li><a href="exhibitions.html">Exhibitions</a></li>
                         <li><a href="press.html">Press</a></li>        
-                        <li><a href="contacts.html">Contact</a></li>                         
+                        <li><a href="{!! action('HomeController@contacts') !!}">Contact</a></li>                         
                     </ul>            
                 </div>
             </div>

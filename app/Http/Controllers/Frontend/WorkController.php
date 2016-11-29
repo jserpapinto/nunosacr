@@ -31,6 +31,6 @@ class WorkController extends Controller
     public function buyWorkEmail(Request $req)
     {
         Mail::to('jserpa.dev@gmail.com')->send(new buyWork($req->all()));
-        return "OK";
+        return response('OK', 200);
     }
 }

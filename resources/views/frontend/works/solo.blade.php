@@ -65,7 +65,7 @@
     <div id="mail-overlay">
         <div id="mail-popup">
             <div id="mail-popup-close" onclick="depopup();">X</div>
-            <div class="form-group">
+            <div class="form-group" id="mail-form">
                 {{ csrf_field() }}
                 <!-- Name -->
                 <div class="input-group">
@@ -90,6 +90,14 @@
                 <div id="btnSubmitBuyWork">
                     <a onclick="mailReq();" class="btn ws-btn-fullwidth">Send</a>
                 </div>
+            </div>
+            <div id="mail-success">
+                <h3>Success!</h3>
+                <p class="lead">Email has been sent!<br/>We will enter in contact with you briefly.<br/>Thank you!</p>
+            </div>
+            <div id="mail-error">
+                <h3>Error!</h3>
+                <p class="lead">Email could not be sent!<br/>Please try again briefly or contact us directly through the email <a href="mailto:ns@nunosacramento.com.pt">ns@nunosacramento.com.pt</a>.<br/>Thank you!</p>
             </div>
         </div>
     </div>
@@ -126,10 +134,14 @@ function mailReq () {
         },
         success: function(result) {
             console.log(result);
+            $('#mail-form').fadeOut('fast');
+            $('#mail-success').fadeIn('fast');
         },
         error: function(xhr, desc, err) {
            console.log(xhr, err); 
            console.log(xhr.responseText); 
+            $('#mail-form').fadeOut('fast');
+            $('#mail-error').fadeIn('fast');
         }
     })
 }

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\ContactMail;
 
 // Models
 use App\Artist;
 use App\Work;
 use App\Exhibition;
 use Vinkla\Instagram\Instagram;
+
 
 class HomeController extends Controller
 {
@@ -52,5 +54,19 @@ class HomeController extends Controller
         // Instagram posts
 
         return view('frontend.index', compact('artistFeatured', 'artistFeaturedWorks', 'worksOpportunity', 'worksNoOpportunity'));
+    }
+
+    // Show contacts Page
+    public function contacts()
+    {
+        return view('frontend.static.contacts');
+    }
+
+    // Send mail from contacts form
+    public function contactsMail()
+    {
+
+        Mail::to('jserpa.dev@gmail.com')->send(new buyWork($req->all()));
+        return response('OK', 200);
     }
 }

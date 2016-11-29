@@ -91,7 +91,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::post("/exposicoes", 'ExhibitionController@create');
 	Route::put("/exposicoes/{slug}", 'ExhibitionController@update');
 	Route::delete("/exposicoes/{slug}", 'ExhibitionController@remove');
-
+});
 
 
 //Auth::routes();
@@ -123,6 +123,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Auth'], function() {
 // Homepage
 Route::get('/', 'HomeController@index');
 
+// Static Pages
+Route::get('/contacts', 'HomeController@contacts');
+Route::get('/contacts/mail', 'HomeController@contactsMail');
+
 Route::group(['namespace' => 'Frontend'], function () {
 	// Artist Pages
 	Route::get('/artists', 'ArtistController@index');
@@ -131,6 +135,7 @@ Route::group(['namespace' => 'Frontend'], function () {
 	// Work Pages
 	Route::get('/work/{slug}/solo', 'WorkController@solo');
 	Route::get('/work/opportunities', 'WorkController@opportunities');
+
 
 	// Mail
 	Route::post('/work/{slug}/buyWork', 'WorkController@buyWorkEmail');
