@@ -125,7 +125,7 @@ Route::get('/', 'HomeController@index');
 
 // Static Pages
 Route::get('/contacts', 'HomeController@contacts');
-Route::get('/contacts/mail', 'HomeController@contactsMail');
+Route::post('/contacts/mail', 'HomeController@contactsMail');
 
 Route::group(['namespace' => 'Frontend'], function () {
 	// Artist Pages
@@ -135,6 +135,9 @@ Route::group(['namespace' => 'Frontend'], function () {
 	// Work Pages
 	Route::get('/work/{slug}/solo', 'WorkController@solo');
 	Route::get('/work/opportunities', 'WorkController@opportunities');
+
+	// Press Pages
+	Route::get('/press', 'PressController@index');
 
 
 	// Mail

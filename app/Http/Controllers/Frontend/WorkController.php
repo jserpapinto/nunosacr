@@ -28,8 +28,15 @@ class WorkController extends Controller
 		return view('frontend.works.opportunities', compact('allWorks'));
     }
 
-    public function buyWorkEmail(Request $req)
+    public function buyWorkEmail(Request $req, $slug)
     {
+        $rules = [
+            'client_name' => 'required|min:3|max:50',
+            'client_mail' => 'required|email',
+            'client_subject' => 'required|min:3|max:50',
+            'client_message' => 'required|min:10'
+        ];
+        $this->validate($req, $rules);
         Mail::to('jserpa.dev@gmail.com')->send(new buyWork($req->all()));
         return response('OK', 200);
     }

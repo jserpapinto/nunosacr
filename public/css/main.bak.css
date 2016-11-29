@@ -34,6 +34,9 @@ Table of Contents:
 /*--------------------------------------
 	1) GENERAL STYLES
 ---------------------------------------*/
+html {
+    height:100%;
+}
 body{		
 	font-family: 'Merriweather', serif;		
 	color: #999;	    
@@ -64,7 +67,7 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 
 /* Font Styles */
 .btn, h1, h2, h3, h4, h5, h6, .dropdown-menu li, .ws-work-item-desc span, .ws-footer-bar p, .ws-topbar, .ws-navbar, 
-.ws-item-category, .ws-item-sale span, .ws-item-sold span, .ws-call-btn a, .ws-footer li, .ws-contact-page .ws-contact-info a, 
+.ws-item-category, .ws-item-sale span, .ws-item-sold span, .ws-call-btn a, .ws-footer li, .ws-contact-form, .ws-contact-page .ws-contact-info a, 
 .ws-contact-offices .caption strong, .ws-journal-page .nav-tabs li a, .ws-journal-pagination .pager li>a, .ws-shop-page .nav-tabs li a, 
 .ws-faq-page .nav-tabs li a, .ws-login-form, .ws-register-form, .ws-breadcrumb, .ws-mycart-content thead th, .ws-mycart-total, 
 .ws-mycart-content .ws-coupon-code input, .ws-checkout-billing label, .ws-checkout-order, .ws-3d-title{
@@ -120,7 +123,7 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 
 /* Buttons */
 .btn{	
-	background: #f2f2f2;
+	background: transparent;
 	border-radius: 0;
 	border: none;
 	text-transform: uppercase;
@@ -1735,17 +1738,16 @@ tfoot.ws-checkout-shipping tr.ws-shipping-total td{
 	resize: none;
 }
 .ws-contact-form input:focus, .ws-contact-form textarea:focus{
-	border: 0;
-	background-color: #ddd;
+	border: 1px solid #000;
+	background-color: transparent;
 }
 .ws-contact-form .form-group{
 	margin: 0 0 20px 0;
-    background: #f2f2f2;
 }
 .ws-contact-form .form-control{	
 	border-radius: 0;
-    border: 0;
-    background-color: #f2f2f2;
+    border: 1px solid #dadada;
+    background-color: transparent;
     -webkit-box-shadow: none;
     box-shadow: none;
     -ms-transition: .3s ease-in-out;
@@ -1763,8 +1765,7 @@ tfoot.ws-checkout-shipping tr.ws-shipping-total td{
 	color: #000;
 }
 .ws-contact-offices{
-	padding-top: 0;
-    padding-bottom: 40px;
+	padding-top: 70px;
 }
 .ws-contact-offices h2{
 	font-size: 24px;

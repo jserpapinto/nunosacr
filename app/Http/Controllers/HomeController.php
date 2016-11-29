@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Mail;
+use Vinkla\Instagram\Instagram;
 
 // Models
 use App\Artist;
 use App\Work;
 use App\Exhibition;
-use Vinkla\Instagram\Instagram;
+use App\MailLog;
 
 
 class HomeController extends Controller
@@ -63,10 +65,28 @@ class HomeController extends Controller
     }
 
     // Send mail from contacts form
-    public function contactsMail()
+    public function contactsMail(Request $req)
     {
+        $rules = [
+            'name' => 'required|min:3|max:50',
+            'mail' => 'required|email',
+            'subject' => 'required|min:3|max:50',
+            'message' => 'required|min:10'
+        ];
+        $this->validate($req, $rules);
 
-        Mail::to('jserpa.dev@gmail.com')->send(new buyWork($req->all()));
-        return response('OK', 200);
+        // MailLog 
+        $mailLog = new MailLog();
+        $mailLog->name = $req->name;
+        $mailLog->email = $req->mail;
+        $mailLog->subject = $req->subject;
+        $mailLog->message = $req->message;
+        $mailLog->slug = uniqid();
+        // Save in DB
+        $mailLog->save();
+
+        Mail::to('jserpa.dev@gmail.com')->send(new ContactMail($req->all()));
+
+        return back()->with('success_status', 'Email Sent');
     }
 }

@@ -64,27 +64,31 @@
 
     <div id="mail-overlay">
         <div id="mail-popup">
+            <div id="mail-error">
+                <h3>Error!</h3>
+                <p class="lead">Email could not be sent!<br/>Please try again briefly or contact us directly through the email <a href="mailto:ns@nunosacramento.com.pt">ns@nunosacramento.com.pt</a>.<br/>Thank you!</p>
+            </div>
             <div id="mail-popup-close" onclick="depopup();">X</div>
             <div class="form-group" id="mail-form">
                 {{ csrf_field() }}
                 <!-- Name -->
-                <div class="input-group">
-                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
+                <div class="form-group">
+                    {!! Form::text('name', null, ['class' => 'form-control text-center', 'placeholder' => 'Name']) !!}
                 </div>
                 <!-- .Name -->
                 <!-- Email -->
-                <div class="input-group">
-                    {!! Form::email('mail', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
+                <div class="form-group">
+                    {!! Form::email('mail', null, ['class' => 'form-control text-center', 'placeholder' => 'Email']) !!}
                 </div>
                 <!-- .Email -->
                 <!-- Subject -->
-                <div class="input-group">
-                    {!! Form::text('subject', null, ['class' => 'form-control', 'placeholder' => 'Subject']) !!}
+                <div class="form-group">
+                    {!! Form::text('subject', null, ['class' => 'form-control text-center', 'placeholder' => 'Subject']) !!}
                 </div>
                 <!-- .Subject -->
                 <!-- Message -->
-                <div class="input-group">
-                    {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholder' => 'Message']) !!}
+                <div class="form-group">
+                    {!! Form::textarea('message', null, ['class' => 'form-control text-center', 'placeholder' => 'Message']) !!}
                 </div>
                 <!-- .Message -->
                 <div id="btnSubmitBuyWork">
@@ -94,10 +98,6 @@
             <div id="mail-success">
                 <h3>Success!</h3>
                 <p class="lead">Email has been sent!<br/>We will enter in contact with you briefly.<br/>Thank you!</p>
-            </div>
-            <div id="mail-error">
-                <h3>Error!</h3>
-                <p class="lead">Email could not be sent!<br/>Please try again briefly or contact us directly through the email <a href="mailto:ns@nunosacramento.com.pt">ns@nunosacramento.com.pt</a>.<br/>Thank you!</p>
             </div>
         </div>
     </div>
@@ -133,15 +133,16 @@ function mailReq () {
             client_message: clientMessage,
         },
         success: function(result) {
-            console.log(result);
             $('#mail-form').fadeOut('fast');
             $('#mail-success').fadeIn('fast');
         },
         error: function(xhr, desc, err) {
-           console.log(xhr, err); 
-           console.log(xhr.responseText); 
-            $('#mail-form').fadeOut('fast');
-            $('#mail-error').fadeIn('fast');
+            let e = "<div class='alert alert-danger'>";
+            Object.values(xhr.responseJSON).forEach(function(val, i) {
+                e += "<p>" + val + "<p/>";
+            });
+            e += "</div>";
+            $('#mail-error').html(e).fadeIn('fast');
         }
     })
 }

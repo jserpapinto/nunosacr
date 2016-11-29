@@ -23,17 +23,17 @@ class PressController extends Controller
             // Instaciate class Image
             $image = Image::make(Input::file('img'));
             // Original
-            $image_original = $image->fit(1000,1000, function($constraint) {
+            /*$image_original = $image->fit(1000,1000, function($constraint) {
                 $constraint->upsize();
-            });
-            $image_original->save($path . 'original/' . $imgName);
+            });*/
+            $image->save($path . 'original/' . $imgName);
             // Mid sized
-            $image_mid = $image->fit(500,500, function($constraint) {
+            $image_mid = $image->fit(500,250, function($constraint) {
                 $constraint->upsize();
             });
             $image_mid->save($path . 'midsize/' . $imgName);
             // Thumbnail
-            $image_thumb = $image->fit(100,100, function($constraint) {
+            $image_thumb = $image->fit(100,50, function($constraint) {
                 $constraint->upsize();
             });
             $image_thumb->save($path . 'thumb/' . $imgName);

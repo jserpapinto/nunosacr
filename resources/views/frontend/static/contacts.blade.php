@@ -10,10 +10,32 @@
 </div>            
 <!-- End Page Parallax Header -->
 
-
 <!-- Page Content -->
 <div class="container ws-page-container">
 
+
+
+	@if (count($errors) > 0)
+	    <div class="alert alert-danger col-xs-12">
+	        <ul>
+	            @foreach ($errors->all() as $error)
+	                <li>{{ $error }}</li>
+	            @endforeach
+	        </ul>
+	    </div>
+	@endif
+
+
+	@if(session('success_status'))
+		<div class="col-xs-12 alert alert-success">
+			{{ session('success_status') }}
+		</div>
+	@endif
+	@if(session('danger_status'))
+		<div class="col-xs-12 alert alert-danger">
+			{{ session('danger_status') }}
+		</div>
+	@endif
 
 
 	<div class="ws-contact-offices text-center">
@@ -29,31 +51,29 @@
 			<!-- Contact Form -->
 			<div class="col-sm-12">
 				{!! Form::open(['action' => ["HomeController@contactsMail"],  'method' => "post", 'class' => 'form-horizontal ws-contact-form']) !!}
-
 					<!-- Name -->
-					<div class="form-group">
-						<input type="text" class="form-control text-center" placeholder="Name">                        
-					</div>
-
-					<!-- Email -->
-					<div class="form-group">
-						<input type="email" class="form-control text-center" placeholder="Email">                        
-					</div>
-
-					<!-- Subject -->
-					<div class="form-group">
-						<input type="text" class="form-control text-center" placeholder="Subject">                        
-					</div>
-
-					<!-- Message -->
-					<div class="form-group text-center">
-						<textarea class="form-control text-center" rows="7" placeholder="Message"></textarea>
-					</div>
-
-					<!-- Submit Button -->
-					<div class="form-group text-center">                        
-						<a href="#x" class="btn ws-big-btn " style="width: 100%">Submit</a>                        
-					</div>
+	                <div class="form-group">
+	                    {!! Form::text('name', null, ['class' => 'form-control text-center', 'placeholder' => 'Name']) !!}
+	                </div>
+	                <!-- .Name -->
+	                <!-- Email -->
+	                <div class="form-group">
+	                    {!! Form::email('mail', null, ['class' => 'form-control text-center', 'placeholder' => 'Email']) !!}
+	                </div>
+	                <!-- .Email -->
+	                <!-- Subject -->
+	                <div class="form-group">
+	                    {!! Form::text('subject', null, ['class' => 'form-control text-center', 'placeholder' => 'Subject']) !!}
+	                </div>
+	                <!-- .Subject -->
+	                <!-- Message -->
+	                <div class="form-group">
+	                    {!! Form::textarea('message', null, ['class' => 'form-control text-center', 'placeholder' => 'Message']) !!}
+	                </div>
+	                <!-- .Message -->
+	                <div id="btnSubmitBuyWork">
+						{!! Form::submit('Send', ['class' => 'btn ws-big-btn ws-btn-fullwidth']) !!}
+	                </div>
 				{!! Form::close() !!}
 			</div>
 
