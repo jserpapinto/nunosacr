@@ -22,4 +22,8 @@ class Exhibition extends Model
 	{
 		return $this->belongsToMany('App\Artist', 'artist_to_exhibition', 'exhibition_id', 'artist_id');
 	}
+	public function works()
+	{
+		return $this->belongsToMany('App\Work', 'works_to_exhibition', 'exhibition_id', 'work_id');
+	}
 }

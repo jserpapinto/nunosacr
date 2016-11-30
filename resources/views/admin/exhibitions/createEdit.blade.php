@@ -69,6 +69,12 @@
 					{!! Form::select('artists[]', $allArtists, isset($exhibition) ? $exhibitionArtists : null, ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'artists']) !!}
 				</div>
 				<!-- .Artists -->
+				<!-- Works -->
+				<div class="input-group">
+					{!! Form::label('works', 'Obras', ['class' => 'input-group-addon']) !!}
+					{!! Form::select('works[]', $allWorks, isset($exhibition) ? $exhibitionWorks : null, ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'works']) !!}
+				</div>
+				<!-- .Works -->
 				<!-- From -->
 				<div class="input-group">
 					{!! Form::label('from', 'Data Início', ['class' => 'input-group-addon']) !!}

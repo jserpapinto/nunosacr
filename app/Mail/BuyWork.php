@@ -24,10 +24,10 @@ class BuyWork extends Mailable
     public function __construct($req)
     {
         //
-        $this->client_name = $req['client_name'];
-        $this->client_email = $req['client_mail'];
-        $this->client_subject = $req['client_subject'];
-        $this->client_message = $req['client_message'];
+        $this->client_name = $req['name'];
+        $this->client_email = $req['mail'];
+        $this->client_subject = $req['subject'];
+        $this->client_message = $req['message'];
     }
 
     /**

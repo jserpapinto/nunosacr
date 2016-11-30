@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmailLogTable extends Migration
+class CreateWorksToExhibition extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,10 @@ class CreateEmailLogTable extends Migration
     public function up()
     {
         //
-        Schema::create('mail_log', function(Blueprint $table) {
+        Schema::create('works_to_exhibition', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('subject');
-            $table->text('message');
-            $table->string('slug');
-            $table->string('form');
+            $table->integer('exhibition_id');
+            $table->integer('work_id');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +31,6 @@ class CreateEmailLogTable extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('mail_log');
+        Schema::dropIfExists('works_to_exhibition');
     }
 }

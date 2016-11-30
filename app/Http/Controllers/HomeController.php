@@ -71,7 +71,7 @@ class HomeController extends Controller
             'name' => 'required|min:3|max:50',
             'mail' => 'required|email',
             'subject' => 'required|min:3|max:50',
-            'message' => 'required|min:10'
+            'message' => 'required|min:10',
         ];
         $this->validate($req, $rules);
 
@@ -81,6 +81,7 @@ class HomeController extends Controller
         $mailLog->email = $req->mail;
         $mailLog->subject = $req->subject;
         $mailLog->message = $req->message;
+        $mailLog->form = "contacts";
         $mailLog->slug = uniqid();
         // Save in DB
         $mailLog->save();

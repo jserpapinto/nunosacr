@@ -65,8 +65,7 @@
     <div id="mail-overlay">
         <div id="mail-popup">
             <div id="mail-error">
-                <h3>Error!</h3>
-                <p class="lead">Email could not be sent!<br/>Please try again briefly or contact us directly through the email <a href="mailto:ns@nunosacramento.com.pt">ns@nunosacramento.com.pt</a>.<br/>Thank you!</p>
+                
             </div>
             <div id="mail-popup-close" onclick="depopup();">X</div>
             <div class="form-group" id="mail-form">
@@ -124,25 +123,34 @@ function mailReq () {
     $.ajax({
         url: '{!! action('Frontend\WorkController@buyWorkEmail', $work->slug) !!}',
         method: 'POST',
-        dataTye: 'json',
         data: {
-            _token: formToken,
-            client_name: clientName,
-            client_mail: clientMail,
-            client_subject: clientSubject,
-            client_message: clientMessage,
+            "_token": formToken,
+            name: clientName,
+            mail: clientMail,
+            subject: clientSubject,
+            message: clientMessage,
         },
         success: function(result) {
             $('#mail-form').fadeOut('fast');
             $('#mail-success').fadeIn('fast');
         },
         error: function(xhr, desc, err) {
-            let e = "<div class='alert alert-danger'>";
-            Object.values(xhr.responseJSON).forEach(function(val, i) {
-                e += "<p>" + val + "<p/>";
-            });
-            e += "</div>";
-            $('#mail-error').html(e).fadeIn('fast');
+            alert("err");
+            console.log(xhr, "-", err);
+            if (xhr.status == 500) {
+                // Internal Server Error
+                $('#mail-form').fadeOut('fast');
+                $('#mail-error').html('<h3>Error!</h3>\
+                    <p class="lead">Email could not be sent!<br/>Please try again briefly or contact us directly through the email <a href="mailto:ns@nunosacramento.com.pt">ns@nunosacramento.com.pt</a>.<br/>Thank you!</p>').fadeIn('fast');
+            } else {
+                // Bad Request
+                let e = "<div class='alert alert-danger'>";
+                Object.values(xhr.responseJSON).forEach(function(val, i) {
+                    e += "<p>" + val + "<p/>";
+                });
+                e += "</div>";
+                $('#mail-error').html(e).fadeIn('fast');
+            }
         }
     })
 }

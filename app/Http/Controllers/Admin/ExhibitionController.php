@@ -14,7 +14,9 @@ use Input;
 // Model
 use App\Exhibition;
 use App\Artist;
-use App\ArtistToExhibition;
+use App\Work;
+use App\ArtistsToExhibition;
+use App\WorksToExhibition;
 
 class ExhibitionController extends Controller
 {
@@ -65,14 +67,19 @@ class ExhibitionController extends Controller
         if ($slug) {
             $Exhibition = new Exhibition;
             $exhibition = $Exhibition->getOneBySlug($slug);
-            echo $slug;
-        	$exhibitionArtists = $exhibition->artists->pluck('id')->toArray();
+            $exhibitionArtists = $exhibition->artists->pluck('id')->toArray();
+        	$exhibitionWorks = $exhibition->works->pluck('id')->toArray();
         }  
 
+        // Get all Artists to multiselect
         $Artist = new Artist();
         $allArtists = $Artist->getAllNames();
 
-        return view('admin.exhibitions.createEdit', compact('exhibition', 'allArtists', 'exhibitionArtists'));
+        // Get all Works to multiselect
+        $Work = new Work();
+        $allWorks = $Work->getAllNames();
+
+        return view('admin.exhibitions.createEdit', compact('exhibition', 'allArtists', 'allWorks', 'exhibitionArtists', 'exhibitionWorks'));
     }
 
 	/**
@@ -106,6 +113,7 @@ class ExhibitionController extends Controller
 
         // Save to pivot table
         $exhibition->artists()->attach($req->artists);
+        $exhibition->works()->attach($req->works);
 
 
         // Upload Catalog
@@ -153,6 +161,10 @@ class ExhibitionController extends Controller
         $exhibition->artists()->detach($exhibition->artists);
         // Save to pivot table
         $exhibition->artists()->attach($req->artists);
+        // Remove all from pivot table
+        $exhibition->works()->detach($exhibition->works);
+        // Save to pivot table
+        $exhibition->works()->attach($req->works);
 
 
         // Upload Catalog
@@ -167,4 +179,17 @@ class ExhibitionController extends Controller
         return redirect()->action('Admin\ExhibitionController@index')->with('success_status', 'Novo Press Criado');
     }
 
+    public function listWorks($slug)
+    {   
+        // Get ID from exhibition
+        $exhibition = Exhibition::whereSlug($slug)->first();
+
+        // Join with works and artists table
+        $allArtists = ArtistsToExhibition::where('exhibition_id', '=', $exhibition->id)->join('artists', 'artist_to_exhibition.artist_id', '=', 'artist_id')->get();
+        $allWorks = WorksToExhibition::where('exhibition_id', '=', $exhibition->id)->join('works', 'works_to_exhibition.work_id', '=', 'work_id')->get();
+
+
+        return view('admin.exhibitions.listWorks', compact('exhibition', 'allArtists', 'allWorks'));
+
+    }
 }

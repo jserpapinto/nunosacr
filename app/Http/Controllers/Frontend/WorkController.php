@@ -9,6 +9,7 @@ use App\Mail\BuyWork;
 
 // Model
 use App\Work;
+use App\MailLog;
 
 class WorkController extends Controller
 {
@@ -31,13 +32,26 @@ class WorkController extends Controller
     public function buyWorkEmail(Request $req, $slug)
     {
         $rules = [
-            'client_name' => 'required|min:3|max:50',
-            'client_mail' => 'required|email',
-            'client_subject' => 'required|min:3|max:50',
-            'client_message' => 'required|min:10'
+            'name' => 'required|min:3|max:50',
+            'mail' => 'required|email',
+            'subject' => 'required|min:3|max:50',
+            'message' => 'required|min:10'
         ];
         $this->validate($req, $rules);
+
+        // MailLog 
+        $mailLog = new MailLog();
+        $mailLog->name = $req->name;
+        $mailLog->email = $req->mail;
+        $mailLog->subject = $req->subject;
+        $mailLog->message = $req->message;
+        $mailLog->form = "buyWork " . $slug;
+        $mailLog->slug = uniqid();
+        // Save in DB
+        $mailLog->save();
+
+
         Mail::to('jserpa.dev@gmail.com')->send(new buyWork($req->all()));
-        return response('OK', 200);
+        return "OK";
     }
 }

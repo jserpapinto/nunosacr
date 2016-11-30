@@ -88,6 +88,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::get("/exposicoes", 'ExhibitionController@index');
 	Route::get("/exposicoes/{slug}/editar", 'ExhibitionController@editCreate');
 	Route::get("/exposicoes/criar", 'ExhibitionController@editCreate');
+	Route::get("/exposicoes/{slug}/obras", 'ExhibitionController@listWorks');
 	Route::post("/exposicoes", 'ExhibitionController@create');
 	Route::put("/exposicoes/{slug}", 'ExhibitionController@update');
 	Route::delete("/exposicoes/{slug}", 'ExhibitionController@remove');

@@ -137,7 +137,7 @@
             @foreach ($worksOpportunity as $work)
                 <!-- Item -->
                 <div class="ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
-                    <a href="#{{ $work->slug }}">                        
+                    <a href="{!! action('Frontend\WorkController@solo', $work->slug) !!}">                        
                         <div class="ws-item-offer">
                             <!-- Image -->                        
                             <figure>                            
