@@ -76,19 +76,19 @@
                 <!-- Description -->
                 <div class="ws-about-content clearfix">
                     <div class="col-sm-8 col-sm-offset-2">
-                        <h3>{{ $artistFeatured->name }}</h3> 
-                        <div class="ws-separator"></div>                      
-                        <p>{{ $artistFeatured->bio }}</p>
-                    </div>                
+                        <h3>{{ $exhibitionFeatured->title }}</h3> 
+                        <div class="ws-separator"></div>
+                        <p>{{ $exhibitionFeatured->description }}</p>
+                    </div>
                 </div>
 
                 <!-- Featured Collections -->
-                @if (count($artistFeaturedWorks) > 0)
+                @if (count($exhibitionFeaturedWorks) > 0)
                     <div class="ws-featured-collections clearfix">
-                        @foreach ($artistFeaturedWorks as $work)
+                        @foreach ($exhibitionFeaturedWorks as $work)
                             <!-- Item -->
                             <div class="col-sm-4 featured-collections-item">
-                                <a href="#{{ $work->slug }}">
+                                <a href="{{ action('Frontend\WorkController@solo', $work->slug) }}">
                                     <div class="thumbnail">
                                         <img src="/upload/works/midsize/{{ $work->img }}" alt="Duma">
                                         <div class="ws-overlay">
@@ -96,8 +96,8 @@
                                     </div>
                                     <div class="ws-works-caption text-center">
                                         <!-- Title -->
-                                        <h4 class="ws-item-title">{{ $work->name }}</h4>                        
-                                        <div class="ws-item-separator"></div>    
+                                        <h4 class="ws-item-title">{{ $work->name }}</h4>
+                                        <div class="ws-item-separator"></div>
                                         <!-- Price -->
                                         @if ($work->price)
                                             <div class="ws-item-price">

@@ -14,21 +14,11 @@
 @endsection
 
 @section('content')
-	@if(Request::get('created'))
-		<div class="col-xs-12 alert alert-success">
-			Sucesso, Exposição criada!
-		</div>
-	@endif
-	@if(Request::get('updated'))
-		<div class="col-xs-12 alert alert-success">
-			Sucesso, Exposição atualizada!
-		</div>
-	@endif
-	@if(Request::get('deleted')) 
-		<div class="col-xs-12 alert alert-danger">
-			Exposição apagada!
-		</div>
-	@endif
+
+	
+	@include('admin.shared.alertMessages')
+
+
 	<!-- List All Artists -->
 	<div class="col-xs-12">
 		@if($allExhibitions->isEmpty())
@@ -39,7 +29,7 @@
 		<ul class="list-group">
 
 			@foreach ($allExhibitions as $exhibition)
-				<li class="list-group-item">
+				<li class="list-group-item {{ ($exhibition->featured) ? "destacado" : null }}">
 					<!-- Artist name -->
 					<div class="col-xs-7 col-sm-2">{{ $exhibition->title }}</div>
 					<!-- .Artist name -->
@@ -93,6 +83,13 @@
 										<i class="glyphicon glyphicon-search"></i> Listar obras
 									</button>
 								</a>
+								@unless ($exhibition->featured)
+								<a href="{{ route('ExhibitionFeature', $exhibition->slug) }}">
+									<button type="button" class=" btn btn-sm btn-primary ">
+										<i class="glyphicon glyphicon-plus"></i> Destacar
+									</button>
+								</a>
+								@endunless
 							</div>
 						</div>
 					</div>
@@ -101,6 +98,8 @@
 			@endforeach
 
 		</ul>
+
+		{{ $allExhibitions->links('vendor.pagination.default') }}
 	</div>
 	<!-- .List All Artists -->
 @endsection

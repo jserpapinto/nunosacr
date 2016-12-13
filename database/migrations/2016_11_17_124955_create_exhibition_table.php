@@ -20,6 +20,7 @@ class CreateExhibitionTable extends Migration
             $table->text('description')->nullable();
             $table->string('img')->default("");
             $table->string('catalog')->default("");
+            $table->boolean('featured')->default(0);
             $table->string('slug');
             $table->datetime('from')->nullable();
             $table->datetime('to')->nullable();

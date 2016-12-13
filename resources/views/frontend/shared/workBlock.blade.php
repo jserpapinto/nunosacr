@@ -2,8 +2,10 @@
 <div class="col-sm-6 col-md-4 ws-works-item">
     <a href="{{ action('Frontend\WorkController@solo', $work->slug) }}">                        
         <div class="ws-item-offer">
+
             <!-- Image -->                        
             <figure>                            
+                <button class="btn ws-btn-fullwidth btn-inside-img">Buy Now</button>
                 <img src="{{ asset("upload/works/midsize/$work->img") }}" alt="{{ $work->name }}" class="img-responsive">
             </figure>  
             @if ($work->discount > 0)
@@ -40,7 +42,6 @@
                     @endif
                 </div>
             @endif  
-            <a class="btn ws-btn-fullwidth">Buy Now</a>
         </div>
     </a>
 </div>

@@ -53,7 +53,7 @@ class ExhibitionController extends Controller
      */
     public function index() {
         $Exhibition = new Exhibition;
-        $allExhibitions = $Exhibition->getAll();
+        $allExhibitions = $Exhibition->paginate('15');
 
         return view('admin.exhibitions.index', compact('allExhibitions'));
     }
@@ -90,9 +90,6 @@ class ExhibitionController extends Controller
 
         // Generate Names for files
         // Mudar para string penso eu
-        if ($req->hasFile('catalog')) {
-            $catalogName = time() . '.pdf';
-        }
         if ($req->hasFile('img')) {
             $ext = "." . $req->file('img')->getClientOriginalExtension();
             $imgName = time() . $ext;
@@ -101,11 +98,11 @@ class ExhibitionController extends Controller
         // Get Exhibition to update
         $exhibition = new Exhibition();
         $exhibition->title = $req->title;
-        $exhibition->description = $req->description;
         $exhibition->from = $req->from;
         $exhibition->to = $req->to;
+        $exhibition->catalog = $req->catalog;
+        $exhibition->description = $req->description;
         $exhibition->slug = uniqid();
-        if (isset($catalogName)) $exhibition->catalog = $catalogName;
         if (isset($imgName)) $exhibition->img = $imgName;
 
         // Save in DB
@@ -116,10 +113,6 @@ class ExhibitionController extends Controller
         $exhibition->works()->attach($req->works);
 
 
-        // Upload Catalog
-        if ($req->hasFile('catalog')) {
-            $req->file('catalog')->move(public_path('/upload/exhibitions/catalogs/'), $catalogName);
-        }
         // Upload img
         if ($req->hasFile('img')) {
             $this->uploadImgs($req, $imgName);
@@ -136,9 +129,6 @@ class ExhibitionController extends Controller
 
         // Generate Names for files
         // Mudar para string penso eu
-        if ($req->hasFile('catalog')) {
-            $catalogName = time() . '.pdf';
-        }
         if ($req->hasFile('img')) {
             $ext = "." . $req->file('img')->getClientOriginalExtension();
             $imgName = time() . $ext;
@@ -148,10 +138,10 @@ class ExhibitionController extends Controller
         $exhibition = new Exhibition();
         $exhibition = $exhibition->getOneBySlug($slug);
         $exhibition->title = $req->title;
+        $exhibition->catalog = $req->catalog;
         $exhibition->description = $req->description;
         if (!empty($req->from)) $exhibition->from = $req->from;
         if (!empty($req->to)) $exhibition->to = $req->to;
-        if (isset($catalogName)) $exhibition->catalog = $catalogName;
         if (isset($imgName)) $exhibition->img = $imgName;
 
         // Save in DB
@@ -159,24 +149,20 @@ class ExhibitionController extends Controller
 
         // Remove all from pivot table
         $exhibition->artists()->detach($exhibition->artists);
-        // Save to pivot table
-        $exhibition->artists()->attach($req->artists);
         // Remove all from pivot table
         $exhibition->works()->detach($exhibition->works);
+        // Save to pivot table
+        $exhibition->artists()->attach($req->artists);
         // Save to pivot table
         $exhibition->works()->attach($req->works);
 
 
-        // Upload Catalog
-        if ($req->hasFile('catalog')) {
-            $req->file('catalog')->move(public_path('/upload/exhibitions/catalogs/'), $catalogName);
-        }
         // Upload img
         if ($req->hasFile('img')) {
             $this->uploadImgs($req, $imgName);
         }
 
-        return redirect()->action('Admin\ExhibitionController@index')->with('success_status', 'Novo Press Criado');
+        return redirect()->back()->with('success_status', 'Exposição Atualizada');
     }
 
     public function listWorks($slug)
@@ -185,11 +171,70 @@ class ExhibitionController extends Controller
         $exhibition = Exhibition::whereSlug($slug)->first();
 
         // Join with works and artists table
-        $allArtists = ArtistsToExhibition::where('exhibition_id', '=', $exhibition->id)->join('artists', 'artist_to_exhibition.artist_id', '=', 'artist_id')->get();
-        $allWorks = WorksToExhibition::where('exhibition_id', '=', $exhibition->id)->join('works', 'works_to_exhibition.work_id', '=', 'work_id')->get();
-
-
+        $allArtists = ArtistsToExhibition::where('exhibition_id', '=', $exhibition->id)
+                                ->join('artists', 'artist_to_exhibition.artist_id', '=', 'artists.id')
+                                ->where('artists.deleted_at', '=', NULL)
+                                ->get();
+        $allWorks = WorksToExhibition::where('exhibition_id', '=', $exhibition->id)
+                                ->join('works', 'works_to_exhibition.work_id', '=', 'works.id')
+                                ->where('works.deleted_at', '=', NULL)
+                                ->get();
         return view('admin.exhibitions.listWorks', compact('exhibition', 'allArtists', 'allWorks'));
 
+    }
+
+    public function removeWork($slugExhibition, $slugWork)
+    {
+        // Get Exhibition
+        $Exhibition = new Exhibition();
+        $exhibition = $Exhibition->whereSlug($slugExhibition)->get();
+
+        // Detach Work from Exhibition
+        $Work = new Work();
+        $work = $Work->whereSlug($slugWork)->get();
+    }
+
+    public function feature($slug)
+    {
+        // Feature Exhibition to home page
+        $allExhibitions = Exhibition::where('featured', '=', 1)->update(['featured' => 0]);
+        $exhibition = Exhibition::whereSlug($slug);
+        $exhibition->update(['featured' => 1]);
+
+        return redirect()->back()->with('success_status', 'Exposição destacada na homepage.');
+    }
+
+    public function featureWork($slugExhibition, $slugWork)
+    {
+        // Feature Work Exhibition to home page
+
+        // Get exhibition and work to feature
+        $exhibition = Exhibition::whereSlug($slugExhibition)->first();
+        $work = Work::whereSlug($slugWork)->first();
+        $featureWork = WorksToExhibition::where([
+                            ['work_id', '=', $work->id],
+                            ['exhibition_id', '=', $exhibition->id]
+                        ])->first();
+        // Take out feature
+        if ($featureWork->featured_to_exhibition == 1) {
+            $featureWork->update(['featured_to_exhibition' => 0]);
+            return redirect()->back()->with('success_status', 'Retirado destaque.');
+        }
+
+        // Check if there is space for another feature (max:3)
+        $countFeaturedWorks = WorksToExhibition::where([
+                                ['exhibition_id', '=', $exhibition->id],
+                                ['featured_to_exhibition', '=', 1]
+                            ])->count();
+
+        // Return if max exceeded
+        if ($countFeaturedWorks >= 3) {
+            return redirect()->back()->with('danger_status', 'Máximo de 3 trabalhos destacados.');
+        }
+
+        // Feature it
+        $featureWork->update(['featured_to_exhibition' => 1]);
+
+        return redirect()->back()->with('success_status', 'Trabalho destacado na homepage.');
     }
 }

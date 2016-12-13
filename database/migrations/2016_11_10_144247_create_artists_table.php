@@ -20,6 +20,7 @@ class CreateArtistsTable extends Migration
             $table->string('site')->default("");
             $table->string('cv')->default("");
             $table->string('img')->default("");
+            $table->string('imgBanner')->default("");
             $table->string('email')->default("");
             $table->string('slug');
             $table->boolean('featured')->default(0);

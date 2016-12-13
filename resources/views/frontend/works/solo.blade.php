@@ -44,12 +44,12 @@
                         </div>
                     @endif 
 
-                    <!-- Quantity -->
+                    <!-- Quantity 
                     <div class="ws-product-quantity">
                         <a href="#" class="minus">-</a>
                             <input type="text" value="1" size="4">
                         <a href="#" class="plus">+</a>
-                    </div>       
+                    </div>      --> 
                 </header>
                 
                 <div class="ws-product-details">
@@ -64,11 +64,15 @@
 
     <div id="mail-overlay">
         <div id="mail-popup">
-            <div id="mail-error">
+            <div id="mail-error" class="">
                 
             </div>
-            <div id="mail-popup-close" onclick="depopup();">X</div>
-            <div class="form-group" id="mail-form">
+            <div id="mail-popup-close" onclick="depopup();"><i class="fa fa-times"></i></div>
+
+            <h2>Send us a message!</h2>  
+            <div class="ws-separator"></div>  
+
+            <div class="form-group ws-contact-form" id="mail-form">
                 {{ csrf_field() }}
                 <!-- Name -->
                 <div class="form-group">
@@ -87,7 +91,7 @@
                 <!-- .Subject -->
                 <!-- Message -->
                 <div class="form-group">
-                    {!! Form::textarea('message', null, ['class' => 'form-control text-center', 'placeholder' => 'Message']) !!}
+                    {!! Form::textarea('message', null, ['class' => 'form-control text-center', 'rows' => '5', 'placeholder' => 'Message']) !!}
                 </div>
                 <!-- .Message -->
                 <div id="btnSubmitBuyWork">
@@ -100,6 +104,56 @@
             </div>
         </div>
     </div>
+
+
+    <section class="ws-arrivals-section">
+
+        <div class="ws-works-title clearfix">
+            <div class="col-sm-12">
+                <h3>You may also like</h3> 
+                <div class="ws-separator"></div>   
+            </div>
+        </div>        
+
+        <div id="ws-items-carousel">
+
+            @foreach ($featuredWorks as $work)
+                <!-- Item -->
+                <div class="ws-works-item" data-sr='wait 0.1s, ease-in 20px'>
+                    <a href="{!! action('Frontend\WorkController@solo', $work->slug) !!}">                        
+                        <div class="ws-item-offer">
+                            <!-- Image -->                        
+                            <figure>                            
+                                <img src="/upload/works/midsize/{{ $work->img }}" alt="#" class="img-responsive">
+                            </figure>                    
+                        </div>
+
+                        <div class="ws-works-caption text-center">
+                            <!-- Item Category -->
+                            <div class="ws-item-category">{{ $work->artist_name }}</div>
+
+                            <!-- Title -->
+                            <h3 class="ws-item-title">{{ $work->name }}</h3>                        
+
+                            <div class="ws-item-separator"></div>    
+
+                            @if ($work->price)
+                                <div class="ws-item-price">
+                                    @if ($work->discount > 0)
+                                        <del>{{ $work->price }} €</del> 
+                                        <ins>{{ $work->discount }} €</ins>
+                                    @else 
+                                        <ins>{{ $work->price }} €</ins>
+                                    @endif
+                                </div>
+                            @endif                                                    
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+            
+        </div>
+    </section>
 @stop
 
 @section('pagescripts')
@@ -154,5 +208,8 @@ function mailReq () {
         }
     })
 }
+
+// Banner parallax
+$('.parallax-window').parallax({imageSrc: '{{ asset('upload/artists/banner/' . ($artist->imgBanner != "" ? $artist->imgBanner : 'default.jpg')) }}'});
 </script>
 @stop

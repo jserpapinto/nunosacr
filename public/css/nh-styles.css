@@ -30,3 +30,7 @@ body {
         font-size: 13px;
     }
 }
+
+select[multiple="multiple"] {
+    height: 200px;
+}

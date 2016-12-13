@@ -76,6 +76,12 @@
 					{!! Form::file('img', ['class' => 'form-control']) !!}
 				</div>
 				<!-- Imagem -->
+				<!-- Imagem BANNER -->
+				<div class="input-group">
+					{!! Form::label('imgBanner', 'Imagem Banner (1920x525)', ['class' => 'input-group-addon']) !!}
+					{!! Form::file('imgBanner', ['class' => 'form-control']) !!}
+				</div>
+				<!-- Imagem BANNER -->
 				<!-- Galeria -->
 				<div class="input-group">
 					{!! Form::label('gallery', 'Galeria', ['class' => 'input-group-addon']) !!}

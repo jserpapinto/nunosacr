@@ -30,9 +30,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	// Get list of Artists
 	Route::get("/artistas", 'ArtistController@index');
 	// Get Featured Artist
-	Route::get("/artistas/destaque/{slug}", 'ArtistController@feature');
+	Route::get("/artistas/{slug}/destaque", 'ArtistController@feature');
 	// Get Form to update Artist
-	Route::get("/artistas/{slug}/editar", 'ArtistController@editCreate');
+	Route::get("/artistas/{slug}/editar", 'ArtistController@editCreate')->name('artistEdit');
 	// Update Artist
 	Route::put("/artistas/{slug}", 'ArtistController@update');
 	// Delete Artist
@@ -54,7 +54,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	// Get List of Works
 	Route::get("/obras/oportunidades", 'WorkController@indexOpportunities');
 	// Get Form to update Work
-	Route::get("/obras/{slug}/editar", 'WorkController@editCreate');
+	Route::get("/obras/{slug}/editar", 'WorkController@editCreate')->name('workEdit');
 	// Feature Work to Artist
 	Route::get("/obras/{slugWork}/artista/{idArtist}", 'WorkController@featureToArtist');
 	// Update Work
@@ -86,12 +86,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	 */
 	// Get List of Exhibitions
 	Route::get("/exposicoes", 'ExhibitionController@index');
-	Route::get("/exposicoes/{slug}/editar", 'ExhibitionController@editCreate');
+	Route::get("/exposicoes/{slug}/editar", 'ExhibitionController@editCreate')->name('ExhibitionEdit');
 	Route::get("/exposicoes/criar", 'ExhibitionController@editCreate');
 	Route::get("/exposicoes/{slug}/obras", 'ExhibitionController@listWorks');
 	Route::post("/exposicoes", 'ExhibitionController@create');
 	Route::put("/exposicoes/{slug}", 'ExhibitionController@update');
 	Route::delete("/exposicoes/{slug}", 'ExhibitionController@remove');
+	Route::get("/exposicoes/{slug}/destacar", 'ExhibitionController@feature')->name('ExhibitionFeature');
+	Route::get("/exposicoes/{slugExhibition}/destacar_obra/{slugWork}", 'ExhibitionController@featureWork')->name('WorkExhibitionFeature');
 });
 
 
@@ -140,6 +142,9 @@ Route::group(['namespace' => 'Frontend'], function () {
 	// Press Pages
 	Route::get('/press', 'PressController@index');
 
+	// Exhibition Pages
+	Route::get('/exhibitions', 'ExhibitionController@index');
+	Route::get('/exhibitions/{slug}/solo', 'ExhibitionController@solo');
 
 	// Mail
 	Route::post('/work/{slug}/buyWork', 'WorkController@buyWorkEmail');

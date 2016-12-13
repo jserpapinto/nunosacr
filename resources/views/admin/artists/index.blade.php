@@ -14,16 +14,11 @@
 @endsection
 
 @section('content')
-	@if(session('success_status'))
-		<div class="col-xs-12 alert alert-success">
-			{{ session('success_status') }}
-		</div>
-	@endif
-	@if(session('danger_status'))
-		<div class="col-xs-12 alert alert-danger">
-			{{ session('danger_status') }}
-		</div>
-	@endif
+
+
+	@include('admin.shared.alertMessages')
+
+	
 	<!-- List All Artists -->
 	<div class="col-xs-12">
 		<ul class="list-group">
@@ -74,7 +69,7 @@
 						<div class="row">
 							<!-- View all Works Button -->
 							<div class="col-xs-12"> 
-								<a href="/admin/artistas/{{ $artist->slug }}/obras" class=" btn btn-default btn-info">
+								<a href="/admin/artistas/{{ $artist->slug }}/obras" class=" btn btn-default ">
 									<i class="glyphicon glyphicon-search"></i>
 									Obras
 								</a>
@@ -94,6 +89,8 @@
 			@endforeach
 
 		</ul>
+
+		{{ $allArtists->links('vendor.pagination.default') }}
 	</div>
 	<!-- .List All Artists -->
 @endsection

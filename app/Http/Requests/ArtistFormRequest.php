@@ -29,7 +29,8 @@ class ArtistFormRequest extends FormRequest
             "email" => "required|email",
             "bio" => "nullable",
             "cv" => "file|nullable",
-            "img" => "image|nullable"
+            "img" => "image|nullable",
+            "imgBanner" => "image|nullable"
         ];
     }
 }

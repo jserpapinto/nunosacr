@@ -33,6 +33,16 @@
 @endsection
 
 @section('content')
+
+	@if (count($errors) > 0)
+	    <div class="alert alert-danger col-xs-12">
+	        <ul>
+	            @foreach ($errors->all() as $error)
+	                <li>{{ $error }}</li>
+	            @endforeach
+	        </ul>
+	    </div>
+	@endif
 	
 	@if(session('success_status'))
 		<div class="col-xs-12 alert alert-success">
@@ -78,7 +88,7 @@
 					<div class="col-xs-5 col-sm-3">
 						<!-- Update Button -->
 						<div class="col-xs-6"> 
-							<a href="/admin/obras/{{ $work->work_slug }}/editar">
+							<a href="/admin/obras/{{ $work->slug }}/editar">
 								<button type="button" class=" btn btn-sm btn-warning btn-edit">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</button>
@@ -87,7 +97,7 @@
 						<!-- .Update Button -->
 						<!-- Delete Form -->
 						<div class="col-xs-6"> 
-							{!! Form::open(['action' => ["Admin\WorkController@remove", $work->work_slug],  'method' => 'DELETE', 'name' => "deleteForm-" . $work->work_slug ]) !!}
+							{!! Form::open(['action' => ["Admin\WorkController@remove", $work->slug],  'method' => 'DELETE', 'name' => "deleteForm-" . $work->slug ]) !!}
 								<button onclick="removeItem(this);" type="button" class="btn btn-sm btn-danger btn-remove">
 									<i class="glyphicon glyphicon-remove"></i>
 								</button>
@@ -96,7 +106,7 @@
 						<!-- .Delete Form -->
 							<!-- Opportunity feature -->
 							<div class="col-xs-12"> 
-								<a href="/admin/obras/{{ $work->work_slug }}/destaque_oportunidade">
+								<a href="/admin/obras/{{ $work->slug }}/destaque_oportunidade">
 									<button type="button" class=" btn btn-sm btn-{{ $work->featured_to_home ? "default" : "primary" }} btn-edit">
 										<i class="glyphicon glyphicon-{{ $work->featured_to_home ? "minus" : "plus" }}"></i>
 										{{ $work->featured_to_home ? "Tirar destaque" : "Destacar" }}
@@ -119,6 +129,8 @@
 			@endforeach
 
 		</ul>
+
+		{{ $allWorks->links('vendor.pagination.default') }}
 	</div>
 	<!-- .List All Artists -->
 @endsection

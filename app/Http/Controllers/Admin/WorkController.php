@@ -12,6 +12,7 @@ use Input;
 // Models
 use App\Work;
 use App\Artist;
+use App\WorksToExhibition;
 
 class WorkController extends Controller
 {	
@@ -25,9 +26,7 @@ class WorkController extends Controller
             // Instaciate class Image
             $image = Image::make(Input::file('img'));
             // Original
-            $image_original = $image->fit(1000,1000, function($constraint) {
-                $constraint->upsize();
-            });
+            $image_original = $image;
             $image_original->save($path . 'original/' . $imgName);
             // Mid sized
             $image_mid = $image->fit(500,500, function($constraint) {
@@ -49,7 +48,7 @@ class WorkController extends Controller
     public function index()
     {
         $Work = new Work(); 
-        $allWorks = $Work->getAll();
+        $allWorks = $Work->paginate('15');
 
     	return view('admin.works.index', compact('allWorks'));
     }

@@ -24,16 +24,9 @@
 	    </div>
 	@endif
 
-	@if(session('success_status'))
-		<div class="col-xs-12 alert alert-success">
-			{{ session('success_status') }}
-		</div>
-	@endif
-	@if(session('danger_status'))
-		<div class="col-xs-12 alert alert-danger">
-			{{ session('danger_status') }}
-		</div>
-	@endif
+
+	@include('admin.shared.alertMessages')
+	
 
 	<div class="form-group">
 		{!! Form::open(['action' => [isset($exhibition) ? "Admin\ExhibitionController@update" : "Admin\ExhibitionController@create", isset($exhibition) ? $exhibition->slug : $exhibition],  'method' => isset($exhibition) ? 'put' : "post", 'files' => true]) !!}
@@ -48,11 +41,11 @@
 				<!-- Catalog -->
 				<div class="input-group">
 					{!! Form::label('catalog', 'Catálogo', ['class' => 'input-group-addon']) !!}
-					{!! Form::file('catalog',  ['class' => 'form-control']) !!}
+					{!! Form::text('catalog',  isset($exhibition) ? "$exhibition->catalog" : null, ['class' => 'form-control']) !!}
 
 					@if (isset($exhibition) && !empty($exhibition->catalog))
 						<span class="input-group-addon">
-							<a target="_blank" href="{{ asset('/upload/exhibition/pdfs/' . $exhibition->pdf) }}">Catálogo</a>
+							<a target="_blank" href="http://{{ $exhibition->catalog }}">Catálogo</a>
 						</span>
 					@endif
 				</div>

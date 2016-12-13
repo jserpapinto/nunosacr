@@ -19,7 +19,28 @@ class WorkController extends Controller
     	$work = Work::whereSlug($slug)->first();
     	$artist = $work->artist()->first();
 
-    	return view('frontend.works.solo', compact('work', 'artist'));
+        // Fetured Works from homepage
+        if ($work->opportunity) {
+            // Featured Works No Opportunity
+            $featuredWorks = Work::where('opportunity', '=', 1)
+                                    ->where('featured_to_home', '=', 1)
+                                    ->join('artists', 'artist_id', '=', 'artists.id')
+                                    ->select('works.*', 'artists.name as artist_name')
+                                    ->inRandomOrder()
+                                    ->limit(5)
+                                    ->get();
+        } else {
+            // Featured Works Opportunity
+            $featuredWorks = Work::where('opportunity', '=', 0)
+                                    ->where('featured_to_home', '=', 1)
+                                    ->join('artists', 'artist_id', '=', 'artists.id')
+                                    ->select('works.*', 'artists.name as artist_name')
+                                    ->inRandomOrder()
+                                    ->limit(5)
+                                    ->get();
+        }
+
+    	return view('frontend.works.solo', compact('work', 'artist', 'featuredWorks'));
     }
 
     public function opportunities()

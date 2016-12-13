@@ -14,16 +14,23 @@
 	background: rgba(0,0,0,0.4);
 	z-index: 1;
 }
-
 #mail-popup {
-	display: none;
-	background: white;
-	padding: 50px ;
-	width: 70%;
 	position: absolute;
-	top: 25%;
-    left: 50%;
-    transform: translate(-50%, 0);
+	background: white;
+	display: none;
+	padding: 50px;
+	top: 50%;
+	transform: translateY(-50%);
+	margin: 0 auto;
+	left:0;
+	right: 0;
+}
+@media(min-width: 768px) {
+	#mail-popup {
+		position: absolute;
+		width: 500px;
+	}
+
 }
 
 #mail-popup .input-group {
@@ -33,7 +40,7 @@
 #mail-popup-close {
 	position: absolute;
 	top: 10px;
-	right: 10px;
+	right: 20px;
 	font-size: 30px;
 	color: black;
 	cursor: pointer;
@@ -41,4 +48,49 @@
 
 #mail-success, #mail-error {
 	display: none;
+}
+
+.ws-btn-fullwidth.btn-inside-img {
+	position: absolute;
+	width: 150px;
+	top: 50%;
+	transform: translateY(-50%);
+	left:0;
+	right: 0;
+	margin: 0 auto;
+	color: black !important;
+	background: rgba(255,255,255,0.5);
+	border: 2px solid black;
+	z-index: 1;
+	opacity: 0;
+}
+.btn-inside-img:hover {
+	background: rgba(255,255,255,0.9);
+}
+.ws-works-item figure:hover .btn-inside-img {
+	opacity: 1;
+	-webkit-transition: all 200ms ease-in;
+	-moz-transition: all 200ms ease-in;
+	-ms-transition: all 200ms ease-in;
+	-o-transition: all 200ms ease-in;
+	transition: all 200ms ease-in;
+}
+.ws-product-details {
+	text-align: left;
+}
+.ws-product-content {
+	text-align: center;
+}
+.ws-btn-fullwidth {
+	padding: 15px 25px;
+	margin: 0 auto;
+	width: auto;
+}
+#mail-popup h2 {
+	color: black;
+	text-align: center;
+	margin-bottom: 25px;
+}
+.btnSubmitBuyWork {
+	text-align: center;
 }

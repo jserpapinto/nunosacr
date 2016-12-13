@@ -27,13 +27,13 @@ class Work extends Model
 		return $this->where('opportunity', '=', 1)
 					->select('works.id as work_id', 'works.name', 'works.img', 'works.sold', 'works.opportunity', 'works.price', 'works.discount', 'works.featured_to_home', 'works.slug', 'artists.id as artist_id', 'artists.name as artist_name', 'artists.slug as artist_slug')
 					->join('artists', 'works.artist_id', '=', 'artists.id')
-					->get();
+					->paginate('15');
 	}
 	public function getAllNoOpportunities() {
 		return $this->where('opportunity', '=', 0)
 					->select('works.id as work_id', 'works.name', 'works.img', 'works.sold', 'works.opportunity', 'works.price', 'works.discount', 'works.featured_to_home', 'works.slug', 'artists.id as artist_id', 'artists.name as artist_name', 'artists.slug as artist_slug')
 					->join('artists', 'works.artist_id', '=', 'artists.id')
-					->get();
+					->paginate('15');
 	}
 	public function getOneBySlug($slug)
 	{

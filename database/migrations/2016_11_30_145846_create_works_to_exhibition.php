@@ -18,6 +18,7 @@ class CreateWorksToExhibition extends Migration
             $table->increments('id');
             $table->integer('exhibition_id');
             $table->integer('work_id');
+            $table->boolean('featured_to_exhibition')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

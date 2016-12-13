@@ -43,13 +43,27 @@ class ArtistController extends Controller
         return true;
     }
 
+    private function uploadImgBanner ($req, $imgName) {
+        // Path
+        try {
+            $path = public_path('upload/artists/banner/');
+            // Instaciate class Image
+            $image = Image::make(Input::file('imgBanner'));
+            // Original
+            $image_original = $image;
+            $image_original->save($path . $imgName);
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * List all Artists.
      */
     public function index() {
         $Artist = new Artist;
-        $allArtists = $Artist->getAll();
+        $allArtists = $Artist->paginate('15');
 
         return view('admin.artists.index', compact('allArtists'));
     }
@@ -77,7 +91,11 @@ class ArtistController extends Controller
         }
         if ($req->hasFile('img')) {
             $ext = "." . $req->file('img')->getClientOriginalExtension();
-            $imgName = time() . $ext;
+            $imgName = time() . '_banner' . $ext;
+        }
+        if ($req->hasFile('imgBanner')) {
+            $ext = "." . $req->file('imgBanner')->getClientOriginalExtension();
+            $imgBannerName = time() . $ext;
         }
 
         // Get Artist to update
@@ -90,6 +108,7 @@ class ArtistController extends Controller
         $artist->gallery = $req->gallery;
         if (isset($cvName)) $artist->cv = $cvName;
         if (isset($imgName)) $artist->img = $imgName;
+        if (isset($imgBannerName)) $artist->imgBanner = $imgBannerName;
 
         // Save in DB
         $artist->save();
@@ -98,10 +117,13 @@ class ArtistController extends Controller
         if ($req->hasFile('cv')) {
             $req->file('cv')->move(public_path() . '/upload/artists/cv/', $cvName);
         }
-
         // Upload img
         if ($req->hasFile('img')) {
             $this->uploadImgs($req, $imgName);
+        }
+        // Upload imgBanner
+        if ($req->hasFile('imgBanner')) {
+            $this->uploadImgBanner($req, $imgBannerName);
         }
 
         return redirect()->action('Admin\ArtistController@index')->with('success_status', 'Artista Atualizado');
@@ -120,6 +142,10 @@ class ArtistController extends Controller
             $ext = "." . $req->file('img')->getClientOriginalExtension();
             $imgName = time() . $ext;
         }
+        if ($req->hasFile('imgBanner')) {
+            $ext = "." . $req->file('imgBanner')->getClientOriginalExtension();
+            $imgBannerName = time() . $ext;
+        }
 
         // Get Artist to update
         $artist = new Artist();
@@ -131,6 +157,7 @@ class ArtistController extends Controller
         $artist->slug = uniqid();
         if (isset($cvName)) $artist->cv = $cvName;
         if (isset($imgName)) $artist->img = $imgName;
+        if (isset($imgBannerName)) $artist->imgBanner = $imgBannerName;
 
         // Save in DB
         $artist->save();
@@ -143,6 +170,10 @@ class ArtistController extends Controller
         if ($req->hasFile('img')) {
             $this->uploadImgs($req, $imgName);
         }
+        // Upload imgBanner
+        if ($req->hasFile('imgBanner')) {
+            $this->uploadImgBanner($req, $imgBannerName);
+        }
 
         return redirect()->action('Admin\ArtistController@index')->with('success_status', 'Novo Artista Criado');
     }
@@ -154,6 +185,7 @@ class ArtistController extends Controller
 
         $artist = Artist::whereSlug($slug)->first();
         $artist->delete();
+        
         return redirect()->action('Admin\ArtistController@index')->with('danger_status', 'Artista Removido');
     }
 
@@ -161,6 +193,7 @@ class ArtistController extends Controller
     {
         $artist = Artist::whereSlug($slug)->first();
         $works = $artist->works()->get();
+        
         return view('admin.artists.listWorks', compact('artist', 'works'));
     }
 

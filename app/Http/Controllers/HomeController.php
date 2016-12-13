@@ -11,6 +11,7 @@ use Vinkla\Instagram\Instagram;
 use App\Artist;
 use App\Work;
 use App\Exhibition;
+use App\WorksToExhibition;
 use App\MailLog;
 
 
@@ -33,10 +34,12 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        // Featured Artist
-        $artistFeatured = Artist::where('featured', '=', '1')->get()->first();
-        $artistFeaturedWorks = Work::where('artist_id', '=', $artistFeatured->id)
-                                ->where('featured_to_artist', '=', 1)->get();
+        // Featured Exhibition
+        $exhibitionFeatured = Exhibition::where('featured', '=', '1')->get()->first();
+        $exhibitionFeaturedWorks = WorksToExhibition::where('exhibition_id', '=', $exhibitionFeatured->id)
+                                ->join('works', 'works_to_exhibition.work_id', '=', 'works.id')
+                                ->where([['works.deleted_at', '=', NULL], ['works_to_exhibition.featured_to_exhibition', '=', 1]])
+                                ->get();
 
 
         // Featured Works No Opportunity
@@ -53,9 +56,7 @@ class HomeController extends Controller
                                     ->select('works.*', 'artists.name as artist_name')
                                     ->get();
 
-        // Instagram posts
-
-        return view('frontend.index', compact('artistFeatured', 'artistFeaturedWorks', 'worksOpportunity', 'worksNoOpportunity'));
+        return view('frontend.index', compact('exhibitionFeatured', 'exhibitionFeaturedWorks', 'worksOpportunity', 'worksNoOpportunity'));
     }
 
     // Show contacts Page
