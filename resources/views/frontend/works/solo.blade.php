@@ -22,7 +22,7 @@
 
         <!-- Product Information -->
         <div class="col-sm-5">
-            <div class="ws-product-content">
+            <div class="ws-product-content worksolo">
                 <header>
                     <!-- Item Category -->
                     <div class="ws-item-category">{{ $artist->name }}</div>
@@ -30,7 +30,7 @@
                     <!-- Title -->
                     <h3 class="ws-item-title">{{ $work->name }}</h3>                        
 
-                    <div class="ws-separator"></div>    
+                    <div class="ws-separator separator-left"></div>    
   
                     <!-- Price -->
                     @if ($work->price)
@@ -64,9 +64,7 @@
 
     <div id="mail-overlay">
         <div id="mail-popup">
-            <div id="mail-error" class="">
-                
-            </div>
+            <div id="mail-error" class=""></div>
             <div id="mail-popup-close" onclick="depopup();"><i class="fa fa-times"></i></div>
 
             <h2>Send us a message!</h2>  
@@ -184,16 +182,18 @@ function mailReq () {
             subject: clientSubject,
             message: clientMessage,
         },
+        before: function() {
+            $('#mail-error').fadeOut('fast');
+        },
         success: function(result) {
+            $('#mail-error').fadeOut('fast');
             $('#mail-form').fadeOut('fast');
             $('#mail-success').fadeIn('fast');
         },
         error: function(xhr, desc, err) {
-            alert("err");
             console.log(xhr, "-", err);
             if (xhr.status == 500) {
                 // Internal Server Error
-                $('#mail-form').fadeOut('fast');
                 $('#mail-error').html('<h3>Error!</h3>\
                     <p class="lead">Email could not be sent!<br/>Please try again briefly or contact us directly through the email <a href="mailto:ns@nunosacramento.com.pt">ns@nunosacramento.com.pt</a>.<br/>Thank you!</p>').fadeIn('fast');
             } else {

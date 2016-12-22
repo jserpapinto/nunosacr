@@ -217,4 +217,11 @@ class WorkController extends Controller
             return back()->with('success_status', 'Obra Destacada');
         }
     }
+
+    public function search(Request $req)
+    {   
+        $allWorks = Work::where('name', 'LIKE', "%$req->search%")->paginate('15');
+
+        return view('admin.works.index', compact('allWorks'));
+    }
 }

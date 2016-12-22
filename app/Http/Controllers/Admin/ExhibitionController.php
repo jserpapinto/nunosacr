@@ -48,6 +48,21 @@ class ExhibitionController extends Controller
         return true;
     }
 
+    private function uploadImgBanner ($req, $imgName) {
+        // Path
+        try {
+            $path = public_path('upload/exhibitions/banner/');
+            // Instaciate class Image
+            $image = Image::make(Input::file('imgBanner'));
+            // Original
+            $image_original = $image;
+            $image_original->save($path . $imgName);
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * List all Exhibitions.
      */
@@ -94,6 +109,10 @@ class ExhibitionController extends Controller
             $ext = "." . $req->file('img')->getClientOriginalExtension();
             $imgName = time() . $ext;
         }
+        if ($req->hasFile('imgBanner')) {
+            $ext = "." . $req->file('imgBanner')->getClientOriginalExtension();
+            $imgBannerName = time() . $ext;
+        }
 
         // Get Exhibition to update
         $exhibition = new Exhibition();
@@ -104,18 +123,23 @@ class ExhibitionController extends Controller
         $exhibition->description = $req->description;
         $exhibition->slug = uniqid();
         if (isset($imgName)) $exhibition->img = $imgName;
+        if (isset($imgBannerName)) $exhibition->imgBanner = $imgBannerName;
 
         // Save in DB
         $exhibition->save();
 
         // Save to pivot table
         $exhibition->artists()->attach($req->artists);
-        $exhibition->works()->attach($req->works);
+        $exhibition->works()->attach($req->works);;
 
 
         // Upload img
         if ($req->hasFile('img')) {
             $this->uploadImgs($req, $imgName);
+        }
+        // Upload imgBanner
+        if ($req->hasFile('imgBanner')) {
+            $this->uploadImgBanner($req, $imgBannerName);
         }
 
         return redirect()->action('Admin\ExhibitionController@index')->with('success_status', 'Novo Press Criado');
@@ -133,6 +157,10 @@ class ExhibitionController extends Controller
             $ext = "." . $req->file('img')->getClientOriginalExtension();
             $imgName = time() . $ext;
         }
+        if ($req->hasFile('imgBanner')) {
+            $ext = "." . $req->file('imgBanner')->getClientOriginalExtension();
+            $imgBannerName = time() . $ext;
+        }
 
         // Get Exhibition to update
         $exhibition = new Exhibition();
@@ -143,6 +171,7 @@ class ExhibitionController extends Controller
         if (!empty($req->from)) $exhibition->from = $req->from;
         if (!empty($req->to)) $exhibition->to = $req->to;
         if (isset($imgName)) $exhibition->img = $imgName;
+        if (isset($imgBannerName)) $exhibition->imgBanner = $imgBannerName;
 
         // Save in DB
         $exhibition->save();
@@ -160,6 +189,10 @@ class ExhibitionController extends Controller
         // Upload img
         if ($req->hasFile('img')) {
             $this->uploadImgs($req, $imgName);
+        }
+        // Upload imgBanner
+        if ($req->hasFile('imgBanner')) {
+            $this->uploadImgBanner($req, $imgBannerName);
         }
 
         return redirect()->back()->with('success_status', 'Exposição Atualizada');

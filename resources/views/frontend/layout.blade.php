@@ -94,7 +94,7 @@
                         <li><a href="{!! action('Frontend\ArtistController@index') !!}">Artists</a></li>
                         <li><a href="{!! action('Frontend\WorkController@opportunities') !!}">Opportunities</a></li>
                         <li><a href="{!! action('Frontend\ExhibitionController@index') !!}">Exhibitions</a></li>
-                        <li><a href="{!! action('Frontend\PressController@index') !!}">Press</a></li>        
+                        <li><a href="{!! action('HomeController@aboutus') !!}">About Us</a></li>        
                         <li><a href="{!! action('HomeController@contacts') !!}">Contact</a></li>                         
                     </ul>            
                 </div>

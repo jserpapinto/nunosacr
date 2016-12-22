@@ -34,26 +34,18 @@
 
 @section('content')
 
-	@if (count($errors) > 0)
-	    <div class="alert alert-danger col-xs-12">
-	        <ul>
-	            @foreach ($errors->all() as $error)
-	                <li>{{ $error }}</li>
-	            @endforeach
-	        </ul>
-	    </div>
-	@endif
+	@include('admin.shared.alertMessages')
+
+	<div class="col-xs-12 form-group">
+		{!! Form::open(['action' => ["Admin\WorkController@search"],  'method' => 'GET', 'name' => "search"]) !!}
+			<div class="input-group">
+				{!! Form::label('search', 'Pesquisar', ['class' => 'input-group-addon']) !!}
+				{!! Form::text('search', isset($_GET['search']) ? $_GET['search'] : null, ['class' => 'form-control']) !!}
+				{!! Form::submit('GO', ['class' => 'form-control btn btn-primary']) !!}
+			</div>
+		{!! Form::close() !!}
+	</div>
 	
-	@if(session('success_status'))
-		<div class="col-xs-12 alert alert-success">
-			{{ session('success_status') }}
-		</div>
-	@endif
-	@if(session('danger_status'))
-		<div class="col-xs-12 alert alert-danger">
-			{{ session('danger_status') }}
-		</div>
-	@endif
 
 	<!-- List All Artists -->
 	<div class="col-xs-12">
@@ -67,7 +59,7 @@
 			@foreach ($allWorks as $work)
 				<li class="list-group-item {{ $work->featured_to_home && $work->opportunity == 1 ? "destacado-opo" : null }} {{ $work->featured_to_home && $work->opportunity == 0 ? "destacado" : null }}">
 					<!-- Artist name -->
-					<div class="col-xs-7 col-sm-2">{{ $work->name }}</div>
+					<div class="col-xs-6 col-sm-2">{{ $work->name }}</div>
 					<!-- .Artist name -->
 
 					<!-- Artist bio -->
@@ -85,7 +77,7 @@
 					<!-- .Artist email -->
 
 					<!-- Action Buttons -->
-					<div class="col-xs-5 col-sm-3">
+					<div class="col-xs-6 col-sm-3">
 						<!-- Update Button -->
 						<div class="col-xs-6"> 
 							<a href="/admin/obras/{{ $work->slug }}/editar">

@@ -20,7 +20,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <iframe src="http://{{ $exhibition->catalog }}" width="100%" height="870px"></iframe>
+                <iframe id="catalogIframe" src="http://{{ $exhibition->catalog }}" width="100%"></iframe>
             </div>
         </div>
 
@@ -36,3 +36,12 @@
         </div>
     </div>
 @stop
+
+
+@section('pagescripts')
+<script>
+
+    $('.parallax-window').parallax({imageSrc: '{{ asset("upload/exhibitions/banner/$exhibition->imgBanner") }}'});
+
+</script>
+@endsection

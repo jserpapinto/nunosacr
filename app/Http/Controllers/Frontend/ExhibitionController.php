@@ -14,7 +14,7 @@ class ExhibitionController extends Controller
     public function index()
     {
     	// Get all exhibitions
-    	$allExhibitions = Exhibition::all();
+    	$allExhibitions = Exhibition::paginate('15');
     	return view('frontend.exhibitions.index', compact('allExhibitions'));
     }
 
@@ -24,7 +24,10 @@ class ExhibitionController extends Controller
     	// Get all exhibitions
     	$exhibition = Exhibition::whereSlug($slug)->first();
         $exhibitionArtists = $exhibition->artists()->get();
-        $exhibitionWorks = $exhibition->works()->get();
-    	return view('frontend.exhibitions.solo', compact('exhibition', 'exhibitionWorks', 'exhibitionWorks'));
+        $exhibitionWorks = $exhibition->works()
+                                    ->select('works.*', 'artists.name as artist_name', 'artists.slug as artist_slug')
+                                    ->join('artists', 'works.artist_id', '=', 'artists.id')
+                                    ->get();
+    	return view('frontend.exhibitions.solo', compact('exhibition', 'exhibitionWorks', 'exhibitionArtists'));
     }
 }

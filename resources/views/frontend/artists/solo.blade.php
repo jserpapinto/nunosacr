@@ -27,5 +27,15 @@
                 @endforeach
             </div>
         </div>
+        {{ $works->links('vendor.pagination.default') }}
     </div>
 @stop
+
+
+@section('pagescripts')
+<script>
+
+    $('.parallax-window').parallax({imageSrc: '{{ asset("upload/artists/banner/$artist->imgBanner") }}'});
+
+</script>
+@endsection

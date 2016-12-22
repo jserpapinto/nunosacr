@@ -36,10 +36,12 @@ class HomeController extends Controller
     {   
         // Featured Exhibition
         $exhibitionFeatured = Exhibition::where('featured', '=', '1')->get()->first();
-        $exhibitionFeaturedWorks = WorksToExhibition::where('exhibition_id', '=', $exhibitionFeatured->id)
-                                ->join('works', 'works_to_exhibition.work_id', '=', 'works.id')
-                                ->where([['works.deleted_at', '=', NULL], ['works_to_exhibition.featured_to_exhibition', '=', 1]])
-                                ->get();
+        if ($exhibitionFeatured) {
+            $exhibitionFeaturedWorks = WorksToExhibition::where('exhibition_id', '=', $exhibitionFeatured->id)
+                                    ->join('works', 'works_to_exhibition.work_id', '=', 'works.id')
+                                    ->where([['works.deleted_at', '=', NULL], ['works_to_exhibition.featured_to_exhibition', '=', 1]])
+                                    ->get();
+        }
 
 
         // Featured Works No Opportunity
@@ -90,5 +92,11 @@ class HomeController extends Controller
         Mail::to('jserpa.dev@gmail.com')->send(new ContactMail($req->all()));
 
         return back()->with('success_status', 'Email Sent');
+    }
+
+    // Show contacts Page
+    public function aboutus()
+    {
+        return view('frontend.static.aboutus');
     }
 }

@@ -19,6 +19,7 @@ class CreateExhibitionTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('img')->default("");
+            $table->string('imgBanner')->default("");
             $table->string('catalog')->default("");
             $table->boolean('featured')->default(0);
             $table->string('slug');

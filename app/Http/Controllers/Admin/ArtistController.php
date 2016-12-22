@@ -206,4 +206,11 @@ class ArtistController extends Controller
         return redirect()->action('Admin\ArtistController@index')->with('success_status', 'Artista destacado na homepage.');
     }
 
+    public function search(Request $req)
+    {   
+        $allArtists = Artist::where('name', 'LIKE', "%$req->search%")->paginate('15');
+
+        return view('admin.artists.index', compact('allArtists'));
+    }
+
 }

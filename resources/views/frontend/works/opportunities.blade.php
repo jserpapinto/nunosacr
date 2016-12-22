@@ -27,6 +27,8 @@
                 @endforeach
             </div>
         </div>
+
+        {{ $allWorks->links('vendor.pagination.default') }}
     </div>
 
 

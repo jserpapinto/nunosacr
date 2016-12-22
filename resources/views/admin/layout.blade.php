@@ -13,8 +13,8 @@
         <!-- Bootstrap 3 styles -->
         {!! Html::style('/css/bootstrap.min.css') !!}
         {!! Html::style('/css/app.css') !!}
-        {{-- Html::style('/css/bootstrap-material-design.min.css') !!}
-        {!! Html::style('/css/ripples.min.css') --}}
+        {!! Html::style('/css/bootstrap-material-design.min.css') !!}
+        {{-- Html::style('/css/ripples.min.css') --}}
         {!! Html::style('/css/nh-styles.css') !!}
     </head>
     <body>
@@ -37,7 +37,7 @@
                             <li><a href="/admin/artistas">Artistas</a></li>
                             <li><a href="/admin/obras">Obras</a></li>
                             <li><a href="/admin/exposicoes">Exposições</a></li>
-                            <li><a href="/admin/press">Press</a></li>
+                            <!--<li><a href="/admin/press">Press</a></li>-->
                         @endif
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -83,6 +83,17 @@
                 @yield('content')
             </div>
         </div>
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <hr/>
+                    <div class="col-xs-12 text-center">
+                        <p>by NHdesign</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
         <!-- Bootstrap 3 script -->
         {!! Html::script('/js/jquery-3.1.1.min.js') !!}

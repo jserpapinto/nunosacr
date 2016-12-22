@@ -43,6 +43,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::post("/artistas/criar", 'ArtistController@create');
 	// Get all Works from Artist
 	Route::get("/artistas/{slug}/obras", "ArtistController@listWorks");
+	// Search Artist
+	Route::get("/artistas/pesquisar", "ArtistController@search");
 
 	/**
 	 *	WORK
@@ -69,6 +71,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::get("/obras/{slug}/destaque_oportunidade", 'WorkController@featureOpportunity');
 	// Feature NOT Opportunity
 	Route::get("/obras/{slug}/destaque_oportunidade", 'WorkController@featureNotOpportunity');
+	// Search Work
+	Route::get("/obras/pesquisar", "WorkController@search");
 
 	/**
 	 *	PRESS
@@ -89,7 +93,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::get("/exposicoes/{slug}/editar", 'ExhibitionController@editCreate')->name('ExhibitionEdit');
 	Route::get("/exposicoes/criar", 'ExhibitionController@editCreate');
 	Route::get("/exposicoes/{slug}/obras", 'ExhibitionController@listWorks');
-	Route::post("/exposicoes", 'ExhibitionController@create');
+	Route::post("/exposicoes/criar", 'ExhibitionController@create');
 	Route::put("/exposicoes/{slug}", 'ExhibitionController@update');
 	Route::delete("/exposicoes/{slug}", 'ExhibitionController@remove');
 	Route::get("/exposicoes/{slug}/destacar", 'ExhibitionController@feature')->name('ExhibitionFeature');
@@ -129,6 +133,7 @@ Route::get('/', 'HomeController@index');
 // Static Pages
 Route::get('/contacts', 'HomeController@contacts');
 Route::post('/contacts/mail', 'HomeController@contactsMail');
+Route::get('/aboutus', 'HomeController@aboutus');
 
 Route::group(['namespace' => 'Frontend'], function () {
 	// Artist Pages

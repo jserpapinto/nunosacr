@@ -29,6 +29,7 @@ class ArtistFormRequest extends FormRequest
             "email" => "required|email",
             "bio" => "nullable",
             "cv" => "file|nullable",
+            "gallery" => "boolean",
             "img" => "image|nullable",
             "imgBanner" => "image|nullable"
         ];

@@ -1,4 +1,15 @@
-
+.row h3 {
+	color: black;
+} 
+h1 {
+	color: black;
+}
+a h4 {
+	color: black;
+}
+#instafeed {
+    padding-top: 40px;
+}
 .ws-works-item a.ws-btn-fullwidth {
     color: white;
 }
@@ -76,7 +87,7 @@
 	transition: all 200ms ease-in;
 }
 .ws-product-details {
-	text-align: left;
+	text-align: justify;
 }
 .ws-product-content {
 	text-align: center;
@@ -93,4 +104,23 @@
 }
 .btnSubmitBuyWork {
 	text-align: center;
+}
+
+#catalogIframe {
+	height: 870px;
+    border: none;
+}
+@media (max-width: 768px) {
+	#catalogIframe {
+		height: 340px;
+	}
+}
+.ws-works-item figure img {
+	width: 100%;
+}
+.separator-left{
+    margin: 15px 0 20px 0;
+}
+.worksolo.ws-product-content, .worksolo .ws-item-category, .worksolo .ws-item-title, .worksolo .ws-item-price {
+	text-align: left;
 }

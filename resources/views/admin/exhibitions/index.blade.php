@@ -36,14 +36,14 @@
 
 					<!-- Artist bio -->
 					<div class="hidden-xs col-sm-4">
-						<img src="/upload/exhibitions/thumb/{{ $exhibition->img }}" class="img-responsive"/>
+						<img src="{!! asset("/upload/exhibitions/thumb/$exhibition->img") !!}" class="img-responsive"/>
 					</div>
 					<!-- .Artist bio -->
 
 					<!-- Artist email -->
 					<div class="hidden-xs col-sm-3">
 						@if ($exhibition->catalog)
-						<a target="_blank" href="/upload/exhibitions/catalogs/{{ $exhibition->catalog }}">
+						<a target="_blank" href="{!! asset("/upload/exhibitions/catalogs/$exhibition->catalog") !!}">
 							<button class="btn btn-default">
 								Catálogo
 							</button>

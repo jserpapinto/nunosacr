@@ -47,6 +47,7 @@ class WorkController extends Controller
     {	
     	$Work = new Work();
     	$allWorks = $Work->getAllOpportunities();
+        
 		return view('frontend.works.opportunities', compact('allWorks'));
     }
 

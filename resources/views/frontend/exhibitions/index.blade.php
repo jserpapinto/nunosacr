@@ -46,6 +46,7 @@
                 @endforeach
             </div>
         </div>
+        {{ $allExhibitions->links('vendor.pagination.default') }}
     </div>
 
 @endsection

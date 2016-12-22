@@ -11,7 +11,7 @@ class ArtistController extends Controller
     //
     public function index()
     {
-		$allArtists = Artist::where('gallery', '=', 1)->get();
+		$allArtists = Artist::where('gallery', '=', 1)->paginate('15');
 
 		return view('frontend.artists.index', compact('allArtists'));
     }
@@ -20,7 +20,7 @@ class ArtistController extends Controller
     public function solo($slug)
     {
     	$artist = Artist::whereSlug($slug)->first();
-    	$works = $artist->works()->get();
+    	$works = $artist->works()->paginate('15');
 
 		return view('frontend.artists.solo', compact('artist', 'works'));
     }

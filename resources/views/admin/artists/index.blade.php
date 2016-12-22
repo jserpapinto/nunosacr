@@ -18,18 +18,28 @@
 
 	@include('admin.shared.alertMessages')
 
+	<div class="col-xs-12 form-group">
+		{!! Form::open(['action' => ["Admin\ArtistController@search"],  'method' => 'GET', 'name' => "search"]) !!}
+			<div class="input-group">
+				{!! Form::label('search', 'Pesquisar', ['class' => 'input-group-addon']) !!}
+				{!! Form::text('search', isset($_GET['search']) ? $_GET['search'] : null, ['class' => 'form-control']) !!}
+				{!! Form::submit('GO', ['class' => 'form-control btn btn-primary']) !!}
+			</div>
+		{!! Form::close() !!}
+	</div>
+
 	
 	<!-- List All Artists -->
 	<div class="col-xs-12">
 		<ul class="list-group">
 			@if($allArtists->isEmpty())
 				<div class="col-xs-12">
-					<p class="text-center"><strong>Lista de Artistas vazia</strong></p>
+					<p class="text-center"><strong>Sem resultados.</strong></p>
 				</div>
 			@endif
 
 			@foreach ($allArtists as $artist)
-				<li class="list-group-item {{ ($artist->featured) ? "destacado" : null }}">
+				<li class="list-group-item {{-- ($artist->featured) ? "destacado" : null --}}">
 					<!-- Artist name -->
 					<div class="col-xs-5 col-sm-2">{{ $artist->name }}</div>
 					<!-- .Artist name -->
@@ -74,12 +84,12 @@
 									Obras
 								</a>
 
-								@unless ($artist->featured)
+								{{--@unless ($artist->featured)
 									<a href="{!! URL::action('Admin\ArtistController@feature', $artist->slug) !!}" class="btn btn-primary">
 										<i class="glyphicon glyphicon-plus"></i>
 										Destacar
 									</a>
-								@endunless
+								@endunless--}}
 							</div>
 							<!-- .View all Works Button -->
 						</div>

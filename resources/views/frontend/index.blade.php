@@ -76,14 +76,16 @@
                 <!-- Description -->
                 <div class="ws-about-content clearfix">
                     <div class="col-sm-8 col-sm-offset-2">
+                        @if ($exhibitionFeatured)
                         <h3>{{ $exhibitionFeatured->title }}</h3> 
                         <div class="ws-separator"></div>
                         <p>{{ $exhibitionFeatured->description }}</p>
+                        @endif
                     </div>
                 </div>
 
                 <!-- Featured Collections -->
-                @if (count($exhibitionFeaturedWorks) > 0)
+                @if (isset($exhibitionFeaturedWorks) && count($exhibitionFeaturedWorks) > 0)
                     <div class="ws-featured-collections clearfix">
                         @foreach ($exhibitionFeaturedWorks as $work)
                             <!-- Item -->
@@ -205,8 +207,13 @@
     <!-- Instagram Content -->
     <section id="ws-instagram-section">
         <div class="container">
-            <div class="row vertical-align" id="instafeed">
-                                  
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                    <h3>Instagram</h3>       
+                    <div class="ws-separator"></div>   
+                </div>
+            </div>
+            <div class="row vertical-align" id="instafeed">                  
             </div>
         </div>
     </section>

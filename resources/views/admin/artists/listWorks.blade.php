@@ -10,9 +10,6 @@
 	<a href="/admin/artistas/{{ $artist->slug }}/editar">
 		<button class="btn btn-primary ">Editar Artista</button>
 	</a>
-	<br/>
-	<br/>
-	<p class="lead">Se o artista estiver destacado na homepage, as 3 obras aqui destacadas aparecerão destacadas também.</p>
 @endsection
 
 @section('content')
@@ -24,18 +21,10 @@
 		</div>
 	@endif
 
-	@if(session('success_status'))
-		<div class="col-xs-12 alert alert-success">
-			{{ session('success_status') }}
-		</div>
-	@endif
-	@if(session('danger_status'))
-		<div class="col-xs-12 alert alert-danger">
-			{{ session('danger_status') }}
-		</div>
-	@endif
+	@include('admin.shared.alertMessages')
 
-	<div class="form-group">
+
+	<div class="col-xs-12 form-group">
 		<ul class="list-group">
 			@if($works->isEmpty())
 				<div class="col-xs-12">
@@ -47,7 +36,7 @@
 					<div class="col-xs-3">{{ $work->name }}</div>
 					<div class="col-xs-3"><img src="/upload/works/thumb/{{ $work->img}}" class="img-responsive" /></div>
 					<div class="col-xs-2"><strong>{{ $work->price }}</strong><br/><small>{{ $work->discount }}</small></div>
-					<div class="col-xs-1">{!! $work->opportunity == 1 ? "Sim" : "Não" !!}</div>
+					<div class="col-sm-1 hidden-xs">{!! $work->opportunity == 1 ? "Sim" : "Não" !!}</div>
 					<div class="col-xs-3">
 						<!-- Update Button -->
 						<div class="col-xs-6"> 
@@ -68,12 +57,12 @@
 						</div>
 						<!-- .Delete Form -->
 						<!-- Feature work from Artist Button -->
-						<div class="col-xs-12"> 
+						{{--<div class="col-xs-12"> 
 							<a href="{!! URL::action('Admin\WorkController@featureToArtist', [$work->slug, $artist->id]) !!}" class="btn btn-{{ $work->featured_to_artist ? "default" : "primary" }}">
 								<i class="glyphicon glyphicon-{{ $work->featured_to_artist ? "minus" : "plus" }}"></i>
 								{{ $work->featured_to_artist ? "Tirar Destaque" : "Destacar" }}
 							</a>
-						</div>
+						</div>--}}
 						<!-- .Feature work from Artist Button -->
 
 					</div>

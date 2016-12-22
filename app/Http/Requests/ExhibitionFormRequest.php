@@ -28,6 +28,7 @@ class ExhibitionFormRequest extends FormRequest
             "description" => "nullable",
             "catalog" => "nullable|file",
             "img" => "image",
+            "imgBanner" => "image",
             "from" => "date|date_format:Y-m-d",
             "to" => "date|date_format:Y-m-d",
             "catalog" => "nullable",
