@@ -1,0 +1,159 @@
+.row h3 {
+	color: black;
+} 
+h1 {
+	color: black;
+}
+.ws-contact-offices h1 {
+	font-size: 24px;
+    color: #000;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+a h4 {
+	color: black;
+}
+#instafeed {
+    padding-top: 40px;
+}
+.ws-works-item a.ws-btn-fullwidth {
+    color: white;
+}
+
+#mail-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 0 auto;
+	background: rgba(0,0,0,0.4);
+	z-index: 1;
+}
+#mail-popup {
+	position: absolute;
+	background: white;
+	display: none;
+	padding: 50px;
+	top: 50%;
+	transform: translateY(-50%);
+	margin: 0 auto;
+	left:0;
+	right: 0;
+}
+@media(min-width: 768px) {
+	#mail-popup {
+		position: absolute;
+		width: 500px;
+	}
+
+}
+
+#mail-popup .input-group {
+	width: 100%;
+}
+
+#mail-popup-close {
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	font-size: 30px;
+	color: black;
+	cursor: pointer;
+}
+
+#mail-success, #mail-error {
+	display: none;
+}
+
+.ws-btn-fullwidth.btn-inside-img {
+	position: absolute;
+	width: 150px;
+	top: 50%;
+	transform: translateY(-50%);
+	left:0;
+	right: 0;
+	margin: 0 auto;
+	color: black !important;
+	background: rgba(255,255,255,0.5);
+	border: 2px solid black;
+	z-index: 1;
+	opacity: 0;
+}
+.btn-inside-img:hover {
+	background: rgba(255,255,255,0.9);
+}
+.ws-works-item figure:hover .btn-inside-img {
+	opacity: 1;
+	-webkit-transition: all 200ms ease-in;
+	-moz-transition: all 200ms ease-in;
+	-ms-transition: all 200ms ease-in;
+	-o-transition: all 200ms ease-in;
+	transition: all 200ms ease-in;
+}
+.ws-product-details {
+	text-align: left;
+}
+.ws-product-content {
+	text-align: center;
+}
+.ws-btn-fullwidth {
+	padding: 15px 25px;
+	margin: 0 auto;
+	width: auto;
+}
+#mail-popup h2 {
+	color: black;
+	text-align: center;
+	margin-bottom: 25px;
+}
+.btnSubmitBuyWork {
+	text-align: center;
+}
+
+#catalogIframe {
+	height: 870px;
+    border: none;
+}
+@media (max-width: 768px) {
+	#catalogIframe {
+		height: 340px;
+	}
+	.h1-slider {
+		width:320px;
+		word-break: break-word;
+		overflow:visible;
+		white-space: normal;
+	}
+}
+@media (min-width: 769px) {
+	#catalogIframe {
+		height: 340px;
+	}
+	.ws-works-item {
+	    height: 500px;
+	}
+}
+@media (min-width: 992px) {
+	.ws-works-item.exhibition-item {
+	    height: 680px;
+	}
+}
+.ws-works-item figure img {
+	width: 100%;
+}
+.separator-left{
+    margin: 15px 0 20px 0;
+}
+.worksolo.ws-product-content, .worksolo .ws-item-category, .worksolo .ws-item-title, .worksolo .ws-item-price {
+	text-align: left;
+}
+
+.full-width {
+    width: 100%;
+}
+.error-btn {
+	margin-top: 10px;
+}
