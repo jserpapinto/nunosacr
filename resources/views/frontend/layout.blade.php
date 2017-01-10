@@ -19,7 +19,7 @@
         <!-- CSS Styles -->
         {!! Html::style('/css/bootstrap.min.css') !!}
         {!! Html::style('/css/main.css') !!}
-        {!! Html::style('/css/nh-frontend.css') !!}
+        {!! Html::style('/css/frontend.css') !!}
 
         <!-- Animate CSS -->
         {!! Html::style('/css/animate.min.css') !!}
@@ -64,9 +64,7 @@
                 <!-- Logo -->        
         <div class="ws-logo">
             <a href="/">
-                <img src="{{ asset('/img/logo-white.png') }}" alt="Nuno Sacramento" class="img-responsive hidden-xs">
-                <img src="{{ asset('/img/logo-white2_small.png') }}" alt="Nuno Sacramento" class="img-responsive hidden-sm hidden-md hidden-lg" style="height: 40px;
-    margin: 7px auto;">
+                <h1 style="color: white; line-height: 55px;">{{ config('app.name') }}</h1>
             </a>
         </div>
 
@@ -135,8 +133,8 @@
                     <h3>Social</h3>   
                     <div class="ws-footer-separator"></div>                                         
                     <ul class="ws-footer-social">
-                        <li><a href="https://www.facebook.com/nunosacramento.artecontemporanea" target="_blank"><i class="fa fa-facebook-square fa-lg"></i> Facebook</a></li>
-                        <li><a href="https://www.instagram.com/nunosacramento.arte/" target="_blank"><i class="fa fa-instagram fa-lg"></i> Instagram</a></li>
+                        <li><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook-square fa-lg"></i> Facebook</a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram fa-lg"></i> Instagram</a></li>
                     </ul>                    
                 </div> 
 
@@ -163,7 +161,7 @@
             <div class="row"> 
             <div class="col-xs-12">
                 <div class="pull-left">
-                <p>All rights reserved &copy; 2016. By <a href="http://www.nhdesign.pt" target="_blank">Nhdesign</a></p>       
+                <p>All rights reserved &copy; 2016. By jSerpa@istec</p>       
             </div>
                 </div>
                 </div>

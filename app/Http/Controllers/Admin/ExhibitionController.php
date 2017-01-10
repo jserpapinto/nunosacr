@@ -119,7 +119,6 @@ class ExhibitionController extends Controller
         $exhibition->title = $req->title;
         $exhibition->from = $req->from;
         $exhibition->to = $req->to;
-        $exhibition->catalog = $req->catalog;
         $exhibition->description = $req->description;
         //$exhibition->slug = uniqid();
         if (isset($imgName)) $exhibition->img = $imgName;
@@ -166,7 +165,6 @@ class ExhibitionController extends Controller
         $exhibition = new Exhibition();
         $exhibition = $exhibition->getOneBySlug($slug);
         $exhibition->title = $req->title;
-        $exhibition->catalog = $req->catalog;
         $exhibition->description = $req->description;
         if (!empty($req->from)) $exhibition->from = $req->from;
         if (!empty($req->to)) $exhibition->to = $req->to;

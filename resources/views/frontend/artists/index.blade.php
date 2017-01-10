@@ -46,7 +46,7 @@
                 @endforeach
             </div>
         </div>
-		{{ $allArtists->links('vendor.pagination.default') }}
+		{{-- $allArtists->links('vendor.pagination.default') --}}
     </div>
 
 @endsection

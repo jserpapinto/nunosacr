@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use App\Artist;
 use App\Work;
 use App\Http\Controllers\HomeController;
+use DB;
 
 class ArtistController extends Controller
 {
     //
     public function index()
-    {
-		$allArtists = Artist::where('gallery', '=', 1)->orderBy('name', 'asc')->paginate('15');
+    {   
+		$allArtists = DB::select('CALL artists_from_gallery()');
 
 		return view('frontend.artists.index', compact('allArtists'));
     }

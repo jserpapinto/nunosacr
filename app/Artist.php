@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
 
+
 class Artist extends Model
 {	
 	// Use column deleted_at from database instead of fully deleting item

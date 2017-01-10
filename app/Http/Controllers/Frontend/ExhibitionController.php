@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 // Model
 use App\Exhibition;
 use App\Http\Controllers\HomeController;
+use DB;
 
 class ExhibitionController extends Controller
 {
@@ -15,7 +16,7 @@ class ExhibitionController extends Controller
     public function index()
     {
     	// Get all exhibitions
-    	$allExhibitions = Exhibition::orderBy('from', 'desc')->paginate('15');
+    	$allExhibitions = DB::select('CALL exhibitions_all()');
     	return view('frontend.exhibitions.index', compact('allExhibitions'));
     }
 

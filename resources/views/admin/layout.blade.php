@@ -15,7 +15,7 @@
         {!! Html::style('/css/app.css') !!}
         {!! Html::style('/css/bootstrap-material-design.min.css') !!}
         {{-- Html::style('/css/ripples.min.css') --}}
-        {!! Html::style('/css/nh-styles.css') !!}
+        {!! Html::style('/css/styles.css') !!}
     </head>
     <body>
         @section('navbar')
@@ -89,7 +89,7 @@
                 <div class="row">
                     <hr/>
                     <div class="col-xs-12 text-center">
-                        <p>by NHdesign</p>
+                        <p>by jSerpa</p>
                     </div>
                 </div>
             </div>

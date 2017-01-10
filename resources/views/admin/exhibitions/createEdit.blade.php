@@ -38,18 +38,6 @@
 					{!! Form::text('title', isset($exhibition) ? "$exhibition->title" : null, ['class' => 'form-control']) !!}
 				</div>
 				<!-- .Nome -->
-				<!-- Catalog -->
-				<div class="input-group">
-					{!! Form::label('catalog', 'Catálogo', ['class' => 'input-group-addon']) !!}
-					{!! Form::text('catalog',  isset($exhibition) ? "$exhibition->catalog" : null, ['class' => 'form-control']) !!}
-
-					@if (isset($exhibition) && !empty($exhibition->catalog))
-						<span class="input-group-addon">
-							<a target="_blank" href="http://{{ $exhibition->catalog }}">Catálogo</a>
-						</span>
-					@endif
-				</div>
-				<!-- Catalog -->
 				<!-- Imagem -->
 				<div class="input-group">
 					{!! Form::label('img', 'Imagem', ['class' => 'input-group-addon']) !!}

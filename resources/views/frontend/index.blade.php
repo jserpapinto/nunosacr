@@ -36,7 +36,7 @@
                     data-mask_out="x:0;y:0;" 
                     data-start="1000" 
                     data-responsive_offset="on" 
-                    style="z-index: 6;"><h1 class="h1-slider">Duma - The Warrior Flowers</h1>
+                    style="z-index: 6;"><h1 class="h1-slider">Joana Lota - Le grand exposición</h1>
                 </div>
 
                 <!-- Layer -->
@@ -48,7 +48,7 @@
                     data-mask_out="x:0;y:0;" 
                     data-start="1000"            
                     data-responsive_offset="on" 
-                    style="z-index: 7;"><h4>Saturday 19th Nov, 16h. Until 19th Dec 2016</h4>                                
+                    style="z-index: 7;"><h4>Best exhibition Ever</h4>                                
                 </div>
 
                 <!-- Button -->
@@ -203,46 +203,11 @@
 
     @include('frontend.shared.about')
        
-
-    <!-- Instagram Content -->
-    <section id="ws-instagram-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8 col-sm-offset-2 text-center">
-                    <h3>Instagram</h3>       
-                    <div class="ws-separator"></div>   
-                </div>
-            </div>
-            <div class="row vertical-align" id="instafeed">                  
-            </div>
-        </div>
-    </section>
-    <!-- End Instagram Content -->
-    
     @include('frontend.shared.subscribe')
     
 @endsection
 
 @section('pagescripts')
-{!! Html::script('/js/instafeed.min.js') !!}
-<script>
-    // Get last 4 pics from Instagram
-    var template = '<div class="col-sm-3 ws-instagram-item" data-sr="wait 0.1s, ease-in 20px">\
-                    <a href="@{{link}}" target="_blank">\
-                        <img src="@{{image}}" alt="Alternative Text" class="img-responsive">\
-                    </a>\
-                </div>';
-    var feed = new Instafeed({
-        get: 'user',
-        accessToken: '1837746769.1ca6a35.d5a08c10293a4459bbe0a2f525f8d7a2',
-        userId: '1837746769',
-        template: template,
-        limit: 4,
-        resolution: 'standard_resolution'
-    });
-    feed.run();
-</script>
-
 <script>
 
     $('.parallax-window').parallax({imageSrc: '{{ asset('/img/backgrounds/wall.jpg') }}'});

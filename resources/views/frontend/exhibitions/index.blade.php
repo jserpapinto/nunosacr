@@ -52,7 +52,7 @@
                 @endforeach
             </div>
         </div>
-        {{ $allExhibitions->links('vendor.pagination.default') }}
+        {{-- $allExhibitions->links('vendor.pagination.default') --}}
     </div>
 
 @endsection

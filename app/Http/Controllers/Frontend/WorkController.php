@@ -19,6 +19,7 @@ class WorkController extends Controller
     {
     	$work = Work::whereSlug($slug)->first();
         $artist = $work->artist()->first();
+        // 404
         if (!$work || !$artist) {
             return HomeController::error404();
         }
@@ -80,7 +81,7 @@ class WorkController extends Controller
         $mailLog->save();
 
 
-        Mail::to('geral@nunosacramento.com.pt')->send(new buyWork($req->all()));
+        Mail::to('jserpa.dev@gmail.com')->send(new buyWork($req->all()));
         return "OK";
     }
 }

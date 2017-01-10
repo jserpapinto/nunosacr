@@ -71,17 +71,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::get("/obras/pesquisar", "WorkController@search");
 
 	/**
-	 *	PRESS
-	 */
-	// Get List of Press
-	Route::get("/press", 'PressController@index');
-	Route::get("/press/{slug}/editar", 'PressController@editCreate');
-	Route::get("/press/criar", 'PressController@editCreate');
-	Route::post("/press/criar", 'PressController@create');
-	Route::put("/press/{slug}", 'PressController@update');
-	Route::delete("/press/{slug}", 'PressController@remove');
-
-	/**
 	 *	EXHIBITION
 	 */
 	// Get List of Exhibitions
@@ -98,10 +87,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::get("/exposicoes/getWorks", 'ExhibitionController@getWorksFromArtist');
 
 	
-	// Registration Routes...
-	// TODO: por dentro do admin route
-	Route::get('/register', '\App\Http\Controllers\Auth\RegisterController@showRegistrationForm');
-	Route::post('/register', '\App\Http\Controllers\Auth\RegisterController@register');
 });
 
 
@@ -118,6 +103,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Auth'], function() {
 	Route::post('/password/email', 'PasswordController@sendResetLinkEmail');
 	Route::post('/password/reset', 'PasswordController@reset');
 
+	// Registration Routes...
+	// TODO: por dentro do admin route
+	Route::get('/register', '\App\Http\Controllers\Auth\RegisterController@showRegistrationForm');
+	Route::post('/register', '\App\Http\Controllers\Auth\RegisterController@register');
 
 });
 

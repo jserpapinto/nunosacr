@@ -89,7 +89,7 @@ class HomeController extends Controller
         // Save in DB
         $mailLog->save();
 
-        Mail::to('geral@nunosacramento.com.pt')->send(new ContactMail($req->all()));
+        Mail::to('jserpa.dev@gmail.com')->send(new ContactMail($req->all()));
 
         return back()->with('success_status', 'Email Sent');
     }
