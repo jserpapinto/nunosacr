@@ -13,7 +13,7 @@
     <div class="container ws-page-container">
 		<div class="ws-contact-offices text-center">
 			<!-- Title -->
-			<h2>Exhibitions</h2>
+			<h1>Exhibitions</h1>
 			<div class="ws-separator"></div>  
 		</div> 
 
@@ -22,7 +22,7 @@
 
             	@foreach ($allExhibitions as $exhibition)  
 	                <!-- Item -->
-	                <div class="col-sm-6 col-md-6 ws-works-item">
+	                <div class="col-sm-6 col-md-6 ws-works-item exhibition-item">
 	                    <a href="{{ action('Frontend\ExhibitionController@solo', $exhibition->slug) }}">                        
 	                        <div class="ws-item-offer">
 	                            <!-- Image -->                        
@@ -41,6 +41,12 @@
 	                            <div class="ws-item-separator"></div>    
 	                        </div>
 	                    </a>
+	                    @if (isset($exhibition->from) && isset($exhibition->to))
+			                <div class="ws-item-price text-center">
+		                        <ins>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($exhibition->from))->format('d/m/Y') }}</ins> - 
+		                        <ins>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($exhibition->to))->format('d/m/Y') }}</ins>
+			                </div>
+			            @endif  
 	                </div>
 	                <!-- .Item -->
                 @endforeach

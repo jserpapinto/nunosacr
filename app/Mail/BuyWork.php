@@ -15,6 +15,7 @@ class BuyWork extends Mailable
     public $client_email;
     public $client_subject;
     public $client_message;
+    public $work_name;
 
     /**
      * Create a new message instance.
@@ -28,6 +29,7 @@ class BuyWork extends Mailable
         $this->client_email = $req['mail'];
         $this->client_subject = $req['subject'];
         $this->client_message = $req['message'];
+        $this->work_name = $req['workName'];
     }
 
     /**

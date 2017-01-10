@@ -32,6 +32,7 @@ class ExhibitionFormRequest extends FormRequest
             "from" => "date|date_format:Y-m-d",
             "to" => "date|date_format:Y-m-d",
             "catalog" => "nullable",
+            "selected_works" => "nullable"
         ];
     }
 }

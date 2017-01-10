@@ -8,7 +8,7 @@
         <ul>   
             <li data-transition="fade" data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="2000">        
                 <!-- Background Image -->
-                <img src="{{ asset('/img/backgrounds/duma.jpg') }}" alt="Alternative Text" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10"> 
+                <img src="{{ asset('/img/backgrounds/home.jpg') }}" alt="Alternative Text" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10"> 
 
                 <!-- Background Overlay -->
                 <div class="tp-caption tp-shape tp-shapewrapper rs-parallaxlevel-0"  
@@ -36,7 +36,7 @@
                     data-mask_out="x:0;y:0;" 
                     data-start="1000" 
                     data-responsive_offset="on" 
-                    style="z-index: 6;"><h1>Duma - The Warrior Flowers</h1>
+                    style="z-index: 6;"><h1 class="h1-slider">Duma - The Warrior Flowers</h1>
                 </div>
 
                 <!-- Layer -->

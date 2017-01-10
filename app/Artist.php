@@ -4,14 +4,27 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Artist extends Model
 {	
 	// Use column deleted_at from database instead of fully deleting item
 	use SoftDeletes;
+	use Sluggable;
 	// protects against mass assign
 	protected $guarded = ['id'];
 	// Relatioship
+
+	// sluggable
+	public function sluggable()
+	{
+		return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+	}
+	
 	public function works()
 	{
 		return $this->hasMany('App\Work', 'artist_id');

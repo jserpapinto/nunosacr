@@ -10,6 +10,7 @@ use App\Mail\BuyWork;
 // Model
 use App\Work;
 use App\MailLog;
+use App\Http\Controllers\HomeController;
 
 class WorkController extends Controller
 {
@@ -17,6 +18,11 @@ class WorkController extends Controller
     public function solo($slug)
     {
     	$work = Work::whereSlug($slug)->first();
+        $artist = $work->artist()->first();
+        if (!$work || !$artist) {
+            return HomeController::error404();
+        }
+
     	$artist = $work->artist()->first();
 
         // Fetured Works from homepage
@@ -57,7 +63,8 @@ class WorkController extends Controller
             'name' => 'required|min:3|max:50',
             'mail' => 'required|email',
             'subject' => 'required|min:3|max:50',
-            'message' => 'required|min:10'
+            'message' => 'required|min:10',
+            'workName' => 'required'
         ];
         $this->validate($req, $rules);
 
@@ -67,13 +74,13 @@ class WorkController extends Controller
         $mailLog->email = $req->mail;
         $mailLog->subject = $req->subject;
         $mailLog->message = $req->message;
-        $mailLog->form = "buyWork " . $slug;
+        $mailLog->form = "buyWork " . $req->workName;
         $mailLog->slug = uniqid();
         // Save in DB
         $mailLog->save();
 
 
-        Mail::to('jserpa.dev@gmail.com')->send(new buyWork($req->all()));
+        Mail::to('geral@nunosacramento.com.pt')->send(new buyWork($req->all()));
         return "OK";
     }
 }

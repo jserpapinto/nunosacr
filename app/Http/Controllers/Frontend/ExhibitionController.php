@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 // Model
 use App\Exhibition;
+use App\Http\Controllers\HomeController;
 
 class ExhibitionController extends Controller
 {
@@ -14,7 +15,7 @@ class ExhibitionController extends Controller
     public function index()
     {
     	// Get all exhibitions
-    	$allExhibitions = Exhibition::paginate('15');
+    	$allExhibitions = Exhibition::orderBy('from', 'desc')->paginate('15');
     	return view('frontend.exhibitions.index', compact('allExhibitions'));
     }
 
@@ -23,6 +24,9 @@ class ExhibitionController extends Controller
     {
     	// Get all exhibitions
     	$exhibition = Exhibition::whereSlug($slug)->first();
+        if (!$exhibition) {
+            return HomeController::error404();
+        }
         $exhibitionArtists = $exhibition->artists()->get();
         $exhibitionWorks = $exhibition->works()
                                     ->select('works.*', 'artists.name as artist_name', 'artists.slug as artist_slug')

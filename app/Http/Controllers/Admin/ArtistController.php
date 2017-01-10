@@ -154,7 +154,7 @@ class ArtistController extends Controller
         $artist->email = $req->email;
         $artist->bio = $req->bio;
         $artist->gallery = $req->gallery;
-        $artist->slug = uniqid();
+        //$artist->slug = uniqid();
         if (isset($cvName)) $artist->cv = $cvName;
         if (isset($imgName)) $artist->img = $imgName;
         if (isset($imgBannerName)) $artist->imgBanner = $imgBannerName;

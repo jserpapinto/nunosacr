@@ -89,7 +89,7 @@ class HomeController extends Controller
         // Save in DB
         $mailLog->save();
 
-        Mail::to('jserpa.dev@gmail.com')->send(new ContactMail($req->all()));
+        Mail::to('geral@nunosacramento.com.pt')->send(new ContactMail($req->all()));
 
         return back()->with('success_status', 'Email Sent');
     }
@@ -98,5 +98,17 @@ class HomeController extends Controller
     public function aboutus()
     {
         return view('frontend.static.aboutus');
+    }
+
+    public static function error404()
+    {
+        $featuredWorks = Work::where('opportunity', '=', 0)
+                                    ->where('featured_to_home', '=', 1)
+                                    ->join('artists', 'artist_id', '=', 'artists.id')
+                                    ->select('works.*', 'artists.name as artist_name')
+                                    ->inRandomOrder()
+                                    ->limit(5)
+                                    ->get();
+            return view('errors.404', compact('featuredWorks'));
     }
 }

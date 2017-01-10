@@ -25,7 +25,7 @@
         <div class="ws-works-caption text-center">
         	@if ($work->artist_name)
 	            <!-- Item Category -->
-                @if ($work->artist_slug)
+                @if ($work->artist_slug && !$work->opportunity)
                 <a href="{{ action('Frontend\ArtistController@solo', $work->artist_slug) }}">
                 @endif
 	               <div class="ws-item-category">{{ $work->artist_name }}</div>

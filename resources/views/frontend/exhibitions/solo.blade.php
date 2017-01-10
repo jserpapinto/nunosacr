@@ -18,12 +18,13 @@
             <p>{{ $exhibition->description }}</p>
 		</div> 
 
-        <div class="row">
-            <div class="col-xs-12">
-                <iframe id="catalogIframe" src="http://{{ $exhibition->catalog }}" width="100%"></iframe>
+        @if (isset($exhibition->catalog) && !empty($exhibition->catalog))
+            <div class="row">
+                <div class="col-xs-12">
+                    <iframe id="catalogIframe" src="http://{{ $exhibition->catalog }}" width="100%"></iframe>
+                </div>
             </div>
-        </div>
-
+        @endif
         <div class="row">   
             <div class="ws-shop-page">
 

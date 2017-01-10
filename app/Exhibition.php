@@ -4,11 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Exhibition extends Model
 {
 	use SoftDeletes;
+	use Sluggable;
     //
+
+	// sluggable
+	public function sluggable()
+	{
+		return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+	}
+
     public function getAll()
     {
     	return $this->all();

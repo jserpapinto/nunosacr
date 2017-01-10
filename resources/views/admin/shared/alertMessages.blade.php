@@ -8,3 +8,8 @@
 		{{ session('danger_status') }}
 	</div>
 @endif
+@if(session('warning_status'))
+	<div class="col-xs-12 alert alert-warning">
+		{{ session('warning_status') }}
+	</div>
+@endif

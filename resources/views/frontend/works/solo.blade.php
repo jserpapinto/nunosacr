@@ -25,7 +25,10 @@
             <div class="ws-product-content worksolo">
                 <header>
                     <!-- Item Category -->
-                    <div class="ws-item-category">{{ $artist->name }}</div>
+
+                    <div class="ws-item-category">
+                        <a style="color:black;" href="{{ action('Frontend\ArtistController@solo', $work->artist_slug) }}">{{ $artist->name }}</a>
+                    </div>
 
                     <!-- Title -->
                     <h3 class="ws-item-title">{{ $work->name }}</h3>                        
@@ -156,6 +159,7 @@
 
 @section('pagescripts')
 <script>
+var workName = "{{ $work->name }}";
 function popup () {
     $('#mail-overlay').fadeIn('fast');
     $('#mail-popup').fadeIn('slow');
@@ -181,6 +185,7 @@ function mailReq () {
             mail: clientMail,
             subject: clientSubject,
             message: clientMessage,
+            workName: workName,
         },
         before: function() {
             $('#mail-error').fadeOut('fast');

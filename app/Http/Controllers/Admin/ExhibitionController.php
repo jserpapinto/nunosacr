@@ -83,7 +83,7 @@ class ExhibitionController extends Controller
             $Exhibition = new Exhibition;
             $exhibition = $Exhibition->getOneBySlug($slug);
             $exhibitionArtists = $exhibition->artists->pluck('id')->toArray();
-        	$exhibitionWorks = $exhibition->works->pluck('id')->toArray();
+        	$exhibitionWorks = $exhibition->works()->get();
         }  
 
         // Get all Artists to multiselect
@@ -121,7 +121,7 @@ class ExhibitionController extends Controller
         $exhibition->to = $req->to;
         $exhibition->catalog = $req->catalog;
         $exhibition->description = $req->description;
-        $exhibition->slug = uniqid();
+        //$exhibition->slug = uniqid();
         if (isset($imgName)) $exhibition->img = $imgName;
         if (isset($imgBannerName)) $exhibition->imgBanner = $imgBannerName;
 
@@ -129,8 +129,9 @@ class ExhibitionController extends Controller
         $exhibition->save();
 
         // Save to pivot table
-        $exhibition->artists()->attach($req->artists);
-        $exhibition->works()->attach($req->works);;
+        //$exhibition->artists()->attach($req->artists);
+        //$exhibition->works()->attach($req->works);;
+        $exhibition->works()->attach($req->selected_works);
 
 
         // Upload img
@@ -142,14 +143,13 @@ class ExhibitionController extends Controller
             $this->uploadImgBanner($req, $imgBannerName);
         }
 
-        return redirect()->action('Admin\ExhibitionController@index')->with('success_status', 'Novo Press Criado');
+        return redirect()->action('Admin\ExhibitionController@index')->with('success_status', 'Nov Exposição Criada');
     }
 
     /**
      * Update One.
      */
     public function update($slug, ExhibitionFormRequest $req) {
-
 
         // Generate Names for files
         // Mudar para string penso eu
@@ -177,13 +177,13 @@ class ExhibitionController extends Controller
         $exhibition->save();
 
         // Remove all from pivot table
-        $exhibition->artists()->detach($exhibition->artists);
+        //$exhibition->artists()->detach($exhibition->artists);
         // Remove all from pivot table
-        $exhibition->works()->detach($exhibition->works);
+        $exhibition->works()->detach($exhibition->selected_works);
         // Save to pivot table
-        $exhibition->artists()->attach($req->artists);
+        //$exhibition->artists()->attach($req->artists);
         // Save to pivot table
-        $exhibition->works()->attach($req->works);
+        $exhibition->works()->attach($req->selected_works);
 
 
         // Upload img
@@ -195,7 +195,7 @@ class ExhibitionController extends Controller
             $this->uploadImgBanner($req, $imgBannerName);
         }
 
-        return redirect()->back()->with('success_status', 'Exposição Atualizada');
+        return redirect()->back()->with('success_status', 'Exposição Atualizada.')->with('warning_status', ' Se a exposição estiver destacada na HomePage, por favor destaque novamente as 3 obras que acompanham a exposição na HomePage.');
     }
 
     public function listWorks($slug)
@@ -214,6 +214,14 @@ class ExhibitionController extends Controller
                                 ->get();
         return view('admin.exhibitions.listWorks', compact('exhibition', 'allArtists', 'allWorks'));
 
+    }
+
+    public function remove($slug)
+    {   
+
+        $exhibition = Exhibition::whereSlug($slug)->first();
+        $exhibition->delete();
+        return back()->with('danger_status', 'Exposição Removida');
     }
 
     public function removeWork($slugExhibition, $slugWork)
@@ -269,5 +277,21 @@ class ExhibitionController extends Controller
         $featureWork->update(['featured_to_exhibition' => 1]);
 
         return redirect()->back()->with('success_status', 'Trabalho destacado na homepage.');
+    }
+
+
+    // Match artists by name
+    public function matchArtist(Request $req)
+    {
+        $artists = Artist::where('name', 'LIKE', "%$req->search%")->paginate('15');
+
+        return $artists;
+    }
+    // Match artists by name
+    public function getWorksFromArtist(Request $req)
+    {
+        $works = Work::where('artist_id', '=', "$req->id")->get();
+
+        return $works;
     }
 }

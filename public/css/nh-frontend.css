@@ -4,6 +4,13 @@
 h1 {
 	color: black;
 }
+.ws-contact-offices h1 {
+	font-size: 24px;
+    color: #000;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 a h4 {
 	color: black;
 }
@@ -87,7 +94,7 @@ a h4 {
 	transition: all 200ms ease-in;
 }
 .ws-product-details {
-	text-align: justify;
+	text-align: left;
 }
 .ws-product-content {
 	text-align: center;
@@ -114,6 +121,25 @@ a h4 {
 	#catalogIframe {
 		height: 340px;
 	}
+	.h1-slider {
+		width:320px;
+		word-break: break-word;
+		overflow:visible;
+		white-space: normal;
+	}
+}
+@media (min-width: 769px) {
+	#catalogIframe {
+		height: 340px;
+	}
+	.ws-works-item {
+	    height: 500px;
+	}
+}
+@media (min-width: 992px) {
+	.ws-works-item.exhibition-item {
+	    height: 680px;
+	}
 }
 .ws-works-item figure img {
 	width: 100%;
@@ -123,4 +149,11 @@ a h4 {
 }
 .worksolo.ws-product-content, .worksolo .ws-item-category, .worksolo .ws-item-title, .worksolo .ws-item-price {
 	text-align: left;
+}
+
+.full-width {
+    width: 100%;
+}
+.error-btn {
+	margin-top: 10px;
 }

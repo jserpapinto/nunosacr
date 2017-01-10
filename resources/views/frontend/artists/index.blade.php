@@ -13,7 +13,7 @@
     <div class="container ws-page-container">
 		<div class="ws-contact-offices text-center">
 			<!-- Title -->
-			<h2>Gallery Artists</h2>
+			<h1>Gallery Artists</h1>
 			<div class="ws-separator"></div>  
 		</div> 
 

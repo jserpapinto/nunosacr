@@ -40,7 +40,7 @@
 
 	<div class="ws-contact-offices text-center">
 		<!-- Title -->
-		<h2>Contact Us</h2>  
+		<h1>Contact Us</h1>  
 		<div class="ws-separator"></div>  
 	</div> 
 

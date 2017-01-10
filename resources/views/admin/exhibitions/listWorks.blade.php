@@ -4,7 +4,7 @@
 
 @section('title', $exhibition->title)
 
-@section('subtitle', 'Obras e Artistas associados à exposição')
+@section('subtitle', 'Obras associadas à exposição')
 
 @section('addBtn')
 	<a href="{{ route('ExhibitionEdit', $exhibition->slug) }}" class="btn btn-primary">
@@ -25,7 +25,7 @@
 		</div>
 	@endif
 
-	<!-- List All Artists and Works -->
+	{{--<!-- List All Artists and Works -->
 	<div class="col-xs-12">
 		@if($allArtists->isEmpty())
 			<div class="col-xs-12">
@@ -76,7 +76,7 @@
 				</li>
 			@endforeach
 		</ul>
-	</div>
+	</div>--}}
 
 	<div class="col-xs-12">
 		@if($allWorks->isEmpty())

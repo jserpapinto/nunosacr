@@ -26,7 +26,7 @@ class ArtistFormRequest extends FormRequest
         return [
             "name" => "required",
             "site" => "nullable",
-            "email" => "required|email",
+            "email" => "nullable|email",
             "bio" => "nullable",
             "cv" => "file|nullable",
             "gallery" => "boolean",

@@ -4,11 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Work extends Model
 {
 	// Use column deleted_at from database instead of fully deleting item
 	use SoftDeletes;
+	use Sluggable;
+	// sluggable
+	public function sluggable()
+	{
+		return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+	}
 	// protects against mass assign
 	protected $guarded = ['id'];
 	// Relationship

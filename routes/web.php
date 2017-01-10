@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 /*
  *
  *	Admin Area
@@ -98,6 +94,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	Route::delete("/exposicoes/{slug}", 'ExhibitionController@remove');
 	Route::get("/exposicoes/{slug}/destacar", 'ExhibitionController@feature')->name('ExhibitionFeature');
 	Route::get("/exposicoes/{slugExhibition}/destacar_obra/{slugWork}", 'ExhibitionController@featureWork')->name('WorkExhibitionFeature');
+	Route::get("/exposicoes/search", 'ExhibitionController@matchArtist');
+	Route::get("/exposicoes/getWorks", 'ExhibitionController@getWorksFromArtist');
+
+	
+	// Registration Routes...
+	// TODO: por dentro do admin route
+	Route::get('/register', '\App\Http\Controllers\Auth\RegisterController@showRegistrationForm');
+	Route::post('/register', '\App\Http\Controllers\Auth\RegisterController@register');
 });
 
 
@@ -115,10 +119,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Auth'], function() {
 	Route::post('/password/reset', 'PasswordController@reset');
 
 
-	// Registration Routes...
-	// TODO: por dentro do admin route
-	Route::get('/register', '\App\Http\Controllers\Auth\RegisterController@showRegistrationForm');
-	Route::post('/register', '\App\Http\Controllers\Auth\RegisterController@register');
 });
 
 
@@ -155,3 +155,5 @@ Route::group(['namespace' => 'Frontend'], function () {
 	Route::post('/work/{slug}/buyWork', 'WorkController@buyWorkEmail');
 	
 });
+
+

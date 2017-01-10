@@ -10,7 +10,8 @@
         "twbs/bootstrap": "^3.3",
         "laravelcollective/html": "~5.0",
         "intervention/image": "^2.3",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "cviebrock/eloquent-sluggable": "^4.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

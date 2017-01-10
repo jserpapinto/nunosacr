@@ -97,7 +97,11 @@ class WorkController extends Controller
         $work = $work->getOneBySlug($slug);
         $work->name = $req->name;
         if($req->price != null && !empty($req->price)) $work->price = $req->price;
-        if($req->discount != null && !empty($req->discount)) $work->discount = $req->discount;
+        if($req->discount != null && !empty($req->discount)) {
+            $work->discount = $req->discount;
+        } else {
+            $work->discount = 0;
+        }
         $work->description = $req->description;
         $work->opportunity = $req->opportunity;
         $work->artist_id = $req->artist;
@@ -133,7 +137,7 @@ class WorkController extends Controller
         $work->opportunity = $req->opportunity;
         $work->artist_id = $req->artist;
         $work->sold = $req->sold;
-        $work->slug = uniqid();
+        //$work->slug = uniqid();
         if (isset($imgName)) $work->img = $imgName;
 
         // Save in DB

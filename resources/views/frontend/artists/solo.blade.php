@@ -13,7 +13,7 @@
     <div class="container ws-page-container">
 		<div class="ws-contact-offices text-center">
 			<!-- Title -->
-			<h2>{{ $artist->name }}</h2>
+			<h1>{{ $artist->name }}</h1>
 			<div class="ws-separator"></div>  
 		</div> 
 
