@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
+use DB;
+use Config;
 
 class Work extends Model
 {
@@ -29,22 +31,13 @@ class Work extends Model
 	}
     //
 	public function getAll() {
-		return $this
-					->select('works.id as work_id', 'works.name', 'works.img', 'works.sold', 'works.opportunity', 'works.featured_to_home', 'works.slug', 'artists.id as artist_id', 'artists.name as artist_name', 'artists.slug as artist_slug')
-					->join('artists', 'works.artist_id', '=', 'artists.id')
-					->get();
+		return DB::select('CALL works_all()');
 	}
 	public function getAllOpportunities() {
-		return $this->where('opportunity', '=', 1)
-					->select('works.id as work_id', 'works.name', 'works.img', 'works.sold', 'works.opportunity', 'works.price', 'works.discount', 'works.featured_to_home', 'works.slug', 'artists.id as artist_id', 'artists.name as artist_name', 'artists.slug as artist_slug')
-					->join('artists', 'works.artist_id', '=', 'artists.id')
-					->paginate('15');
+		return DB::select('CALL works_all_opportunities('.Config::get('const.OPPORTUNITIES').')');
 	}
 	public function getAllNoOpportunities() {
-		return $this->where('opportunity', '=', 0)
-					->select('works.id as work_id', 'works.name', 'works.img', 'works.sold', 'works.opportunity', 'works.price', 'works.discount', 'works.featured_to_home', 'works.slug', 'artists.id as artist_id', 'artists.name as artist_name', 'artists.slug as artist_slug')
-					->join('artists', 'works.artist_id', '=', 'artists.id')
-					->paginate('15');
+		return DB::select('CALL works_all_opportunities('.Config::get('const.NO_OPPORTUNITIES').')');
 	}
 	public function getOneBySlug($slug)
 	{

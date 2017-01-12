@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
 
+use DB;
+
 class Exhibition extends Model
 {
 	use SoftDeletes;
@@ -28,7 +30,7 @@ class Exhibition extends Model
     }
 	public function getOneBySlug($slug)
 	{
-		return $this->whereSlug($slug)->first();
+		return DB::select('CALL exhibition_by_slug("'.$slug.'")')[0];
 	}  
 
 	public function artists()

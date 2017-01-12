@@ -122,7 +122,7 @@
 
 		</ul>
 
-		{{ $allWorks->links('vendor.pagination.default') }}
+		{{-- $allWorks->links('vendor.pagination.default') --}}
 	</div>
 	<!-- .List All Artists -->
 @endsection

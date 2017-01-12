@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.13, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.53, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: expoartistec
 -- ------------------------------------------------------
--- Server version	5.6.33-0ubuntu0.14.04.1
+-- Server version	5.5.53-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +38,7 @@ CREATE TABLE `artists` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +47,7 @@ CREATE TABLE `artists` (
 
 LOCK TABLES `artists` WRITE;
 /*!40000 ALTER TABLE `artists` DISABLE KEYS */;
-INSERT INTO `artists` VALUES (1,'João Sampaio','','','','1484081928.jpg','1484085905.jpg','joao.serpapinto@gmail.com','joao-sampaio',0,1,NULL,'2017-01-10 20:58:48','2017-01-10 22:05:05'),(2,'Carlos Alberto','','teste.com','','1484085894.jpg','1484085894.jpg','','carlos-alberto',0,1,NULL,'2017-01-10 22:04:54','2017-01-10 22:04:54');
+INSERT INTO `artists` VALUES (1,'João Sampaio','','','','1484081928.jpg','1484085905.jpg','joao.serpapinto@gmail.com','joao-sampaio',0,1,NULL,'2017-01-10 20:58:48','2017-01-10 22:05:05'),(2,'Carlos Alberto','','teste.com','','1484085894.jpg','1484085894.jpg','','carlos-alberto',0,1,NULL,'2017-01-10 22:04:54','2017-01-10 22:04:54'),(3,'Xica ','Esta é a Xica, nasceu em 1932 e é do Porto.','www.xica.pt','','1484182767.jpg','1484182767.jpg','xica@xica.com','xica',0,1,NULL,'2017-01-12 00:59:28','2017-01-12 00:59:28');
 /*!40000 ALTER TABLE `artists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -73,7 +73,7 @@ CREATE TABLE `exhibitions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,7 +82,7 @@ CREATE TABLE `exhibitions` (
 
 LOCK TABLES `exhibitions` WRITE;
 /*!40000 ALTER TABLE `exhibitions` DISABLE KEYS */;
-INSERT INTO `exhibitions` VALUES (1,'Le grand Exposición','','1484087085.jpg','1484087142.jpg','',1,'le-grand-exposicion','2017-01-11 00:00:00','2017-01-13 00:00:00',NULL,'2017-01-10 22:24:45','2017-01-10 22:28:16'),(2,'Le grand Exposición','','1484087113.jpg','1484087113.jpg','',0,'le-grand-exposicion-1','2017-01-11 00:00:00','2017-01-13 00:00:00','2017-01-10 22:25:16','2017-01-10 22:25:13','2017-01-10 22:25:16');
+INSERT INTO `exhibitions` VALUES (1,'Le grand Exposición','','1484087085.jpg','1484087142.jpg','',1,'le-grand-exposicion','2017-01-11 00:00:00','2017-01-13 00:00:00',NULL,'2017-01-10 22:24:45','2017-01-10 22:28:16'),(2,'Le grand Exposición','','1484087113.jpg','1484087113.jpg','',0,'le-grand-exposicion-1','2017-01-11 00:00:00','2017-01-13 00:00:00','2017-01-10 22:25:16','2017-01-10 22:25:13','2017-01-10 22:25:16'),(3,'sou eu','','','','',0,'sou-eu','2017-01-12 00:00:00','2017-01-12 00:00:00',NULL,'2017-01-12 01:44:31','2017-01-12 01:44:31');
 /*!40000 ALTER TABLE `exhibitions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,56 +115,6 @@ CREATE TABLE `mail_log` (
 LOCK TABLES `mail_log` WRITE;
 /*!40000 ALTER TABLE `mail_log` DISABLE KEYS */;
 /*!40000 ALTER TABLE `mail_log` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `migrations`
---
-
-DROP TABLE IF EXISTS `migrations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migrations` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `migrations`
---
-
-LOCK TABLES `migrations` WRITE;
-/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (10,'2014_10_12_000000_create_users_table',1),(11,'2014_10_12_100000_create_password_resets_table',1),(12,'2016_11_10_144247_create_artists_table',1),(13,'2016_11_15_112643_create_works_table',1),(14,'2016_11_17_124934_create_press_table',1),(15,'2016_11_17_124955_create_exhibition_table',1),(16,'2016_11_17_141000_create_artist_to_exhibition_table',1),(17,'2016_11_29_175315_create_email_log_table',1),(18,'2016_11_30_145846_create_works_to_exhibition',1);
-/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `password_resets`
---
-
-DROP TABLE IF EXISTS `password_resets`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  KEY `password_resets_email_index` (`email`),
-  KEY `password_resets_token_index` (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `password_resets`
---
-
-LOCK TABLES `password_resets` WRITE;
-/*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
-/*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -250,7 +200,7 @@ CREATE TABLE `works_to_exhibition` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,7 +209,7 @@ CREATE TABLE `works_to_exhibition` (
 
 LOCK TABLES `works_to_exhibition` WRITE;
 /*!40000 ALTER TABLE `works_to_exhibition` DISABLE KEYS */;
-INSERT INTO `works_to_exhibition` VALUES (3,2,1,0,NULL,NULL,NULL),(4,2,3,0,NULL,NULL,NULL),(7,1,3,0,NULL,NULL,NULL);
+INSERT INTO `works_to_exhibition` VALUES (3,2,1,0,NULL,NULL,NULL),(4,2,3,0,NULL,NULL,NULL),(7,1,3,0,NULL,NULL,NULL),(8,3,2,0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `works_to_exhibition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -428,6 +378,51 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `works_all` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `works_all`()
+BEGIN
+	SELECT works.*, artists.id as artist_id, artists.name as artist_name, artists.slug as artist_slug
+	FROM works
+	JOIN artists ON works.artist_id = artists.id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `works_all_opportunities` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `works_all_opportunities`(
+	IN OPPORTUNITY INT(10)
+)
+BEGIN
+	SELECT works.*, artists.id as artist_id, artists.name as artist_name, artists.slug as artist_slug
+	FROM works
+	JOIN artists ON works.artist_id = artists.id
+	WHERE opportunity = OPPORTUNITY AND deleted_at IS NULL;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `works_by_slug` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -516,7 +511,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `works_opportunity`(
 	IN OPPORTUNITY tinyint(1),
@@ -534,7 +529,7 @@ BEGIN
 		SET IS_HOME = 0;
 	END IF;
 
-	SELECT works.*, artists.name as artist_name, artists.slug as artist_slug
+	SELECT works.*, artists.id as artist_id, artists.name as artist_name, artists.slug as artist_slug
 	FROM works
 	JOIN artists ON works.artist_id = artists.id 
 	WHERE works.opportunity = OPPORTUNITY
@@ -572,29 +567,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `work_by_slug` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `work_by_slug`(
-	IN input_slug varchar(255)
-)
-BEGIN
-	SELECT * FROM works
-	WHERE slug = input_slug
-	LIMIT 1;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -605,4 +577,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-12  0:05:44
+-- Dump completed on 2017-01-12  1:53:46

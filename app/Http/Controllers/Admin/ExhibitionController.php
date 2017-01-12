@@ -10,6 +10,7 @@ use App\Http\Requests\ExhibitionFormRequest;
 use File;
 use Image;
 use Input;
+use DB;
 
 // Model
 use App\Exhibition;
@@ -80,19 +81,14 @@ class ExhibitionController extends Controller
     	$exhibition = null;
         if ($slug) {
             $Exhibition = new Exhibition;
-            $exhibition = $Exhibition->getOneBySlug($slug);
-        	$exhibitionWorks = $exhibition->works()->get();
+            $exhibition = $Exhibition->getOneBySlug($slug); // StoreProcedure in Model
+        	$exhibitionWorks = DB::select('CALL works_from_exhibition('.$exhibition->id.')');
         }  
-
-        // Get all Artists to multiselect
-        $Artist = new Artist();
-        $allArtists = $Artist->getAllNames();
 
         // Get all Works to multiselect
         $Work = new Work();
-        $allWorks = $Work->getAllNames();
 
-        return view('admin.exhibitions.createEdit', compact('exhibition', 'allArtists', 'allWorks', 'exhibitionWorks'));
+        return view('admin.exhibitions.createEdit', compact('exhibition', 'allArtists', 'exhibitionWorks'));
     }
 
 	/**
