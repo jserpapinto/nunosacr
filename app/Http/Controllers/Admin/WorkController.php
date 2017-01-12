@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkFormRequest;
 use Image;
 use Input;
+use Auth;
 
 // Models
 use App\Work;
@@ -136,6 +137,7 @@ class WorkController extends Controller
         $work->description = $req->description;
         $work->opportunity = $req->opportunity;
         $work->artist_id = $req->artist;
+        $work->user_id = Auth::user()->id;
         $work->sold = $req->sold;
         //$work->slug = uniqid();
         if (isset($imgName)) $work->img = $imgName;
