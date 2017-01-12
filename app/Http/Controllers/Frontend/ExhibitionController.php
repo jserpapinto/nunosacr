@@ -24,15 +24,15 @@ class ExhibitionController extends Controller
     public function solo($slug)
     {
     	// Get all exhibitions
-    	$exhibition = Exhibition::whereSlug($slug)->first();
+    	$exhibition = DB::select('CALL exhibition_by_slug("'.$slug.'")')[0]; 
+
+        // 404
         if (!$exhibition) {
             return HomeController::error404();
         }
-        $exhibitionArtists = $exhibition->artists()->get();
-        $exhibitionWorks = $exhibition->works()
-                                    ->select('works.*', 'artists.name as artist_name', 'artists.slug as artist_slug')
-                                    ->join('artists', 'works.artist_id', '=', 'artists.id')
-                                    ->get();
+
+        $exhibitionWorks = DB::select('CALL works_from_exhibition('.$exhibition->id.')');
+
     	return view('frontend.exhibitions.solo', compact('exhibition', 'exhibitionWorks', 'exhibitionArtists'));
     }
 }

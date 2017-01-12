@@ -27,7 +27,7 @@
                 @endforeach
             </div>
         </div>
-        {{ $works->links('vendor.pagination.default') }}
+        {{-- $works->links('vendor.pagination.default') --}}
     </div>
 @stop
 

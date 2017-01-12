@@ -62,7 +62,7 @@
     <!-- Top Bar Start -->
     <div class="ws-topbar">
                 <!-- Logo -->        
-        <div class="ws-logo">
+        <div class="ws-logo text-center">
             <a href="/">
                 <h1 style="color: white; line-height: 55px;">{{ config('app.name') }}</h1>
             </a>

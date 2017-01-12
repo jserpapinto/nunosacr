@@ -22,12 +22,12 @@ class ArtistController extends Controller
     //
     public function solo($slug)
     {
-    	$artist = Artist::whereSlug($slug)->first();
+    	$artist = DB::select('CALL artist_by_slug("'.$slug.'")')[0]; //Artist::whereSlug($slug)->first();
         if (!$artist || $artist->gallery == false) {
             return HomeController::error404();
         }
 
-    	$works = $artist->works()->paginate('15');
+    	$works = DB::select('CALL artist_works('.$artist->id.')'); // $artist->works();
 
 		return view('frontend.artists.solo', compact('artist', 'works'));
     }

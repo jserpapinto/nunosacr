@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        {{ $allWorks->links('vendor.pagination.default') }}
+        {{-- $allWorks->links('vendor.pagination.default') --}}
     </div>
 
 

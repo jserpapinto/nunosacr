@@ -11,40 +11,29 @@ use App\Mail\BuyWork;
 use App\Work;
 use App\MailLog;
 use App\Http\Controllers\HomeController;
-
+use DB;
+use Config;
 class WorkController extends Controller
 {
     //
     public function solo($slug)
-    {
-    	$work = Work::whereSlug($slug)->first();
-        $artist = $work->artist()->first();
+    {   
+        // Get Work
+    	$work = DB::select('CALL works_by_slug("'.$slug.'")')[0];
+        // Get Artist from work
+        $artist = DB::select('CALL work_artist('.$work->artist_id.')')[0]; 
         // 404
         if (!$work || !$artist) {
             return HomeController::error404();
         }
 
-    	$artist = $work->artist()->first();
-
         // Fetured Works from homepage
         if ($work->opportunity) {
             // Featured Works No Opportunity
-            $featuredWorks = Work::where('opportunity', '=', 1)
-                                    ->where('featured_to_home', '=', 1)
-                                    ->join('artists', 'artist_id', '=', 'artists.id')
-                                    ->select('works.*', 'artists.name as artist_name')
-                                    ->inRandomOrder()
-                                    ->limit(5)
-                                    ->get();
+            $featuredWorks = DB::select('CALL works_opportunity('.Config::get('const.OPPORTUNITIES').','.Config::get('const.HOME').')');
         } else {
             // Featured Works Opportunity
-            $featuredWorks = Work::where('opportunity', '=', 0)
-                                    ->where('featured_to_home', '=', 1)
-                                    ->join('artists', 'artist_id', '=', 'artists.id')
-                                    ->select('works.*', 'artists.name as artist_name')
-                                    ->inRandomOrder()
-                                    ->limit(5)
-                                    ->get();
+            $featuredWorks = DB::select('CALL works_opportunity('.Config::get('const.NO_OPPORTUNITIES').','.Config::get('const.HOME').')');
         }
 
     	return view('frontend.works.solo', compact('work', 'artist', 'featuredWorks'));
@@ -52,8 +41,8 @@ class WorkController extends Controller
 
     public function opportunities()
     {	
-    	$Work = new Work();
-    	$allWorks = $Work->getAllOpportunities();
+        // Get All opportunities
+        $allWorks = DB::select('CALL works_opportunity('.Config::get('const.NO_OPPORTUNITIES').','.Config::get('const.NO_HOME').')');
         
 		return view('frontend.works.opportunities', compact('allWorks'));
     }

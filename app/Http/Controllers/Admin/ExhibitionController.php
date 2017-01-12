@@ -78,11 +78,9 @@ class ExhibitionController extends Controller
      */
     public function editCreate($slug = null) {
     	$exhibition = null;
-    	$exhibitionArtists = null;
         if ($slug) {
             $Exhibition = new Exhibition;
             $exhibition = $Exhibition->getOneBySlug($slug);
-            $exhibitionArtists = $exhibition->artists->pluck('id')->toArray();
         	$exhibitionWorks = $exhibition->works()->get();
         }  
 
@@ -94,7 +92,7 @@ class ExhibitionController extends Controller
         $Work = new Work();
         $allWorks = $Work->getAllNames();
 
-        return view('admin.exhibitions.createEdit', compact('exhibition', 'allArtists', 'allWorks', 'exhibitionArtists', 'exhibitionWorks'));
+        return view('admin.exhibitions.createEdit', compact('exhibition', 'allArtists', 'allWorks', 'exhibitionWorks'));
     }
 
 	/**
@@ -128,8 +126,6 @@ class ExhibitionController extends Controller
         $exhibition->save();
 
         // Save to pivot table
-        //$exhibition->artists()->attach($req->artists);
-        //$exhibition->works()->attach($req->works);;
         $exhibition->works()->attach($req->selected_works);
 
 
@@ -175,11 +171,7 @@ class ExhibitionController extends Controller
         $exhibition->save();
 
         // Remove all from pivot table
-        //$exhibition->artists()->detach($exhibition->artists);
-        // Remove all from pivot table
         $exhibition->works()->detach($exhibition->selected_works);
-        // Save to pivot table
-        //$exhibition->artists()->attach($req->artists);
         // Save to pivot table
         $exhibition->works()->attach($req->selected_works);
 
@@ -201,11 +193,7 @@ class ExhibitionController extends Controller
         // Get ID from exhibition
         $exhibition = Exhibition::whereSlug($slug)->first();
 
-        // Join with works and artists table
-        $allArtists = ArtistsToExhibition::where('exhibition_id', '=', $exhibition->id)
-                                ->join('artists', 'artist_to_exhibition.artist_id', '=', 'artists.id')
-                                ->where('artists.deleted_at', '=', NULL)
-                                ->get();
+        // Join with works table
         $allWorks = WorksToExhibition::where('exhibition_id', '=', $exhibition->id)
                                 ->join('works', 'works_to_exhibition.work_id', '=', 'works.id')
                                 ->where('works.deleted_at', '=', NULL)
@@ -220,17 +208,6 @@ class ExhibitionController extends Controller
         $exhibition = Exhibition::whereSlug($slug)->first();
         $exhibition->delete();
         return back()->with('danger_status', 'Exposição Removida');
-    }
-
-    public function removeWork($slugExhibition, $slugWork)
-    {
-        // Get Exhibition
-        $Exhibition = new Exhibition();
-        $exhibition = $Exhibition->whereSlug($slugExhibition)->get();
-
-        // Detach Work from Exhibition
-        $Work = new Work();
-        $work = $Work->whereSlug($slugWork)->get();
     }
 
     public function feature($slug)

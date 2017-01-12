@@ -13,6 +13,8 @@ use App\Work;
 use App\Exhibition;
 use App\WorksToExhibition;
 use App\MailLog;
+use DB;
+use Config;
 
 
 class HomeController extends Controller
@@ -35,28 +37,16 @@ class HomeController extends Controller
     public function index()
     {   
         // Featured Exhibition
-        $exhibitionFeatured = Exhibition::where('featured', '=', '1')->get()->first();
+        $exhibitionFeatured = DB::select('CALL exhibition_featured()')[0];
         if ($exhibitionFeatured) {
-            $exhibitionFeaturedWorks = WorksToExhibition::where('exhibition_id', '=', $exhibitionFeatured->id)
-                                    ->join('works', 'works_to_exhibition.work_id', '=', 'works.id')
-                                    ->where([['works.deleted_at', '=', NULL], ['works_to_exhibition.featured_to_exhibition', '=', 1]])
-                                    ->get();
+            $exhibitionFeaturedWorks = DB::select('CALL exhibition_works_featured()'); 
         }
 
-
         // Featured Works No Opportunity
-        $worksOpportunity = Work::where('opportunity', '=', 1)
-                                    ->where('featured_to_home', '=', 1)
-                                    ->join('artists', 'artist_id', '=', 'artists.id')
-                                    ->select('works.*', 'artists.name as artist_name')
-                                    ->get();
+        $worksOpportunity = DB::select('CALL works_opportunity('.Config::get('const.OPPORTUNITIES').', '.Config::get('const.HOME').')'); 
 
         // Featured Works Opportunity
-        $worksNoOpportunity = Work::where('opportunity', '=', 0)
-                                    ->where('featured_to_home', '=', 1)
-                                    ->join('artists', 'artist_id', '=', 'artists.id')
-                                    ->select('works.*', 'artists.name as artist_name')
-                                    ->get();
+        $worksNoOpportunity = DB::select('CALL works_opportunity('.Config::get('const.NO_OPPORTUNITIES').', '.Config::get('const.HOME').')'); 
 
         return view('frontend.index', compact('exhibitionFeatured', 'exhibitionFeaturedWorks', 'worksOpportunity', 'worksNoOpportunity'));
     }
@@ -102,13 +92,7 @@ class HomeController extends Controller
 
     public static function error404()
     {
-        $featuredWorks = Work::where('opportunity', '=', 0)
-                                    ->where('featured_to_home', '=', 1)
-                                    ->join('artists', 'artist_id', '=', 'artists.id')
-                                    ->select('works.*', 'artists.name as artist_name')
-                                    ->inRandomOrder()
-                                    ->limit(5)
-                                    ->get();
+        $featuredWorks = DB::select('CALL works_opportunity('.Config::get('const.NO_OPPORTUNITIES').', '.Config::get('const.HOME').')'); 
             return view('errors.404', compact('featuredWorks'));
     }
 }

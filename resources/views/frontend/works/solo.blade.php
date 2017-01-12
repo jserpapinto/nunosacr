@@ -27,7 +27,7 @@
                     <!-- Item Category -->
 
                     <div class="ws-item-category">
-                        <a style="color:black;" href="{{ action('Frontend\ArtistController@solo', $work->artist_slug) }}">{{ $artist->name }}</a>
+                        <a style="color:black;" href="{{ action('Frontend\ArtistController@solo', $artist->slug) }}">{{ $artist->name }}</a>
                     </div>
 
                     <!-- Title -->
