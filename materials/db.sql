@@ -47,7 +47,7 @@ CREATE TABLE `artists` (
 
 LOCK TABLES `artists` WRITE;
 /*!40000 ALTER TABLE `artists` DISABLE KEYS */;
-INSERT INTO `artists` VALUES (1,'João Sampaio','','','','1484081928.jpg','1484085905.jpg','joao.serpapinto@gmail.com','joao-sampaio',0,1,NULL,'2017-01-10 20:58:48','2017-01-10 22:05:05'),(2,'Carlos Alberto','','teste.com','','1484085894.jpg','1484085894.jpg','','carlos-alberto',0,1,NULL,'2017-01-10 22:04:54','2017-01-10 22:04:54'),(3,'Xica ','Esta é a Xica, nasceu em 1932 e é do Porto.','www.xica.pt','','1484182767.jpg','1484182767.jpg','xica@xica.com','xica',0,1,NULL,'2017-01-12 00:59:28','2017-01-12 00:59:28');
+INSERT INTO `artists` VALUES (1,'João Sampaio','Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.','www.odopeyone.xyz','1484512437.pdf','1484081928.jpg','1484085905.jpg','joao.serpapinto@gmail.com','joao-sampaio',0,1,NULL,'2017-01-10 20:58:48','2017-01-15 20:43:19'),(2,'Carlos Alberto','','teste.com','','1484085894.jpg','1484085894.jpg','','carlos-alberto',0,1,NULL,'2017-01-10 22:04:54','2017-01-10 22:04:54'),(3,'Xica ','Esta é a Xica, nasceu em 1932 e é do Porto.','www.xica.pt','','1484182767.jpg','1484182767.jpg','xica@xica.com','xica',0,1,NULL,'2017-01-12 00:59:28','2017-01-12 00:59:28');
 /*!40000 ALTER TABLE `artists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +82,7 @@ CREATE TABLE `exhibitions` (
 
 LOCK TABLES `exhibitions` WRITE;
 /*!40000 ALTER TABLE `exhibitions` DISABLE KEYS */;
-INSERT INTO `exhibitions` VALUES (1,'Le grand Exposición','','1484087085.jpg','1484087142.jpg','',1,'le-grand-exposicion','2017-01-11 00:00:00','2017-01-13 00:00:00',NULL,'2017-01-10 22:24:45','2017-01-10 22:28:16'),(2,'Le grand Exposición','','1484087113.jpg','1484087113.jpg','',0,'le-grand-exposicion-1','2017-01-11 00:00:00','2017-01-13 00:00:00','2017-01-10 22:25:16','2017-01-10 22:25:13','2017-01-10 22:25:16'),(3,'sou eu','','','','',0,'sou-eu','2017-01-12 00:00:00','2017-01-12 00:00:00',NULL,'2017-01-12 01:44:31','2017-01-12 01:44:31');
+INSERT INTO `exhibitions` VALUES (1,'Le grand Exposición','','1484087085.jpg','1484087142.jpg','',1,'le-grand-exposicion','2017-01-11 00:00:00','2017-01-13 00:00:00',NULL,'2017-01-10 22:24:45','2017-01-10 22:28:16'),(2,'Le grand Exposición','','1484087113.jpg','1484087113.jpg','',0,'le-grand-exposicion-1','2017-01-11 00:00:00','2017-01-13 00:00:00','2017-01-10 22:25:16','2017-01-10 22:25:13','2017-01-10 22:25:16'),(3,'sou eu','','','','',0,'sou-eu','2017-01-12 00:00:00','2017-01-12 00:00:00','2017-01-15 20:26:33','2017-01-12 01:44:31','2017-01-15 20:26:33');
 /*!40000 ALTER TABLE `exhibitions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +159,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +168,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'João Sampaio','joao.serpapinto@gmail.com','$2y$10$zIvYa1iLry91emBjvSZKpuJapXSAtQiDSpr3GhNR955kSrPRENQYG',NULL,'2017-01-10 20:58:33','2017-01-10 20:58:33');
+INSERT INTO `users` VALUES (1,'João Sampaio','joao.serpapinto@gmail.com','$2y$10$zIvYa1iLry91emBjvSZKpuJapXSAtQiDSpr3GhNR955kSrPRENQYG',NULL,'2017-01-10 20:58:33','2017-01-10 20:58:33'),(2,'João Rebelo','jr@istec.pt','$2y$10$1CLA4qChfZFZIis.M6PjBeN9PYkXjhue1ZdbxobrVAC.lhGzUwLtO',NULL,'2017-01-15 20:26:26','2017-01-15 20:26:26');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -626,4 +626,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-12 19:39:56
+-- Dump completed on 2017-01-16 12:02:34
